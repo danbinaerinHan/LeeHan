@@ -1,0 +1,775 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>공간리한 — RIHAN</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=Gothic+A1:wght@300;400;500;700&family=Space+Grotesk:wght@300;400;500;700&display=swap');
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --black: #111;
+      --white: #fff;
+      --gray: #888;
+      --light-gray: #f5f5f5;
+      --accent: #e63312;
+      --font-heading: 'Black Han Sans', sans-serif;
+      --font-body: 'Gothic A1', sans-serif;
+      --font-en: 'Space Grotesk', sans-serif;
+      --font-mono: 'Space Grotesk', monospace;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: var(--font-body);
+      color: var(--black);
+      background: var(--white);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    a:hover {
+      color: var(--accent);
+    }
+
+    a.hero {
+      color: inherit;
+      display: block;
+    }
+
+    a.exhibition-current {
+      color: inherit;
+    }
+
+    a.past-card {
+      color: inherit;
+      display: block;
+    }
+
+    a.hero:hover,
+    a.exhibition-current:hover,
+    a.past-card:hover {
+      color: inherit;
+    }
+
+    /* ── Header ── */
+    header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 100;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 20px 40px;
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+    }
+
+    .logo img {
+      height: 32px;
+      width: auto;
+    }
+
+    nav {
+      display: flex;
+      gap: 32px;
+      align-items: center;
+    }
+
+    nav a {
+      font-family: var(--font-mono);
+      font-size: 13px;
+      font-weight: 400;
+      letter-spacing: 0.04em;
+      color: rgba(0, 0, 0, 0.6);
+    }
+
+    nav a:hover,
+    nav a.active {
+      color: var(--black);
+    }
+
+    /* ── Hero ── */
+    .hero {
+      margin-top: 80px;
+      position: relative;
+      width: 100%;
+      height: 85vh;
+      overflow: hidden;
+    }
+
+    .hero-image {
+      width: 100%;
+      height: 100%;
+      background: #1a1a1a;
+    }
+
+    .hero-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      opacity: 0.7;
+    }
+
+    .hero-overlay {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      padding: 60px 40px 40px;
+      background: linear-gradient(to top, rgba(0,0,0,0.7), transparent);
+      color: var(--white);
+    }
+
+    .hero-overlay .exhibition-label {
+      font-size: 11px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      opacity: 0.7;
+      margin-bottom: 14px;
+      font-family: var(--font-en);
+      font-weight: 600;
+    }
+
+    .hero-overlay h1 {
+      font-family: var(--font-heading);
+      font-size: 48px;
+      font-weight: normal;
+      letter-spacing: 0.02em;
+      line-height: 1.15;
+      margin-bottom: 10px;
+    }
+
+    .hero-overlay .exhibition-meta {
+      font-family: var(--font-mono);
+      font-size: 14px;
+      opacity: 0.7;
+      font-weight: 300;
+      letter-spacing: 0.02em;
+    }
+
+    /* ── Section Common ── */
+    section {
+      padding: 100px 40px;
+    }
+
+    .section-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      margin-bottom: 60px;
+    }
+
+    .section-header h2 {
+      font-family: var(--font-heading);
+      font-size: 30px;
+      font-weight: normal;
+      letter-spacing: 0.02em;
+    }
+
+    .section-header a {
+      font-size: 12px;
+      color: var(--gray);
+      font-family: var(--font-en);
+      letter-spacing: 0.08em;
+      font-weight: 600;
+      text-transform: uppercase;
+    }
+
+    /* ── Exhibition Section ── */
+    .exhibitions {
+      background: var(--white);
+    }
+
+    /* Current Exhibition — large featured */
+    .exhibition-current {
+      display: grid;
+      grid-template-columns: 1.2fr 1fr;
+      gap: 40px;
+      align-items: start;
+      margin-bottom: 80px;
+    }
+
+    .exhibition-current .current-image {
+      width: 100%;
+      aspect-ratio: 4 / 3;
+      background: var(--light-gray);
+      overflow: hidden;
+      cursor: pointer;
+      transition: opacity 0.3s;
+    }
+
+    .exhibition-current .current-image:hover {
+      opacity: 0.9;
+    }
+
+    .exhibition-current .current-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .current-info {
+      padding-top: 8px;
+    }
+
+    .current-info .current-badge {
+      display: inline-block;
+      font-family: var(--font-en);
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 16px;
+      border: 1px solid var(--accent);
+      padding: 4px 10px;
+      border-radius: 2px;
+    }
+
+    .current-info h3 {
+      font-family: var(--font-heading);
+      font-size: 32px;
+      font-weight: normal;
+      letter-spacing: 0.02em;
+      line-height: 1.2;
+      margin-bottom: 12px;
+    }
+
+    .current-info .current-artist {
+      font-family: var(--font-body);
+      font-size: 16px;
+      color: var(--gray);
+      margin-bottom: 8px;
+      font-weight: 300;
+    }
+
+    .current-info .current-date {
+      font-family: var(--font-mono);
+      font-size: 13px;
+      color: rgba(0, 0, 0, 0.4);
+      letter-spacing: 0.03em;
+      margin-bottom: 24px;
+    }
+
+    .current-info .current-desc {
+      font-family: var(--font-body);
+      font-size: 14px;
+      line-height: 1.8;
+      color: rgba(0, 0, 0, 0.55);
+      font-weight: 300;
+    }
+
+    /* Past Exhibitions — horizontal scroll */
+    .past-label {
+      font-family: var(--font-en);
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--gray);
+      margin-bottom: 24px;
+    }
+
+    .past-scroll-wrapper {
+      position: relative;
+    }
+
+    .past-scroll {
+      display: flex;
+      gap: 24px;
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      -webkit-overflow-scrolling: touch;
+      padding-bottom: 16px;
+      scrollbar-width: thin;
+      scrollbar-color: rgba(0,0,0,0.15) transparent;
+    }
+
+    .past-scroll::-webkit-scrollbar {
+      height: 4px;
+    }
+
+    .past-scroll::-webkit-scrollbar-track {
+      background: transparent;
+    }
+
+    .past-scroll::-webkit-scrollbar-thumb {
+      background: rgba(0, 0, 0, 0.12);
+      border-radius: 2px;
+    }
+
+    .past-card {
+      flex: 0 0 260px;
+      scroll-snap-align: start;
+      cursor: pointer;
+      transition: opacity 0.3s;
+    }
+
+    .past-card:hover {
+      opacity: 0.75;
+    }
+
+    .past-card .past-image {
+      width: 100%;
+      aspect-ratio: 3 / 4;
+      margin-bottom: 12px;
+      overflow: hidden;
+      background: var(--light-gray);
+    }
+
+    .past-card .past-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .past-card h4 {
+      font-family: var(--font-body);
+      font-size: 14px;
+      font-weight: 500;
+      margin-bottom: 4px;
+      letter-spacing: 0;
+    }
+
+    .past-card .past-artist {
+      font-size: 13px;
+      color: var(--gray);
+      font-weight: 300;
+      margin-bottom: 2px;
+    }
+
+    .past-card .past-date {
+      font-size: 11px;
+      color: rgba(0, 0, 0, 0.35);
+      font-family: var(--font-mono);
+      letter-spacing: 0.03em;
+    }
+
+    /* ── About ── */
+    .about {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: start;
+    }
+
+    .about-text h2 {
+      font-family: var(--font-heading);
+      font-size: 36px;
+      font-weight: normal;
+      margin-bottom: 36px;
+      letter-spacing: 0.02em;
+    }
+
+    .about-text p {
+      font-family: var(--font-body);
+      font-size: 15px;
+      line-height: 1.9;
+      color: rgba(0, 0, 0, 0.65);
+      margin-bottom: 20px;
+      font-weight: 300;
+    }
+
+    .about-image {
+      width: 100%;
+      overflow: hidden;
+      background: var(--light-gray);
+    }
+
+    .about-image img {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    /* ── Info Section ── */
+    .info {
+      background: var(--white);
+      color: var(--black);
+      display: grid;
+      grid-template-columns: 1fr 2.5fr;
+      gap: 0;
+      border-top: 1px solid rgba(0, 0, 0, 0.08);
+    }
+
+    .info-brand {
+      padding: 48px 40px;
+      display: flex;
+      align-items: flex-start;
+      border-right: 1px solid rgba(0, 0, 0, 0.08);
+    }
+
+    .info-brand-logo {
+      display: block;
+    }
+
+    .info-brand-logo img {
+      height: clamp(80px, 12vw, 140px);
+      width: auto;
+    }
+
+    .info-details {
+      padding: 48px 40px;
+    }
+
+    .info-blocks {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 32px 48px;
+      margin-bottom: 32px;
+    }
+
+    .info h3 {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      margin-bottom: 10px;
+      color: var(--gray);
+      font-family: var(--font-en);
+    }
+
+    .info p, .info a {
+      font-size: 13px;
+      line-height: 1.8;
+      font-weight: 300;
+      color: rgba(0, 0, 0, 0.6);
+      font-family: var(--font-body);
+    }
+
+    .info a:hover {
+      color: var(--black);
+    }
+
+    .info-bottom {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-top: 24px;
+      border-top: 1px solid rgba(0, 0, 0, 0.06);
+    }
+
+    .info-copyright {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      color: var(--gray);
+      letter-spacing: 0.03em;
+    }
+
+    .info-social {
+      display: flex;
+      gap: 20px;
+    }
+
+    .info-social a {
+      font-family: var(--font-mono);
+      font-size: 12px;
+      font-weight: 400;
+      letter-spacing: 0.02em;
+      color: rgba(0, 0, 0, 0.5);
+    }
+
+    .info-social a:hover {
+      color: var(--black);
+    }
+
+    /* ── Mobile Menu ── */
+    .menu-toggle {
+      display: none;
+      background: none;
+      border: none;
+      cursor: pointer;
+      width: 28px;
+      height: 20px;
+      position: relative;
+    }
+
+    .menu-toggle span {
+      display: block;
+      width: 100%;
+      height: 2px;
+      background: var(--black);
+      position: absolute;
+      left: 0;
+      transition: all 0.3s;
+    }
+
+    .menu-toggle span:nth-child(1) { top: 0; }
+    .menu-toggle span:nth-child(2) { top: 9px; }
+    .menu-toggle span:nth-child(3) { top: 18px; }
+
+    /* ── Responsive ── */
+    @media (max-width: 900px) {
+      header {
+        padding: 16px 24px;
+      }
+
+      .menu-toggle {
+        display: block;
+      }
+
+      nav {
+        position: fixed;
+        top: 0;
+        right: -100%;
+        width: 280px;
+        height: 100vh;
+        background: var(--white);
+        flex-direction: column;
+        justify-content: center;
+        gap: 28px;
+        padding: 40px;
+        transition: right 0.3s ease;
+        border-left: 1px solid rgba(0, 0, 0, 0.06);
+      }
+
+      nav.open {
+        right: 0;
+      }
+
+      nav a {
+        font-size: 18px;
+      }
+
+      section {
+        padding: 60px 24px;
+      }
+
+      .hero {
+        height: 60vh;
+      }
+
+      .hero-overlay {
+        padding: 40px 24px 24px;
+      }
+
+      .hero-overlay h1 {
+        font-size: 28px;
+      }
+
+      .exhibition-current {
+        grid-template-columns: 1fr;
+      }
+
+      .current-info h3 {
+        font-size: 26px;
+      }
+
+      .past-card {
+        flex: 0 0 200px;
+      }
+
+      .about {
+        grid-template-columns: 1fr;
+        gap: 40px;
+      }
+
+      .info {
+        grid-template-columns: 1fr;
+      }
+
+      .info-brand {
+        padding: 40px 24px 32px;
+        border-right: none;
+        border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+      }
+
+      .info-details {
+        padding: 32px 24px 40px;
+      }
+
+      .info-blocks {
+        grid-template-columns: 1fr;
+        gap: 24px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .past-card {
+        flex: 0 0 170px;
+      }
+
+      .logo-text span {
+        display: none;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Header -->
+  <header>
+    <a href="index.html" class="logo">
+      <img src="로고2.png" alt="공간리한">
+    </a>
+
+    <button class="menu-toggle" onclick="document.querySelector('nav').classList.toggle('open')" aria-label="메뉴">
+      <span></span><span></span><span></span>
+    </button>
+
+    <nav>
+      <a href="#exhibitions" class="active">전시</a>
+      <a href="#about">소개</a>
+      <a href="#info">방문</a>
+    </nav>
+  </header>
+
+  <!-- Hero -->
+  <a href="exhibitions/mending-room.html" class="hero" id="home">
+    <div class="hero-image">
+      <img src="photo2.jpeg" alt="Mending Room">
+    </div>
+    <div class="hero-overlay">
+      <div class="exhibition-label">Current Exhibition</div>
+      <h1>Mending Room</h1>
+      <div class="exhibition-meta">Mandy Lee — 2026.03.07 – 03.22</div>
+    </div>
+  </a>
+
+  <!-- Exhibitions -->
+  <section class="exhibitions" id="exhibitions">
+    <div class="section-header">
+      <h2>전시</h2>
+    </div>
+
+    <!-- Current Exhibition — Featured -->
+    <a href="exhibitions/mending-room.html" class="exhibition-current">
+      <div class="current-image">
+        <img src="photo2.jpeg" alt="Mending Room">
+      </div>
+      <div class="current-info">
+        <div class="current-badge">Now Showing</div>
+        <h3>Mending Room</h3>
+        <div class="current-artist">Mandy Lee</div>
+        <div class="current-date">2026.03.07 – 03.22</div>
+        <p class="current-desc">
+          Mandy Lee 개인전. 큐레이터 윤혜빈 기획으로, 복원과 수선의 행위를 통해
+          기억과 관계의 회복 가능성을 탐색하는 전시.
+        </p>
+      </div>
+    </a>
+
+    <!-- Past Exhibitions — Horizontal Scroll -->
+    <div class="past-label">지난 전시</div>
+    <div class="past-scroll-wrapper">
+      <div class="past-scroll">
+        <a href="exhibitions/nakwon.html" class="past-card">
+          <div class="past-image"><img src="photo3.jpg" alt="낙원의 땅에는 뾰족한 가시만 남았다"></div>
+          <h4>낙원의 땅에는 뾰족한 가시만 남았다</h4>
+          <div class="past-artist">윤장호</div>
+          <div class="past-date">2025.12.11 – 12.26</div>
+        </a>
+        <a href="exhibitions/perspective.html" class="past-card">
+          <div class="past-image"><img src="photo4.jpeg" alt="A Perspective Without Gravity"></div>
+          <h4>A Perspective Without Gravity</h4>
+          <div class="past-artist">Livia Ribichini</div>
+          <div class="past-date">2024.04.22 – 04.25</div>
+        </a>
+        <a href="exhibitions/room-for-escape.html" class="past-card">
+          <div class="past-image"><img src="photo1.png" alt="Room for Escape"></div>
+          <h4>Room for Escape</h4>
+          <div class="past-artist">그룹전</div>
+          <div class="past-date">2024.02.01 – 02.28</div>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- About -->
+  <section id="about">
+    <div class="about">
+      <div class="about-text">
+        <h2>공간리한</h2>
+        <p>
+          공간리한은 장르의 경계를 묻지 않습니다.
+          회화, 설치, 영상, 사운드, 퍼포먼스 — 형식에 앞서 질문이 있는 작업이라면
+          문턱 없이 환영합니다.
+        </p>
+        <p>
+          서울 홍제동에 자리한 이 공간은 완성된 결과물을 전시하는 곳이 아니라,
+          만들어지는 과정 자체가 드러나는 곳이기를 바랍니다.
+          익숙한 것을 낯설게, 낯선 것을 가깝게 — 그 사이 어딘가에서
+          예술과 일상이 만나는 접점을 찾고 있습니다.
+        </p>
+        <p>
+          누구든 들어올 수 있고, 어떤 시도든 시작될 수 있는 곳.
+          공간리한은 그런 열린 실험실이고자 합니다.
+        </p>
+      </div>
+      <div class="about-image">
+        <img src="공간 사진.jpeg" alt="공간리한 외관">
+      </div>
+    </div>
+  </section>
+
+  <!-- Info -->
+  <section class="info" id="info">
+    <div class="info-brand">
+      <div class="info-brand-logo">
+        <img src="로고1.png" alt="공간리한">
+      </div>
+    </div>
+    <div class="info-details">
+      <div class="info-blocks">
+        <div>
+          <h3>Location</h3>
+          <p>서울특별시 서대문구 통일로 333<br>홍제1동 47-10, 1층</p>
+        </div>
+        <div>
+          <h3>Contact</h3>
+          <p><a href="mailto:hello@rihan.space">hello@rihan.space</a><br><a href="tel:+8221234567">02-123-4567</a></p>
+        </div>
+        <div>
+          <h3>Inquiry</h3>
+          <p>공간 이용 · 대관 · 협력 문의<br><a href="mailto:hello@rihan.space">hello@rihan.space</a></p>
+        </div>
+        <div>
+          <h3>Info</h3>
+          <p>대표 홍길동<br>사업자등록번호 123-45-67890</p>
+        </div>
+      </div>
+      <div class="info-bottom">
+        <span class="info-copyright">&copy; 2026 공간리한 RIHAN</span>
+        <div class="info-social">
+          <a href="#">Instagram</a>
+          <a href="#">Email</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <script>
+    // Close mobile menu when clicking a nav link
+    document.querySelectorAll('nav a').forEach(link => {
+      link.addEventListener('click', () => {
+        document.querySelector('nav').classList.remove('open');
+      });
+    });
+  </script>
+
+</body>
+</html>
