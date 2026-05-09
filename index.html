@@ -392,12 +392,32 @@
       align-items: start;
     }
 
+    .about-text .about-eyebrow {
+      font-family: var(--font-en);
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--gray);
+      margin-bottom: 16px;
+    }
+
     .about-text h2 {
       font-family: var(--font-heading);
       font-size: 32px;
       font-weight: 700;
-      margin-bottom: 36px;
+      margin-bottom: 14px;
       letter-spacing: -0.01em;
+    }
+
+    .about-text .about-subtitle {
+      font-family: var(--font-heading);
+      font-size: 15px;
+      font-weight: 500;
+      color: var(--accent);
+      letter-spacing: 0.01em;
+      margin-bottom: 32px;
+      word-break: keep-all;
     }
 
     .about-text p {
@@ -407,6 +427,26 @@
       color: rgba(0, 0, 0, 0.65);
       margin-bottom: 20px;
       font-weight: 300;
+      word-break: keep-all;
+    }
+
+    .about-text .about-more {
+      display: inline-block;
+      margin-top: 16px;
+      font-family: var(--font-en);
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--gray);
+      border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+      padding-bottom: 3px;
+      transition: color 0.2s, border-color 0.2s;
+    }
+
+    .about-text .about-more:hover {
+      color: var(--accent);
+      border-color: var(--accent);
     }
 
     .about-image {
@@ -652,20 +692,20 @@
 
     <nav>
       <a href="#exhibitions" class="active">전시</a>
-      <a href="#about">소개</a>
+      <a href="about.html">소개</a>
       <a href="#info">방문</a>
     </nav>
   </header>
 
   <!-- Hero -->
-  <a href="exhibitions/hawaii-photo.html" class="hero" id="home">
+  <a href="exhibitions/leejungyeon.html" class="hero" id="home">
     <div class="hero-image">
-      <img src="하와이사진전.png" alt="하와이 사진전">
+      <img src="이정연초대전.png" alt="이정연 초대전">
     </div>
     <div class="hero-overlay">
       <div class="exhibition-label">Upcoming Exhibition</div>
-      <h1>하와이 사진전</h1>
-      <div class="exhibition-meta">2026.06 중순 — 07 초</div>
+      <h1>이정연 초대전</h1>
+      <div class="exhibition-meta">2026.07 초 — 07 중순</div>
     </div>
   </a>
 
@@ -722,22 +762,25 @@
   <section id="about">
     <div class="about">
       <div class="about-text">
+        <div class="about-eyebrow">About</div>
         <h2>공간리한</h2>
+        <p class="about-subtitle">불모지에서 피어난 사유의 숲, 작은 것의 위대한 힘</p>
         <p>
-          공간리한은 장르의 경계를 묻지 않습니다.
-          회화, 설치, 영상, 사운드, 퍼포먼스 — 형식에 앞서 질문이 있는 작업이라면
-          문턱 없이 환영합니다.
+          안산 둘레길의 짙은 초록이 시작되는 입구, 도심의 끝자락에 자리한
+          복합문화공간 리한은 (재)이수진한국인형극재단의 뿌리인 전통 인형극의 정신을
+          이어받아 탄생했습니다. 남사당패 꼭두각시놀음의 ‘작은 것이 아름답다’는
+          믿음 위에서, 우리 시대의 소외된 가치와 발굴되지 않은 목소리에 귀를 기울입니다.
         </p>
         <p>
-          서울 홍제동에 자리한 이 공간은 완성된 결과물을 전시하는 곳이 아니라,
-          만들어지는 과정 자체가 드러나는 곳이기를 바랍니다.
-          익숙한 것을 낯설게, 낯선 것을 가깝게 — 그 사이 어딘가에서
-          예술과 일상이 만나는 접점을 찾고 있습니다.
+          평화로운 자연, 오래된 원주민의 삶, 새롭게 들어선 아파트 단지가 겹쳐 있는
+          이 경계의 지점에서 — 리한은 차갑고 서먹한 틈새를 문화예술의 온기로 채우는
+          ‘사유의 기지’를 지향합니다.
         </p>
         <p>
-          누구든 들어올 수 있고, 어떤 시도든 시작될 수 있는 곳.
-          공간리한은 그런 열린 실험실이고자 합니다.
+          거창한 구호보다 섬세한 기획으로, 일방적인 전달보다 낮은 목소리의 대화로.
+          도심 속 섬에서 당신을 기다립니다.
         </p>
+        <a href="about.html" class="about-more">전체 소개 더 보기 →</a>
       </div>
       <div class="about-image">
         <img src="공간 사진.jpeg" alt="공간리한 외관">
