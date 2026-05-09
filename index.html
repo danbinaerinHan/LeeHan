@@ -50,7 +50,6 @@
 
     a.hero {
       color: inherit;
-      display: block;
     }
 
     a.exhibition-current {
@@ -90,7 +89,7 @@
     }
 
     .logo img {
-      height: 72px;
+      height: 80px;
       width: auto;
     }
 
@@ -115,91 +114,142 @@
 
     /* ── Hero ── */
     .hero {
-      margin-top: 120px;
+      display: block;
+      margin-top: 128px;
       position: relative;
       width: 100%;
-      height: 85vh;
+      height: 82vh;
+      min-height: 600px;
       overflow: hidden;
+      background: #1a1611;
     }
 
     .hero-image {
-      width: 100%;
-      height: 100%;
-      background:
-        radial-gradient(ellipse 70% 75% at 50% 42%, rgba(255, 252, 245, 0.75) 0%, rgba(255, 252, 245, 0) 70%),
-        linear-gradient(180deg, #efeadc 0%, #ddd4ba 100%);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      position: relative;
-    }
-
-    .hero-image::after {
-      content: '';
       position: absolute;
       inset: 0;
-      background: radial-gradient(ellipse 90% 45% at 50% 100%, rgba(40, 30, 15, 0.10), transparent 70%);
-      pointer-events: none;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+    }
+
+    .hero-image-bg {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+      filter: blur(60px) saturate(1.4) brightness(0.55);
+      transform: scale(1.2);
       z-index: 0;
     }
 
-    .hero-image img {
-      max-width: 100%;
-      max-height: 100%;
-      width: auto;
+    .hero-image-fg {
+      position: absolute;
+      inset: 0;
+      width: 100%;
       height: 100%;
       object-fit: contain;
-      filter:
-        drop-shadow(0 30px 50px rgba(30, 22, 12, 0.22))
-        drop-shadow(0 12px 20px rgba(30, 22, 12, 0.12));
-      transition: transform 0.7s cubic-bezier(0.2, 0.8, 0.2, 1);
-      position: relative;
+      object-position: center;
       z-index: 1;
+      transition: transform 1.4s cubic-bezier(0.2, 0.8, 0.2, 1);
+      filter: drop-shadow(0 24px 50px rgba(0, 0, 0, 0.45));
     }
 
-    .hero:hover .hero-image img {
-      transform: scale(1.018);
+    .hero:hover .hero-image-fg {
+      transform: scale(1.025);
     }
 
-    .hero-overlay {
+    .hero-tint {
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(to top,
+          rgba(0, 0, 0, 0.88) 0%,
+          rgba(0, 0, 0, 0.6) 25%,
+          rgba(0, 0, 0, 0.32) 55%,
+          rgba(0, 0, 0, 0.42) 100%),
+        rgba(0, 0, 0, 0.18);
+      pointer-events: none;
+      z-index: 2;
+    }
+
+    .hero-content {
       position: absolute;
       bottom: 0;
       left: 0;
       right: 0;
-      padding: 80px 40px 44px;
-      background: linear-gradient(to top,
-        rgba(221, 212, 186, 0.96) 0%,
-        rgba(221, 212, 186, 0.65) 50%,
-        rgba(221, 212, 186, 0) 100%);
-      color: var(--black);
-      z-index: 2;
+      padding: 64px 80px 72px;
+      z-index: 3;
+      color: var(--white);
+      max-width: 880px;
     }
 
-    .hero-overlay .exhibition-label {
-      font-size: 11px;
-      letter-spacing: 0.18em;
-      text-transform: uppercase;
-      opacity: 0.7;
-      margin-bottom: 14px;
+    .hero-eyebrow {
       font-family: var(--font-en);
-      font-weight: 600;
-    }
-
-    .hero-overlay h1 {
-      font-family: var(--font-heading);
-      font-size: 44px;
+      font-size: 11px;
       font-weight: 700;
-      letter-spacing: -0.01em;
-      line-height: 1.2;
-      margin-bottom: 10px;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: rgba(255, 255, 255, 0.78);
+      margin-bottom: 22px;
     }
 
-    .hero-overlay .exhibition-meta {
+    .hero-content h1 {
+      font-family: var(--font-heading);
+      font-size: 60px;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      line-height: 1.08;
+      margin-bottom: 18px;
+      color: var(--white);
+      word-break: keep-all;
+    }
+
+    .hero-artist {
+      font-family: var(--font-body);
+      font-size: 17px;
+      font-weight: 300;
+      color: rgba(255, 255, 255, 0.78);
+      margin-bottom: 8px;
+    }
+
+    .hero-date {
       font-family: var(--font-mono);
       font-size: 14px;
-      opacity: 0.7;
+      letter-spacing: 0.04em;
+      color: rgba(255, 255, 255, 0.6);
+      margin-bottom: 28px;
+    }
+
+    .hero-desc {
+      font-family: var(--font-body);
+      font-size: 15px;
+      line-height: 1.85;
       font-weight: 300;
-      letter-spacing: 0.02em;
+      color: rgba(255, 255, 255, 0.85);
+      margin-bottom: 32px;
+      max-width: 600px;
+      word-break: keep-all;
+    }
+
+    .hero-cta {
+      font-family: var(--font-en);
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: rgba(255, 255, 255, 0.85);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.4);
+      padding-bottom: 4px;
+      display: inline-block;
+      transition: color 0.3s, border-color 0.3s, transform 0.3s;
+    }
+
+    .hero:hover .hero-cta {
+      color: var(--white);
+      border-color: var(--white);
+      transform: translateX(4px);
     }
 
     /* ── Section Common ── */
@@ -610,7 +660,7 @@
       }
 
       .logo img {
-        height: 56px;
+        height: 60px;
       }
 
       .menu-toggle {
@@ -645,15 +695,34 @@
       }
 
       .hero {
-        height: 60vh;
+        height: 75vh;
+        min-height: 520px;
       }
 
-      .hero-overlay {
-        padding: 40px 24px 24px;
+      .hero-content {
+        padding: 36px 24px 40px;
       }
 
-      .hero-overlay h1 {
-        font-size: 28px;
+      .hero-eyebrow {
+        margin-bottom: 16px;
+      }
+
+      .hero-content h1 {
+        font-size: 36px;
+        margin-bottom: 14px;
+      }
+
+      .hero-artist {
+        font-size: 15px;
+      }
+
+      .hero-date {
+        margin-bottom: 22px;
+      }
+
+      .hero-desc {
+        font-size: 14px;
+        margin-bottom: 24px;
       }
 
       .exhibition-current {
@@ -726,12 +795,20 @@
   <!-- Hero -->
   <a href="exhibitions/leejungyeon.html" class="hero" id="home">
     <div class="hero-image">
-      <img src="이정연초대전.png" alt="이정연 초대전">
+      <img class="hero-image-bg" src="이정연초대전.png" alt="" aria-hidden="true">
+      <img class="hero-image-fg" src="이정연초대전.png" alt="이정연 초대전">
+      <div class="hero-tint"></div>
     </div>
-    <div class="hero-overlay">
-      <div class="exhibition-label">Upcoming Exhibition</div>
+    <div class="hero-content">
+      <div class="hero-eyebrow">Upcoming Exhibition</div>
       <h1>이정연 초대전</h1>
-      <div class="exhibition-meta">2026.07 초 — 07 중순</div>
+      <div class="hero-artist">이정연 개인전</div>
+      <div class="hero-date">2026.07 초 — 07 중순</div>
+      <p class="hero-desc">
+        종이·천·흙처럼 무른 재료에 손의 시간을 새겨 온 작가의 신작 회화·오브제·드로잉이,
+        공간리한의 작은 방들 안에서 새로운 리듬을 만들어낸다.
+      </p>
+      <span class="hero-cta">전시 자세히 보기 →</span>
     </div>
   </a>
 
