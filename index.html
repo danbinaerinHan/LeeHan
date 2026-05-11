@@ -527,14 +527,45 @@
 
     .about-image {
       width: 100%;
+      aspect-ratio: 4 / 3;
       overflow: hidden;
-      background: var(--light-gray);
+      background: #f4f0e8;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 40px;
+      border: 1px solid rgba(0, 0, 0, 0.06);
     }
 
-    .about-image img {
-      width: 100%;
-      height: auto;
-      display: block;
+    .about-image .coming-label {
+      font-family: var(--font-en);
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.24em;
+      text-transform: uppercase;
+      color: var(--gray);
+      margin-bottom: 16px;
+    }
+
+    .about-image .coming-title {
+      font-family: var(--font-heading);
+      font-size: clamp(36px, 5vw, 56px);
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      line-height: 1.05;
+      color: var(--black);
+      margin-bottom: 18px;
+    }
+
+    .about-image .coming-sub {
+      font-family: var(--font-body);
+      font-size: 14px;
+      color: rgba(0, 0, 0, 0.55);
+      font-weight: 300;
+      line-height: 1.6;
+      max-width: 320px;
     }
 
     /* ── Info Section ── */
@@ -885,8 +916,10 @@
         </p>
         <a href="about.html" class="about-more">전체 소개 더 보기 →</a>
       </div>
-      <div class="about-image">
-        <img src="공간 사진.jpeg" alt="공간리한 외관">
+      <div class="about-image" aria-label="공간 공사 중 — 곧 만나요">
+        <div class="coming-label">Coming Soon</div>
+        <div class="coming-title">곧 만나요</div>
+        <div class="coming-sub">공간리한은 현재 공사 중입니다.<br>새 단장을 마치는 대로 첫 전시와 함께 인사드릴게요.</div>
       </div>
     </div>
   </section>
