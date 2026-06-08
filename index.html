@@ -673,10 +673,21 @@
     }
 
     .info-copyright {
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
       font-family: var(--font-mono);
       font-size: 11px;
       color: var(--gray);
       letter-spacing: 0.03em;
+    }
+
+    .info-affiliation {
+      font-family: var(--font-body);
+      font-size: 12px;
+      font-weight: 500;
+      color: rgba(0, 0, 0, 0.55);
+      letter-spacing: 0;
     }
 
     .info-social {
@@ -1018,7 +1029,10 @@
         </div>
       </div>
       <div class="info-bottom">
-        <span class="info-copyright">&copy; 2026 공간리한 LEEHAN</span>
+        <span class="info-copyright">
+          <span class="info-affiliation">재단법인 이수진한국인형극재단 산하</span>
+          <span>&copy; 2026 공간리한 LEEHAN</span>
+        </span>
         <div class="info-social">
           <a href="https://instagram.com/spaceleehan" target="_blank" rel="noopener">Instagram</a>
           <a href="mailto:frostphin@gmail.com">Email</a>
