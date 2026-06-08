@@ -233,6 +233,16 @@ footer .social {
   margin-bottom: 0;
 }
 
+.detail-subhead {
+  font-family: var(--font-body);
+  font-size: 17px;
+  font-weight: 500;
+  color: rgba(0, 0, 0, 0.85);
+  line-height: 1.5;
+  margin: 48px 0 20px;
+  word-break: keep-all;
+}
+
 /* ── About Page ── */
 .about-page {
   margin-top: 128px;
