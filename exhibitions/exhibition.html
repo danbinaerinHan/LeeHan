@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>전시 — 공간리한</title>
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="공간리한 LEEHAN">
+  <link rel="stylesheet" href="../style.css">
+  <link rel="icon" type="image/png" href="../Logo.png">
+  <link rel="apple-touch-icon" href="../Logo.png">
+</head>
+<body>
+
+  <div class="grain" aria-hidden="true"></div>
+
+  <!-- Header -->
+  <header>
+    <div class="nav-side left">
+      <a href="../index.html#exhibitions" class="active">전시</a>
+      <a href="../about.html">소개</a>
+    </div>
+
+    <a href="../index.html" class="logo">
+      <img src="../공간리한_국문_sg2.png" alt="공간리한">
+    </a>
+
+    <div class="nav-side right">
+      <a href="../index.html#info">방문</a>
+      <a href="https://instagram.com/spaceleehan" target="_blank" rel="noopener" class="nav-ig">@spaceleehan</a>
+    </div>
+
+    <button class="menu-toggle" onclick="document.querySelector('nav').classList.toggle('open')" aria-label="메뉴">
+      <span></span><span></span><span></span>
+    </button>
+    <nav>
+      <a href="../index.html#exhibitions">전시</a>
+      <a href="../about.html">소개</a>
+      <a href="../index.html#info">방문</a>
+    </nav>
+  </header>
+
+  <!-- Kinetic marquee -->
+  <div class="hero-band" aria-hidden="true">
+    <div class="hero-band-track" id="marquee-track"></div>
+  </div>
+
+  <!-- Exhibition Detail -->
+  <main class="exhibition-detail">
+
+    <div class="detail-back">
+      <a href="../index.html#exhibitions" class="back-link">← Back to Exhibitions</a>
+    </div>
+
+    <section class="detail-hero" id="detail-hero-mount"></section>
+
+    <div class="detail-meta-strip" id="detail-meta-mount"></div>
+
+    <section class="detail-body" id="detail-body-mount"></section>
+
+    <div class="detail-gallery" id="detail-gallery-mount"></div>
+
+    <div class="detail-video" id="detail-video-mount"></div>
+
+  </main>
+
+  <!-- Info -->
+  <footer class="info" id="site-footer"></footer>
+
+  <script type="module" src="../assets/js/render-detail.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex, nofollow">
+  <title>공간리한 관리자</title>
+  <link rel="icon" type="image/png" href="../Logo.png">
+  <link rel="stylesheet" href="admin.css">
+</head>
+<body>
+
+  <!-- 로그인 -->
+  <div id="login" class="login">
+    <h1>공간리한 관리자</h1>
+    <p>GitHub 접근 토큰으로 로그인하면 전시를 직접 추가·수정하고, 저장하면 약 1분 뒤 사이트에 반영됩니다.</p>
+    <div class="field">
+      <label for="token-input">GitHub 접근 토큰 (Fine-grained PAT)</label>
+      <input id="token-input" type="password" autocomplete="off" placeholder="github_pat_...">
+    </div>
+    <button id="token-submit" class="btn btn-primary" style="width:100%; padding:11px;">로그인</button>
+    <div id="login-err" class="err"></div>
+    <p class="help">
+      토큰은 이 브라우저에만 저장되며 외부로 전송되지 않습니다.<br>
+      발급: GitHub → Settings → Developer settings → Fine-grained tokens →
+      저장소 <b>danbinaerinHan/LeeHan</b> 선택, 권한 <b>Contents: Read and write</b>.
+    </p>
+  </div>
+
+  <!-- 앱 -->
+  <div id="app" class="hidden">
+    <div class="topbar">
+      <span class="brand">공간리한 관리자</span>
+      <span class="branch-tag" id="branch-tag"></span>
+      <span class="who" id="who"></span>
+      <span class="spacer"></span>
+      <button id="logout" class="btn btn-ghost btn-sm">로그아웃</button>
+    </div>
+
+    <div class="tabs" id="tabs">
+      <button class="tab active" data-view="exhibitions">전시</button>
+      <button class="tab" data-view="homepage">홈 배치</button>
+      <button class="tab" data-view="site">사이트 정보</button>
+    </div>
+
+    <div class="wrap">
+      <section id="view-exhibitions" class="panel-view active"></section>
+      <section id="view-editor" class="panel-view"></section>
+      <section id="view-homepage" class="panel-view"></section>
+      <section id="view-site" class="panel-view"></section>
+    </div>
+
+    <div class="savebar">
+      <span class="status" id="save-status">불러오는 중…</span>
+      <button id="btn-preview" class="btn">미리보기</button>
+      <button id="btn-publish" class="btn btn-primary">저장 · 발행</button>
+    </div>
+  </div>
+
+  <div id="toast" class="toast"></div>
+
+  <script type="module" src="admin.js"></script>
+</body>
+</html>

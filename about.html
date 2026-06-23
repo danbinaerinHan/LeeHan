@@ -143,59 +143,16 @@
   </main>
 
   <!-- Info -->
-  <footer class="info">
-    <div class="info-brand">
-      <div class="info-brand-logo">
-        <img src="공간리한_국문_sg1.png" alt="공간리한">
-      </div>
-    </div>
-    <div class="info-details">
-      <div class="info-blocks">
-        <div>
-          <h3>Location</h3>
-          <p>서울특별시 서대문구 통일로 333<br>홍제1동 47-10, 1층</p>
-        </div>
-        <div>
-          <h3>Contact</h3>
-          <p><a href="mailto:spaceleehan@gmail.com">spaceleehan@gmail.com</a><br><a href="tel:+821049305912">010 4930 5912</a></p>
-        </div>
-        <div>
-          <h3>Inquiry</h3>
-          <p>공간 이용 · 대관 · 협력 문의<br><a href="mailto:spaceleehan@gmail.com">spaceleehan@gmail.com</a></p>
-        </div>
-        <div>
-          <h3>Instagram</h3>
-          <p><a href="https://instagram.com/spaceleehan" target="_blank" rel="noopener">@spaceleehan</a></p>
-        </div>
-      </div>
-      <div class="info-bottom">
-        <span class="info-copyright">
-          <span class="info-affiliation">(재)이수진한국인형극재단 산하 [공간 리한]</span>
-          <span>재단법인 사업자등록번호 189-82-00196</span>
-          <span>&copy; 2026 공간리한 LEEHAN</span>
-        </span>
-        <div class="info-social">
-          <a href="https://instagram.com/spaceleehan" target="_blank" rel="noopener">Instagram</a>
-          <a href="mailto:spaceleehan@gmail.com">Email</a>
-        </div>
-      </div>
-    </div>
-  </footer>
+  <footer class="info" id="site-footer"></footer>
 
-  <script>
-    document.querySelectorAll('nav a').forEach(link => {
-      link.addEventListener('click', () => {
-        document.querySelector('nav').classList.remove('open');
-      });
-    });
-
-    // Header scrolled state
-    (function () {
-      const header = document.querySelector('header');
-      const onScroll = () => header.classList.toggle('scrolled', window.scrollY > 24);
-      window.addEventListener('scroll', onScroll, { passive: true });
-      onScroll();
-    })();
+  <script type="module">
+    import { loadData } from './assets/js/data.js';
+    import { renderSiteFooter } from './assets/js/render.js';
+    import { initUI } from './assets/js/ui.js';
+    initUI();
+    loadData()
+      .then((d) => renderSiteFooter(document.getElementById('site-footer'), d.settings.visit))
+      .catch((e) => console.error(e));
   </script>
 
 </body>

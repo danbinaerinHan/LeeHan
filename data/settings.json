@@ -1,0 +1,49 @@
+{
+  "schemaVersion": 1,
+  "buildId": "2026-06-23T00:00:00Z",
+  "homepage": {
+    "heroExhibitionId": "exh_20260617_hawaii",
+    "upcomingExhibitionId": "exh_20260701_leejungyeon",
+    "scheduleOrder": [
+      "exh_20260527_puppet",
+      "exh_20260617_hawaii",
+      "exh_20260701_leejungyeon"
+    ]
+  },
+  "marquee": {
+    "home": [
+      "지금, 공간리한",
+      "공간 리한 개관전 — 인형, 돌아오다",
+      "니가가라 하와이 사진전 — NOW OPEN",
+      "작은 것의 위대한 힘",
+      "(재)이수진한국인형극재단 산하",
+      "서대문구 통일로 333",
+      "@spaceleehan",
+      "SPACE LEEHAN · SEOUL"
+    ]
+  },
+  "about": {
+    "eyebrow": "About",
+    "title": "공간리한",
+    "subtitle": "불모지에서 피어난 사유의 숲, 작은 것의 위대한 힘",
+    "homeParagraphs": [
+      "안산 둘레길의 짙은 초록이 시작되는 입구, 도심의 끝자락에 자리한 복합문화공간 리한은 (재)이수진한국인형극재단의 뿌리인 전통 인형극의 정신을 이어받아 탄생했습니다. 남사당패 꼭두각시놀음의 ‘작은 것이 아름답다’는 믿음 위에서, 우리 시대의 소외된 가치와 발굴되지 않은 목소리에 귀를 기울입니다.",
+      "평화로운 자연, 오래된 원주민의 삶, 새롭게 들어선 아파트 단지가 겹쳐 있는 이 경계의 지점에서 — 리한은 차갑고 서먹한 틈새를 문화예술의 온기로 채우는 ‘사유의 기지’를 지향합니다.",
+      "거창한 구호보다 섬세한 기획으로, 일방적인 전달보다 낮은 목소리의 대화로. 도심 속 섬에서 당신을 기다립니다."
+    ],
+    "image": "공간 사진.jpeg"
+  },
+  "visit": {
+    "addressHtml": "서울특별시 서대문구 통일로 333<br>홍제1동 47-10, 1층",
+    "email": "spaceleehan@gmail.com",
+    "phoneDisplay": "010 4930 5912",
+    "phoneTel": "+821049305912",
+    "instagramHandle": "spaceleehan",
+    "instagramUrl": "https://instagram.com/spaceleehan",
+    "hours": "",
+    "inquiryHtml": "공간 이용 · 대관 · 협력 문의",
+    "businessNumber": "재단법인 사업자등록번호 189-82-00196",
+    "affiliation": "(재)이수진한국인형극재단 산하 [공간 리한]",
+    "copyright": "© 2026 공간리한 LEEHAN"
+  }
+}
