@@ -2,10 +2,12 @@
 import {
   CONFIG, getToken, setToken, clearToken, validateToken, getFile, commitFiles,
 } from './github.js';
+import { encryptToken, decryptToken } from './crypto.js';
 import { el, asset, escapeHtml, embedUrl } from '../assets/js/render.js';
 import { computeStatus, STATUS_LABEL_KO } from '../assets/js/status.js';
 
 const PREVIEW_KEY = 'leehan_preview';
+const CRED_PATH = 'admin/credentials.json';
 
 const state = {
   model: { exhibitions: [], settings: {} },
@@ -19,9 +21,14 @@ let _editingExh = null; // 현재 편집기에서 열린 전시(미리보기용)
 const $ = (sel) => document.querySelector(sel);
 
 // ─────────────────────────────────────── 부팅 / 인증
+let _hasCred = false;
+
 async function boot() {
   $('#token-submit').addEventListener('click', tryLogin);
   $('#token-input').addEventListener('keydown', (e) => { if (e.key === 'Enter') tryLogin(); });
+  $('#pw-submit').addEventListener('click', tryPasswordLogin);
+  $('#pw-input').addEventListener('keydown', (e) => { if (e.key === 'Enter') tryPasswordLogin(); });
+  $('#toggle-login-mode').addEventListener('click', (e) => { e.preventDefault(); toggleLoginMode(); });
   $('#logout').addEventListener('click', logout);
   $('#btn-publish').addEventListener('click', publish);
   $('#btn-preview').addEventListener('click', preview);
@@ -30,17 +37,48 @@ async function boot() {
     if (state.dirty) { e.preventDefault(); e.returnValue = ''; }
   });
 
+  // 이 기기에 토큰이 이미 있으면 바로 입장
   if (getToken()) {
     const res = await safeValidate(getToken());
     if (res && res.ok) return enterApp(res);
+    clearToken();
   }
-  showLogin();
+
+  // 비밀번호 로그인 설정 여부 확인
+  _hasCred = !!(await fetchCredentials());
+  setLoginMode(_hasCred ? 'password' : 'token');
 }
 
-function showLogin(msg) {
+async function fetchCredentials() {
+  try {
+    const res = await fetch(`credentials.json?v=${Date.now()}`);
+    if (!res.ok) return null;
+    return await res.json();
+  } catch (e) {
+    return null;
+  }
+}
+
+function setLoginMode(mode) {
   $('#login').classList.remove('hidden');
   $('#app').classList.add('hidden');
-  if (msg) $('#login-err').textContent = msg;
+  $('#login-err').textContent = '';
+  const pw = mode === 'password';
+  $('#login-pw').classList.toggle('hidden', !pw);
+  $('#login-token').classList.toggle('hidden', pw);
+  $('#login-help-token').style.display = pw ? 'none' : 'block';
+  $('#login-desc').textContent = pw
+    ? '관리자 비밀번호를 입력하세요.'
+    : (_hasCred ? 'GitHub 토큰으로 로그인합니다.' : '처음 설정: GitHub 토큰으로 로그인한 뒤, 사이트 정보 탭에서 비밀번호를 정하면 다음부터 비밀번호로 로그인할 수 있어요.');
+  $('#toggle-login-mode').textContent = pw ? 'GitHub 토큰으로 로그인 (관리자 설정용)' : '비밀번호로 로그인';
+  // credentials 가 없으면 비밀번호 모드로 못 가게
+  $('#toggle-login-mode').style.display = _hasCred ? 'inline' : (pw ? 'inline' : 'none');
+  (pw ? $('#pw-input') : $('#token-input')).focus();
+}
+
+function toggleLoginMode() {
+  const pwVisible = !$('#login-pw').classList.contains('hidden');
+  setLoginMode(pwVisible ? 'token' : 'password');
 }
 
 async function safeValidate(token) {
@@ -62,6 +100,33 @@ async function tryLogin() {
   }
   setToken(token);
   enterApp(res);
+}
+
+async function tryPasswordLogin() {
+  const pw = $('#pw-input').value;
+  $('#login-err').textContent = '';
+  if (!pw) { $('#login-err').textContent = '비밀번호를 입력하세요.'; return; }
+  $('#pw-submit').disabled = true;
+  try {
+    const cred = await fetchCredentials();
+    if (!cred) { $('#login-err').textContent = '비밀번호 로그인이 아직 설정되지 않았습니다.'; return; }
+    let token;
+    try {
+      token = await decryptToken(cred, pw);
+    } catch (e) {
+      $('#login-err').textContent = '비밀번호가 올바르지 않습니다.';
+      return;
+    }
+    const res = await safeValidate(token);
+    if (!res.ok) {
+      $('#login-err').textContent = '저장된 토큰이 만료되었어요. 관리자가 GitHub 토큰으로 로그인해 비밀번호를 다시 설정해야 합니다.';
+      return;
+    }
+    setToken(token);
+    enterApp(res);
+  } finally {
+    $('#pw-submit').disabled = false;
+  }
 }
 
 function logout() {
@@ -584,7 +649,43 @@ function renderSite() {
       ),
       field('저작권 문구', s.visit, 'copyright'),
     ),
+    buildPasswordCard(),
   );
+}
+
+function buildPasswordCard() {
+  const card = el('div', { class: 'card' }, el('h3', null, '관리자 로그인 비밀번호'));
+  const input = el('input', { type: 'password', placeholder: '새 비밀번호 (12자 이상 권장)', autocomplete: 'new-password' });
+  const input2 = el('input', { type: 'password', placeholder: '비밀번호 다시 입력', autocomplete: 'new-password' });
+  const btn = el('button', { class: 'btn btn-primary' }, _hasCred ? '비밀번호 변경' : '비밀번호 설정');
+  btn.addEventListener('click', async () => {
+    const pw = input.value;
+    if (pw.length < 8) { toast('비밀번호는 8자 이상으로 해주세요.'); return; }
+    if (pw !== input2.value) { toast('두 비밀번호가 일치하지 않습니다.'); return; }
+    btn.disabled = true;
+    try {
+      const cred = await encryptToken(getToken(), pw);
+      await commitFiles('관리자: 로그인 비밀번호 설정', [{ path: CRED_PATH, text: JSON.stringify(cred, null, 2) }]);
+      _hasCred = true;
+      input.value = ''; input2.value = '';
+      btn.textContent = '비밀번호 변경';
+      toast('비밀번호 설정 완료! 약 1분 뒤부터 다른 기기에서도 이 비밀번호로 로그인할 수 있어요.');
+    } catch (e) {
+      console.error(e);
+      toast('실패: ' + e.message);
+    } finally {
+      btn.disabled = false;
+    }
+  });
+  card.append(
+    el('p', { class: 'field', style: 'color:var(--muted); font-size:13px;' },
+      '이 비밀번호로 다른 사람도 어느 기기에서나 ', el('b', null, 'spaceleehan.kr/admin/'),
+      ' 에 로그인할 수 있어요. 비밀번호가 곧 열쇠이니 충분히 길게 정하고, 새어나가면 바로 변경하세요.'),
+    el('div', { class: 'field' }, input),
+    el('div', { class: 'field' }, input2),
+    btn,
+  );
+  return card;
 }
 
 // ─────────────────────────────────────── 미리보기

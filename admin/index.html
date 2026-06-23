@@ -13,17 +13,35 @@
   <!-- 로그인 -->
   <div id="login" class="login">
     <h1>공간리한 관리자</h1>
-    <p>GitHub 접근 토큰으로 로그인하면 전시를 직접 추가·수정하고, 저장하면 약 1분 뒤 사이트에 반영됩니다.</p>
-    <div class="field">
-      <label for="token-input">GitHub 접근 토큰 (Fine-grained PAT)</label>
-      <input id="token-input" type="password" autocomplete="off" placeholder="github_pat_...">
+    <p id="login-desc">불러오는 중…</p>
+
+    <!-- 비밀번호 로그인 (기본) -->
+    <div id="login-pw" class="hidden">
+      <div class="field">
+        <label for="pw-input">관리자 비밀번호</label>
+        <input id="pw-input" type="password" autocomplete="current-password" placeholder="공용 비밀번호">
+      </div>
+      <button id="pw-submit" class="btn btn-primary" style="width:100%; padding:11px;">로그인</button>
     </div>
-    <button id="token-submit" class="btn btn-primary" style="width:100%; padding:11px;">로그인</button>
+
+    <!-- 토큰 로그인 (최초 설정 / 고급) -->
+    <div id="login-token" class="hidden">
+      <div class="field">
+        <label for="token-input">GitHub 접근 토큰 (Fine-grained PAT)</label>
+        <input id="token-input" type="password" autocomplete="off" placeholder="github_pat_...">
+      </div>
+      <button id="token-submit" class="btn btn-primary" style="width:100%; padding:11px;">토큰으로 로그인</button>
+    </div>
+
     <div id="login-err" class="err"></div>
+
     <p class="help">
-      토큰은 이 브라우저에만 저장되며 외부로 전송되지 않습니다.<br>
-      발급: GitHub → Settings → Developer settings → Fine-grained tokens →
-      저장소 <b>danbinaerinHan/LeeHan</b> 선택, 권한 <b>Contents: Read and write</b>.
+      <a id="toggle-login-mode" href="#">다른 방법으로 로그인</a>
+    </p>
+    <p class="help" id="login-help-token" style="display:none">
+      토큰은 이 브라우저에만 저장됩니다. 발급: GitHub → Settings → Developer settings →
+      Fine-grained tokens → 저장소 <b>danbinaerinHan/LeeHan</b>, 권한 <b>Contents: Read and write</b>.
+      토큰으로 로그인한 뒤 <b>사이트 정보</b> 탭에서 비밀번호를 설정하면, 다음부터 어느 기기에서나 비밀번호로 로그인할 수 있어요.
     </p>
   </div>
 
