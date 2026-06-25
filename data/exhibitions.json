@@ -45,7 +45,7 @@
       },
       "draft": false,
       "createdAt": "2026-05-27T00:00:00Z",
-      "updatedAt": "2026-06-23T04:40:35.816Z"
+      "updatedAt": "2026-06-25T05:48:30.928Z"
     },
     {
       "id": "exh_20260617_hawaii",
@@ -99,7 +99,7 @@
       },
       "draft": false,
       "createdAt": "2026-06-17T00:00:00Z",
-      "updatedAt": "2026-06-23T04:40:35.816Z"
+      "updatedAt": "2026-06-25T05:48:30.928Z"
     },
     {
       "id": "exh_20260701_leejungyeon",
@@ -107,8 +107,8 @@
       "title": "이정연 초대전",
       "titleHtml": "이정연<br>초대전",
       "artist": "일상의 미세한 결 · 이정연 개인전",
-      "startDate": "2026-07-01",
-      "endDate": "2026-07-20",
+      "startDate": "2026-07-15",
+      "endDate": "2026-08-27",
       "dateDisplay": "2026.07.15 — 07.27",
       "statusOverride": null,
       "kicker": null,
@@ -145,7 +145,7 @@
       },
       "draft": false,
       "createdAt": "2026-07-01T00:00:00Z",
-      "updatedAt": "2026-06-23T04:40:35.816Z"
+      "updatedAt": "2026-06-25T05:48:30.928Z"
     }
   ]
 }
