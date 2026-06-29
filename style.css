@@ -1614,7 +1614,7 @@ a.past-card {
 }
 
 .rate-item {
-  padding: 28px 4px;
+  padding: 17px 4px;
   border-bottom: 1px solid var(--hairline);
 }
 
@@ -1625,7 +1625,7 @@ a.past-card {
   letter-spacing: 0.2em;
   text-transform: uppercase;
   color: var(--accent);
-  margin-bottom: 12px;
+  margin-bottom: 7px;
 }
 
 .ri-label.muted {
@@ -1697,9 +1697,9 @@ a.past-card {
   font-family: var(--font-body);
   font-size: 13px;
   font-weight: 300;
-  line-height: 1.7;
+  line-height: 1.6;
   color: var(--gray);
-  margin-top: 10px;
+  margin-top: 6px;
   max-width: 70%;
   word-break: keep-all;
 }
