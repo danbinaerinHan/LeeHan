@@ -2035,7 +2035,7 @@ a.past-card {
 .rental-fab {
   position: fixed;
   right: 26px;
-  bottom: 26px;
+  top: 100px;
   z-index: 120;
   width: 82px;
   height: 82px;
@@ -2050,7 +2050,7 @@ a.past-card {
   box-shadow: 0 10px 28px rgba(0, 0, 0, 0.18);
   overflow: hidden;
   opacity: 0;
-  transform: translateY(14px);
+  transform: translateY(-12px);
   animation: rfIn 0.6s var(--ease) 0.5s forwards;
   transition: transform 0.4s var(--ease), background 0.4s var(--ease), box-shadow 0.4s var(--ease);
 }
@@ -2128,7 +2128,7 @@ a.past-card {
 @media (max-width: 720px) {
   .rental-fab {
     right: 16px;
-    bottom: 16px;
+    top: 84px;
     width: 68px;
     height: 68px;
     padding: 11px 12px;
