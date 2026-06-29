@@ -18,8 +18,8 @@
   --font-display: 'Pretendard', 'Gothic A1', sans-serif;
   --font-heading: 'Pretendard', 'Gothic A1', sans-serif;
   --font-body: 'Pretendard', 'Gothic A1', sans-serif;
-  --font-en: 'Space Grotesk', sans-serif;
-  --font-mono: 'Space Grotesk', monospace;
+  --font-en: 'Space Grotesk', 'Pretendard', 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif;
+  --font-mono: 'Space Grotesk', 'Pretendard', 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif;
   --ease: cubic-bezier(0.22, 1, 0.36, 1);
 }
 
