@@ -1582,3 +1582,349 @@ a.past-card {
     flex: 0 0 176px;
   }
 }
+
+/* ══════════════ Rental Page ══════════════ */
+.rental-lead {
+  font-family: var(--font-body);
+  font-size: 15px;
+  font-weight: 300;
+  line-height: 1.95;
+  color: rgba(0, 0, 0, 0.62);
+  max-width: 560px;
+  margin: 24px auto 0;
+  word-break: keep-all;
+}
+
+.rental-sections {
+  max-width: 880px;
+}
+
+.rental-sub {
+  font-family: var(--font-body);
+  font-size: 13.5px;
+  font-weight: 300;
+  color: var(--gray);
+  margin-bottom: 30px;
+  word-break: keep-all;
+}
+
+/* ── Rate list (전시 · 다목적) ── */
+.rate-list {
+  border-top: 1px solid var(--hairline);
+}
+
+.rate-item {
+  padding: 28px 4px;
+  border-bottom: 1px solid var(--hairline);
+}
+
+.ri-label {
+  font-family: var(--font-en);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 12px;
+}
+
+.ri-label.muted {
+  color: var(--gray);
+}
+
+.ri-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 24px;
+}
+
+.ri-name {
+  font-family: var(--font-display);
+  font-size: 18px;
+  font-weight: 600;
+  letter-spacing: -0.015em;
+  color: var(--black);
+  word-break: keep-all;
+}
+
+.ri-tag {
+  font-family: var(--font-body);
+  font-size: 14px;
+  font-weight: 300;
+  color: var(--gray);
+  margin-left: 8px;
+}
+
+.ri-price {
+  font-family: var(--font-display);
+  font-size: 21px;
+  font-weight: 400;
+  letter-spacing: -0.02em;
+  color: var(--black);
+  white-space: nowrap;
+}
+
+.ri-price span {
+  font-size: 13px;
+  font-weight: 300;
+  color: var(--gray);
+  margin-left: 3px;
+}
+
+.rate-item.featured .ri-price {
+  color: var(--accent);
+}
+
+.ri-desc {
+  font-family: var(--font-body);
+  font-size: 13px;
+  font-weight: 300;
+  line-height: 1.7;
+  color: var(--gray);
+  margin-top: 10px;
+  max-width: 70%;
+  word-break: keep-all;
+}
+
+.price-note {
+  font-family: var(--font-body);
+  font-size: 12.5px;
+  font-weight: 300;
+  line-height: 1.75;
+  letter-spacing: 0.01em;
+  color: var(--gray);
+  margin-top: 22px;
+  padding-left: 16px;
+  border-left: 1px solid rgba(230, 51, 18, 0.4);
+  word-break: keep-all;
+}
+
+/* ── Provide / facility columns ── */
+.provide-cols {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 56px;
+}
+
+.provide-col h3 {
+  font-family: var(--font-display);
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  color: var(--black);
+  margin-bottom: 22px;
+  padding-bottom: 14px;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.16);
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.provide-col h3 span {
+  font-family: var(--font-en);
+  font-size: 9.5px;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--gray);
+}
+
+.provide-col.paid h3 span {
+  color: var(--accent);
+}
+
+.provide-col ul {
+  list-style: none;
+}
+
+.provide-col.free li {
+  font-family: var(--font-body);
+  font-size: 14px;
+  font-weight: 300;
+  color: rgba(0, 0, 0, 0.75);
+  padding: 8px 0;
+  word-break: keep-all;
+}
+
+.paid-list li {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 12px;
+  padding: 12px 0;
+  border-bottom: 1px solid var(--hairline);
+}
+
+.paid-list li:last-child {
+  border-bottom: none;
+}
+
+.pl-name {
+  font-family: var(--font-body);
+  font-size: 13.5px;
+  font-weight: 300;
+  color: rgba(0, 0, 0, 0.78);
+  word-break: keep-all;
+}
+
+.pl-price {
+  font-family: var(--font-display);
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--black);
+  white-space: nowrap;
+  text-align: right;
+}
+
+.pl-price em {
+  display: block;
+  font-family: var(--font-body);
+  font-size: 10.5px;
+  font-weight: 300;
+  font-style: normal;
+  color: var(--gray);
+  margin-top: 3px;
+}
+
+/* ── Reservation steps ── */
+.steps {
+  list-style: none;
+}
+
+.step {
+  display: flex;
+  gap: 22px;
+  padding: 0 0 30px;
+  position: relative;
+}
+
+.step:last-child {
+  padding-bottom: 0;
+}
+
+.step:not(:last-child)::before {
+  content: '';
+  position: absolute;
+  left: 13px;
+  top: 32px;
+  bottom: 6px;
+  width: 1px;
+  background: var(--hairline);
+}
+
+.step-num {
+  flex: 0 0 auto;
+  width: 27px;
+  height: 27px;
+  border: 1px solid rgba(0, 0, 0, 0.18);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-en);
+  font-size: 11px;
+  font-weight: 500;
+  color: var(--accent);
+  background: var(--paper);
+  z-index: 1;
+}
+
+.step-body h3 {
+  font-family: var(--font-display);
+  font-size: 16px;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  color: var(--black);
+  margin-bottom: 9px;
+  padding-top: 3px;
+}
+
+.step-body p {
+  font-family: var(--font-body);
+  font-size: 14px;
+  font-weight: 300;
+  line-height: 1.85;
+  color: rgba(0, 0, 0, 0.66);
+  word-break: keep-all;
+}
+
+.step-body strong {
+  font-weight: 500;
+  color: var(--black);
+}
+
+.price-disclaimer {
+  font-family: var(--font-body);
+  font-size: 12.5px;
+  font-weight: 300;
+  line-height: 1.85;
+  color: var(--gray);
+  margin-top: 16px;
+  padding-top: 24px;
+  border-top: 1px solid var(--hairline);
+  word-break: keep-all;
+}
+
+/* ── Rental CTA ── */
+.rental-cta {
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 60px 40px 8px;
+  text-align: center;
+  border-top: 1px solid var(--hairline);
+}
+
+.rental-cta-eyebrow {
+  font-family: var(--font-en);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--gray);
+  margin-bottom: 18px;
+}
+
+.rental-cta-lead {
+  font-family: var(--font-heading);
+  font-size: 17px;
+  font-weight: 400;
+  letter-spacing: -0.01em;
+  color: rgba(0, 0, 0, 0.82);
+  margin-bottom: 30px;
+  word-break: keep-all;
+}
+
+.rental-cta-links {
+  display: flex;
+  justify-content: center;
+  gap: 36px;
+  flex-wrap: wrap;
+}
+
+.rental-cta-btn {
+  font-family: var(--font-mono);
+  font-size: 12.5px;
+  letter-spacing: 0.02em;
+  color: var(--gray);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.18);
+  padding-bottom: 5px;
+  transition: color 0.3s var(--ease), border-color 0.3s var(--ease);
+}
+
+.rental-cta-btn:hover {
+  color: var(--black);
+  border-color: var(--black);
+}
+
+@media (max-width: 720px) {
+  .provide-cols {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+  .ri-desc {
+    max-width: 100%;
+  }
+}
+
