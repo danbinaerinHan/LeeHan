@@ -1663,6 +1663,15 @@ a.past-card {
   white-space: nowrap;
 }
 
+.ri-discount {
+  font-family: var(--font-mono);
+  font-size: 10.5px;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  color: var(--accent);
+  white-space: nowrap;
+}
+
 .ri-original {
   font-family: var(--font-display);
   font-size: 13px;
@@ -1671,6 +1680,26 @@ a.past-card {
   color: var(--gray);
   text-decoration: line-through;
   text-decoration-thickness: 1px;
+}
+
+.ri-contact {
+  font-family: var(--font-body);
+  font-size: 12px;
+  font-weight: 300;
+  color: var(--gray);
+  margin-top: 8px;
+  word-break: keep-all;
+}
+
+.ri-contact a {
+  color: var(--black);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.18);
+  padding-bottom: 1px;
+  transition: border-color 0.3s var(--ease);
+}
+
+.ri-contact a:hover {
+  border-color: var(--black);
 }
 
 .ri-price {
@@ -1705,16 +1734,35 @@ a.past-card {
 }
 
 .price-note {
-  font-family: var(--font-body);
-  font-size: 12.5px;
-  font-weight: 300;
-  line-height: 1.75;
-  letter-spacing: 0.01em;
-  color: var(--gray);
   margin-top: 22px;
   padding-left: 16px;
   border-left: 1px solid rgba(230, 51, 18, 0.4);
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.price-note strong {
+  font-family: var(--font-display);
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  color: var(--black);
+  margin-bottom: 1px;
+}
+
+.price-note span {
+  font-family: var(--font-body);
+  font-size: 12.5px;
+  font-weight: 300;
+  line-height: 1.55;
+  color: var(--gray);
   word-break: keep-all;
+}
+
+.price-note b {
+  font-weight: 600;
+  color: var(--black);
 }
 
 /* ── Provide / facility columns ── */
@@ -1943,6 +1991,13 @@ a.past-card {
   .ri-desc {
     max-width: 100%;
   }
+  .ri-head {
+    flex-wrap: wrap;
+    row-gap: 4px;
+  }
+  .ri-pricewrap {
+    margin-left: auto;
+  }
 }
 
 /* ── Print button (screen) ── */
@@ -2111,9 +2166,25 @@ a.past-card {
     gap: 7px;
   }
 
+  .ri-discount {
+    font-size: 8.5px !important;
+    color: #000 !important;
+  }
+
   .ri-original {
     font-size: 9.5px !important;
     color: #777;
+  }
+
+  .ri-contact {
+    font-size: 8.5px !important;
+    color: #333;
+    margin-top: 2px !important;
+  }
+
+  .ri-contact a {
+    color: #000;
+    border: none;
   }
 
   .ri-price,
@@ -2139,6 +2210,16 @@ a.past-card {
     border-left: none !important;
     padding-left: 0 !important;
     margin-top: 6px !important;
+    gap: 2px !important;
+  }
+
+  .price-note strong {
+    font-size: 10px !important;
+    color: #000;
+    margin-bottom: 0 !important;
+  }
+
+  .price-note span {
     font-size: 9px !important;
     color: #333;
   }
