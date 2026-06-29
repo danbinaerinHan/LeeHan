@@ -113,7 +113,7 @@
       "statusOverride": null,
       "kicker": null,
       "figureTag": null,
-      "poster": "posters/이정연초대전.png",
+      "poster": "posters/이정연포스터.png",
       "photos": [],
       "videoEmbedUrl": "",
       "lede": "오랜 시간 일상의 미세한 결을 따라가며 쌓아온 작업들이, 공간리한의 작은 방들 안에서 서로 호응하며 새로운 리듬을 만들어냅니다. 신작 회화와 함께 소형 오브제, 드로잉 시리즈를 선보입니다.",
@@ -141,7 +141,7 @@
       "og": {
         "title": "이정연 초대전 — 공간리한",
         "description": "일상의 미세한 결을 따라 쌓아온 이정연의 근작. 신작 회화와 소형 오브제, 드로잉 시리즈를 선보입니다.",
-        "image": "posters/이정연초대전.png"
+        "image": "posters/이정연포스터.png"
       },
       "draft": false,
       "createdAt": "2026-07-01T00:00:00Z",
