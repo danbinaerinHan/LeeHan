@@ -1945,3 +1945,290 @@ a.past-card {
   }
 }
 
+/* ── Print button (screen) ── */
+.print-actions {
+  margin-top: 30px;
+  display: flex;
+  justify-content: center;
+}
+
+.print-btn {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  letter-spacing: 0.04em;
+  color: var(--gray);
+  background: transparent;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  border-radius: 2px;
+  padding: 9px 18px;
+  cursor: pointer;
+  transition: color 0.3s var(--ease), border-color 0.3s var(--ease), background 0.3s var(--ease);
+}
+
+.print-btn:hover {
+  color: var(--white);
+  background: var(--black);
+  border-color: var(--black);
+}
+
+/* hidden on screen, shown only when printing */
+.print-only {
+  display: none;
+}
+
+/* ══════════════ Print / PDF layout ══════════════ */
+@media print {
+  @page {
+    size: A4;
+    margin: 13mm 14mm;
+  }
+
+  * {
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  html,
+  body {
+    background: #fff !important;
+  }
+
+  /* hide everything not part of the price sheet */
+  .grain,
+  header,
+  .menu-toggle,
+  nav,
+  .about-page > .back-link,
+  .print-actions,
+  .rental-cta,
+  .info,
+  #site-footer {
+    display: none !important;
+  }
+
+  .print-only {
+    display: block;
+  }
+
+  .about-page {
+    margin-top: 0 !important;
+    padding: 0 !important;
+  }
+
+  /* document header */
+  .about-page-intro {
+    display: none;
+  }
+
+  .print-head {
+    margin-bottom: 10px;
+    padding-bottom: 7px;
+    border-bottom: 2px solid #000;
+  }
+
+  .print-head > span:first-child {
+    display: block;
+    font-family: var(--font-display);
+    font-size: 17px;
+    font-weight: 700;
+    color: #000;
+  }
+
+  .print-head-sub {
+    display: block;
+    font-family: var(--font-body);
+    font-size: 9px;
+    color: #555;
+    margin-top: 3px;
+    letter-spacing: 0.02em;
+  }
+
+  .about-sections {
+    max-width: none !important;
+    padding: 0 !important;
+  }
+
+  .about-section {
+    margin: 0 0 12px !important;
+    page-break-inside: avoid;
+  }
+
+  .about-section .section-num {
+    display: none;
+  }
+
+  .about-section h2 {
+    font-size: 12.5px !important;
+    font-weight: 700;
+    color: #000;
+    margin: 0 0 5px !important;
+    padding-bottom: 3px;
+    border-bottom: 1px solid #000;
+  }
+
+  .rental-sub {
+    font-size: 9.5px !important;
+    color: #555;
+    margin: 0 0 5px !important;
+  }
+
+  /* rate list → bordered table */
+  .rate-list {
+    border: 1px solid #000;
+    border-bottom: none;
+  }
+
+  .rate-item {
+    padding: 3.5px 8px !important;
+    border-bottom: 1px solid #bbb !important;
+    page-break-inside: avoid;
+  }
+
+  .ri-label {
+    color: #000 !important;
+    font-size: 7.5px !important;
+    letter-spacing: 0.12em;
+    margin-bottom: 1px !important;
+  }
+
+  .ri-head {
+    gap: 12px;
+  }
+
+  .ri-name {
+    font-size: 11px !important;
+    font-weight: 600;
+    color: #000;
+  }
+
+  .ri-tag {
+    font-size: 10px !important;
+    color: #555;
+    margin-left: 5px;
+  }
+
+  .ri-pricewrap {
+    gap: 7px;
+  }
+
+  .ri-original {
+    font-size: 9.5px !important;
+    color: #777;
+  }
+
+  .ri-price,
+  .rate-item.featured .ri-price {
+    font-size: 12px !important;
+    font-weight: 600;
+    color: #000 !important;
+  }
+
+  .ri-price span {
+    color: #555;
+  }
+
+  .ri-desc {
+    font-size: 9px !important;
+    line-height: 1.4 !important;
+    color: #555;
+    margin-top: 1px !important;
+    max-width: 100% !important;
+  }
+
+  .price-note {
+    border-left: none !important;
+    padding-left: 0 !important;
+    margin-top: 6px !important;
+    font-size: 9px !important;
+    color: #333;
+  }
+
+  /* provide / facility */
+  .provide-cols {
+    gap: 18px !important;
+  }
+
+  .provide-col h3 {
+    font-size: 10.5px !important;
+    margin-bottom: 6px !important;
+    padding-bottom: 4px !important;
+    border-bottom: 1px solid #000 !important;
+    color: #000;
+  }
+
+  .provide-col h3 span {
+    color: #555 !important;
+  }
+
+  .provide-col.free li {
+    font-size: 9.5px !important;
+    padding: 2.5px 0 !important;
+    color: #000;
+  }
+
+  .paid-list li {
+    padding: 3px 0 !important;
+    border-bottom: 1px solid #ccc !important;
+  }
+
+  .pl-name {
+    font-size: 9.5px !important;
+    color: #000;
+  }
+
+  .pl-price {
+    font-size: 9.5px !important;
+    color: #000;
+  }
+
+  .pl-price em {
+    font-size: 8px !important;
+    color: #666;
+  }
+
+  /* reservation steps */
+  .steps {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4px 18px;
+  }
+
+  .step {
+    gap: 9px !important;
+    padding: 0 0 4px !important;
+    page-break-inside: avoid;
+  }
+
+  .step:not(:last-child)::before {
+    display: none;
+  }
+
+  .step-num {
+    width: 18px !important;
+    height: 18px !important;
+    border-color: #000 !important;
+    color: #000 !important;
+    font-size: 9px !important;
+    background: #fff !important;
+  }
+
+  .step-body h3 {
+    font-size: 10.5px !important;
+    margin-bottom: 2px !important;
+    color: #000;
+  }
+
+  .step-body p {
+    font-size: 9px !important;
+    line-height: 1.45 !important;
+    color: #333;
+  }
+
+  .price-disclaimer {
+    font-size: 8.5px !important;
+    color: #555;
+    margin-top: 8px !important;
+    padding-top: 7px !important;
+  }
+}
+
