@@ -107,9 +107,9 @@
       "title": "이정연 초대전",
       "titleHtml": "이정연<br>초대전",
       "artist": "일상의 미세한 결 · 이정연 개인전",
-      "startDate": "2026-07-15",
-      "endDate": "2026-08-27",
-      "dateDisplay": "2026.07.15 — 07.27",
+      "startDate": "2026-07-08",
+      "endDate": "2026-07-26",
+      "dateDisplay": "2026.07.08 — 07.26",
       "statusOverride": null,
       "kicker": null,
       "figureTag": null,
@@ -121,7 +121,11 @@
       "metaStrip": [
         {
           "label": "Dates",
-          "valueHtml": "2026.07 초 — 07 중순"
+          "valueHtml": "2026.07.08 — 07.26"
+        },
+        {
+          "label": "Hours",
+          "valueHtml": "11:00 – 17:00<br>화요일 휴관"
         },
         {
           "label": "Venue",
@@ -145,7 +149,7 @@
       },
       "draft": false,
       "createdAt": "2026-07-01T00:00:00Z",
-      "updatedAt": "2026-06-25T05:48:30.928Z"
+      "updatedAt": "2026-06-29T00:00:00Z"
     }
   ]
 }
