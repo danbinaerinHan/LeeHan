@@ -6,6 +6,35 @@ export function initUI() {
   initHeaderScroll();
   initReveal();
   initParallax();
+  initRentalToggle();
+}
+
+// 대관 플로팅 토글: 스크롤하면 페이지와 함께 위로 올라가다가,
+// 가로 배너가 사라지는 지점(헤더 바로 아래)에 닿으면 그 자리에 고정(sticky)된다.
+function initRentalToggle() {
+  const fab = document.querySelector('.rental-fab');
+  if (!fab) return;
+  const header = document.querySelector('header');
+  const GAP = 8;
+  let start = 148;
+  let stick = 95;
+
+  const update = () => {
+    const y = window.scrollY || window.pageYOffset || 0;
+    fab.style.top = `${Math.max(stick, start - y)}px`;
+  };
+
+  const measure = () => {
+    fab.style.top = ''; // 인라인 제거 후 CSS(미디어쿼리) 기본 top 값을 읽는다
+    start = parseInt(getComputedStyle(fab).top, 10) || 148;
+    const h = header ? header.getBoundingClientRect().height : 80;
+    stick = Math.round(h) + GAP;
+    update();
+  };
+
+  window.addEventListener('scroll', update, { passive: true });
+  window.addEventListener('resize', measure);
+  measure();
 }
 
 function initMobileNav() {

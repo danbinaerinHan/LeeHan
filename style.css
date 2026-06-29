@@ -2033,7 +2033,7 @@ a.past-card {
 
 /* ══════════════ Floating rental toggle ══════════════ */
 .rental-fab {
-  position: absolute;
+  position: fixed;
   right: 26px;
   top: 148px;
   z-index: 120;
