@@ -14,7 +14,16 @@
       "kicker": "Opening Exhibition",
       "figureTag": null,
       "poster": "posters/인형돌아오다.jpg",
-      "photos": [],
+      "photos": [
+        {
+          "src": "uploads/2026/puppet-exhibition/photo-1783305048189.jpg",
+          "alt": ""
+        },
+        {
+          "src": "uploads/2026/puppet-exhibition/photo-1783305261078.jpg",
+          "alt": ""
+        }
+      ],
       "videoEmbedUrl": "",
       "lede": "안산 자락길 옆, 리한의 첫 문이 열립니다. 작고 다정한 꼭두들이 건네는 환영 인사를 만나보세요. 소박한 무대 위 예술이 이웃의 마음을 잇고, 일상 속 깊은 사유와 온기를 선물하는 특별한 시작이 됩니다.",
       "heroMeta": [],
@@ -45,7 +54,7 @@
       },
       "draft": false,
       "createdAt": "2026-05-27T00:00:00Z",
-      "updatedAt": "2026-07-06T02:19:22.241Z"
+      "updatedAt": "2026-07-06T02:35:17.939Z"
     },
     {
       "id": "exh_20260617_hawaii",
@@ -60,82 +69,9 @@
       "kicker": null,
       "figureTag": null,
       "poster": "posters/하와이사진전.png",
-      "photos": [
-        {
-          "src": "uploads/2026/hawaii-photo/photo-1783304024730.jpg",
-          "alt": ""
-        },
-        {
-          "src": "uploads/2026/hawaii-photo/photo-1783304024963.jpg",
-          "alt": ""
-        },
-        {
-          "src": "uploads/2026/hawaii-photo/photo-1783304060097.jpg",
-          "alt": ""
-        },
-        {
-          "src": "uploads/2026/hawaii-photo/photo-1783304070582.jpg",
-          "alt": ""
-        },
-        {
-          "src": "uploads/2026/hawaii-photo/photo-1783304093095.jpg",
-          "alt": ""
-        },
-        {
-          "src": "uploads/2026/hawaii-photo/photo-1783304093368.jpg",
-          "alt": ""
-        },
-        {
-          "src": "uploads/2026/hawaii-photo/photo-1783304109358.jpg",
-          "alt": ""
-        },
-        {
-          "src": "uploads/2026/hawaii-photo/photo-1783304109405.jpg",
-          "alt": ""
-        },
-        {
-          "src": "uploads/2026/hawaii-photo/photo-1783304149830.jpg",
-          "alt": ""
-        },
-        {
-          "src": "uploads/2026/hawaii-photo/photo-1783304149992.jpg",
-          "alt": ""
-        },
-        {
-          "src": "uploads/2026/hawaii-photo/photo-1783304170605.jpg",
-          "alt": ""
-        },
-        {
-          "src": "uploads/2026/hawaii-photo/photo-1783304171033.jpg",
-          "alt": ""
-        },
-        {
-          "src": "uploads/2026/hawaii-photo/photo-1783304184544.jpg",
-          "alt": ""
-        },
-        {
-          "src": "uploads/2026/hawaii-photo/photo-1783304184610.jpg",
-          "alt": ""
-        },
-        {
-          "src": "uploads/2026/hawaii-photo/photo-1783304232820.jpg",
-          "alt": ""
-        },
-        {
-          "src": "uploads/2026/hawaii-photo/photo-1783304245503.jpg",
-          "alt": ""
-        },
-        {
-          "src": "uploads/2026/hawaii-photo/photo-1783304270011.jpg",
-          "alt": ""
-        },
-        {
-          "src": "uploads/2026/hawaii-photo/photo-1783304270226.jpg",
-          "alt": ""
-        }
-      ],
+      "photos": [],
       "videoEmbedUrl": "",
-      "lede": "사회의 무게를 짊어진 50~60대 작가 9인이 하와이의 날 것 그대로의 자연으로 뛰어들었습니다. 계곡과 바닷가의 텐트, 아찔한 산악 트레킹 끝에 담아낸 28점의 와일드한 사진을 선보입니다.",
+      "lede": "사회의 무게를 짊어진 40~60대 작가 9인이 하와이의 날 것 그대로의 자연으로 뛰어들었습니다. 계곡과 바닷가의 텐트, 아찔한 산악 트레킹 끝에 담아낸 28점의 와일드한 사진을 선보입니다.",
       "heroMeta": [
         "와일드한 시선 28점",
         "작가 9인",
@@ -172,7 +108,7 @@
       },
       "draft": false,
       "createdAt": "2026-06-17T00:00:00Z",
-      "updatedAt": "2026-07-06T02:19:22.241Z"
+      "updatedAt": "2026-07-06T02:35:17.939Z"
     },
     {
       "id": "exh_20260701_leejungyeon",
@@ -235,7 +171,7 @@
       },
       "draft": false,
       "createdAt": "2026-07-01T00:00:00Z",
-      "updatedAt": "2026-07-06T02:19:22.241Z"
+      "updatedAt": "2026-07-06T02:35:17.939Z"
     }
   ]
 }
