@@ -1,13 +1,13 @@
 {
   "schemaVersion": 1,
-  "buildId": "2026-07-06T02:35:17.939Z",
+  "buildId": "2026-07-11T03:11:22.322Z",
   "homepage": {
     "heroExhibitionId": "exh_20260617_hawaii",
     "upcomingExhibitionId": "exh_20260701_leejungyeon",
     "scheduleOrder": [
-      "exh_20260527_puppet",
+      "exh_20260701_leejungyeon",
       "exh_20260617_hawaii",
-      "exh_20260701_leejungyeon"
+      "exh_20260527_puppet"
     ]
   },
   "marquee": {
