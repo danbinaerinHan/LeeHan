@@ -2440,7 +2440,7 @@ a.past-card {
 .so-banner {
   position: relative;
   width: 100%;
-  height: clamp(440px, 64vh, 640px);
+  height: clamp(455px, 66vh, 660px);
   overflow: hidden;
   background: var(--white);
 }
