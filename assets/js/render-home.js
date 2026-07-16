@@ -179,12 +179,17 @@ function renderAbout(about) {
   if (!about) return;
   const textMount = document.getElementById('about-text-mount');
   if (textMount) {
+    // head(라벨·제목·부제)와 body(줄글)를 나눠 사진이 줄글 시작 라인에 맞도록 한다
     textMount.append(
-      el('div', { class: 'home-about-eyebrow' }, about.eyebrow || 'About'),
-      el('h2', null, about.title || '공간리한'),
-      about.subtitle ? el('p', { class: 'about-subtitle' }, about.subtitle) : null,
-      ...(about.homeParagraphs || []).map((p) => el('p', null, p)),
-      el('a', { class: 'about-more', href: 'about.html' }, '전체 소개 더 보기 ', el('span', { class: 'arr' }, '→')),
+      el('div', { class: 'about-head' },
+        el('div', { class: 'home-about-eyebrow' }, about.eyebrow || 'About'),
+        el('h2', null, about.title || '공간리한'),
+        about.subtitle ? el('p', { class: 'about-subtitle' }, about.subtitle) : null,
+      ),
+      el('div', { class: 'about-body' },
+        ...(about.homeParagraphs || []).map((p) => el('p', null, p)),
+        el('a', { class: 'about-more', href: 'about.html' }, '전체 소개 더 보기 ', el('span', { class: 'arr' }, '→')),
+      ),
     );
   }
   const imgMount = document.getElementById('about-image-mount');
