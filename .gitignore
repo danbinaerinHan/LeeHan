@@ -3,3 +3,6 @@
 
 # Claude Code session / worktree data
 .claude/
+
+# 원본 자료 보관(웹에 올리지 않는 고해상도 원본·문서)
+_원본자료/
