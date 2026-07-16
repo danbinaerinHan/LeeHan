@@ -1441,13 +1441,15 @@ a.past-card {
 .about-image {
   position: relative;
   width: 100%;
+  align-self: stretch; /* 글 컬럼 높이에 맞춰 늘림 */
   overflow: hidden;
   background: var(--light-gray);
 }
 
 .about-image img {
   width: 100%;
-  height: auto;
+  height: 100%;
+  object-fit: cover;
   display: block;
   transition: transform 1.2s var(--ease);
 }
@@ -1584,6 +1586,12 @@ a.past-card {
   .about {
     grid-template-columns: 1fr;
     gap: 44px;
+  }
+
+  /* 1열에서는 사진을 원래 비율로 */
+  .about-image img {
+    height: auto;
+    object-fit: unset;
   }
 
   .detail-gallery,
