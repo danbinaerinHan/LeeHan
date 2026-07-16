@@ -190,6 +190,78 @@
       "poster": "posters/이정연포스터.jpg",
       "photos": [
         {
+          "src": "uploads/2026/leejungyeon/cardnews-00.jpg",
+          "alt": "카드뉴스 표지 — 이정연 초대전 〈평면 조각가의 우연한 공간〉, 2026.7.8–7.26 공간리한"
+        },
+        {
+          "src": "uploads/2026/leejungyeon/cardnews-01.jpg",
+          "alt": "작가 소개 — 작품 앞에 선 이정연 작가. \"물감의 우연한 자국들은 마치 우리의 인생 같다\""
+        },
+        {
+          "src": "uploads/2026/leejungyeon/cardnews-02.jpg",
+          "alt": "전시 작품 소개를 여는 안내 페이지"
+        },
+        {
+          "src": "uploads/2026/leejungyeon/cardnews-03.jpg",
+          "alt": "전시 작품 1/14 — 〈우연한 공간〉 연작, 작품 사진과 제목·재료·크기 캡션"
+        },
+        {
+          "src": "uploads/2026/leejungyeon/cardnews-04.jpg",
+          "alt": "전시 작품 2/14 — 〈우연한 공간〉 연작, 작품 사진과 제목·재료·크기 캡션"
+        },
+        {
+          "src": "uploads/2026/leejungyeon/cardnews-05.jpg",
+          "alt": "전시 작품 3/14 — 〈우연한 공간〉 연작, 작품 사진과 제목·재료·크기 캡션"
+        },
+        {
+          "src": "uploads/2026/leejungyeon/cardnews-06.jpg",
+          "alt": "전시 작품 4/14 — 〈우연한 공간〉 연작, 작품 사진과 제목·재료·크기 캡션"
+        },
+        {
+          "src": "uploads/2026/leejungyeon/cardnews-07.jpg",
+          "alt": "전시 작품 5/14 — 〈우연한 공간〉 연작, 작품 사진과 제목·재료·크기 캡션"
+        },
+        {
+          "src": "uploads/2026/leejungyeon/cardnews-08.jpg",
+          "alt": "전시 작품 6/14 — 〈우연한 공간〉 연작, 작품 사진과 제목·재료·크기 캡션"
+        },
+        {
+          "src": "uploads/2026/leejungyeon/cardnews-09.jpg",
+          "alt": "전시 작품 7/14 — 〈우연한 공간〉 연작, 작품 사진과 제목·재료·크기 캡션"
+        },
+        {
+          "src": "uploads/2026/leejungyeon/cardnews-10.jpg",
+          "alt": "전시 작품 8/14 — 〈우연한 공간〉 연작, 작품 사진과 제목·재료·크기 캡션"
+        },
+        {
+          "src": "uploads/2026/leejungyeon/cardnews-11.jpg",
+          "alt": "전시 작품 9/14 — 〈우연한 공간〉 연작, 작품 사진과 제목·재료·크기 캡션"
+        },
+        {
+          "src": "uploads/2026/leejungyeon/cardnews-12.jpg",
+          "alt": "전시 작품 10/14 — 〈우연한 공간〉 연작, 작품 사진과 제목·재료·크기 캡션"
+        },
+        {
+          "src": "uploads/2026/leejungyeon/cardnews-13.jpg",
+          "alt": "전시 작품 11/14 — 〈우연한 공간〉 연작, 작품 사진과 제목·재료·크기 캡션"
+        },
+        {
+          "src": "uploads/2026/leejungyeon/cardnews-14.jpg",
+          "alt": "전시 작품 12/14 — 〈우연한 공간〉 연작, 작품 사진과 제목·재료·크기 캡션"
+        },
+        {
+          "src": "uploads/2026/leejungyeon/cardnews-15.jpg",
+          "alt": "전시 작품 13/14 — 〈우연한 공간〉 연작, 작품 사진과 제목·재료·크기 캡션"
+        },
+        {
+          "src": "uploads/2026/leejungyeon/cardnews-16.jpg",
+          "alt": "전시 작품 14/14 — 〈우연한 공간〉 연작, 작품 사진과 제목·재료·크기 캡션"
+        },
+        {
+          "src": "uploads/2026/leejungyeon/cardnews-17.jpg",
+          "alt": "카드뉴스 마무리 페이지"
+        },
+        {
           "src": "uploads/2026/leejungyeon/photo-1783303583363.jpg",
           "alt": "이정연 회화 — 크림색 바탕 위에 떠 있는 짙은 남색 원석 형상 둘, 흰 물감 얼룩과 분홍빛이 번져 있다"
         },
@@ -232,7 +304,7 @@
       },
       "draft": false,
       "createdAt": "2026-07-01T00:00:00Z",
-      "updatedAt": "2026-07-16T09:30:00.000Z"
+      "updatedAt": "2026-07-16T10:30:00.000Z"
     }
   ]
 }
