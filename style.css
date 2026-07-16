@@ -2096,8 +2096,7 @@ a.past-card {
   padding: 13px 18px 13px 20px;
   background: var(--black);
   color: var(--white);
-  border-radius: 2px;
-  box-shadow: 0 10px 26px rgba(0, 0, 0, 0.16);
+  border-radius: 0;
   overflow: hidden;
   opacity: 0;
   transform: translateY(-10px);
@@ -2120,9 +2119,7 @@ a.past-card {
   width: 100%;
   height: 2px;
   background: var(--accent);
-  transform: scaleX(0);
-  transform-origin: left;
-  transition: transform 0.4s var(--ease);
+  transition: background 0.4s var(--ease);
 }
 
 .rf-text {
@@ -2161,11 +2158,9 @@ a.past-card {
 .rental-fab:hover {
   transform: translateY(-3px);
   background: var(--accent);
-  box-shadow: 0 14px 30px rgba(230, 51, 18, 0.3);
 }
 
 .rental-fab:hover::after {
-  transform: scaleX(1);
   background: var(--white);
 }
 
