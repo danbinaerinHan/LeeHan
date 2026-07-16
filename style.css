@@ -2492,7 +2492,7 @@ a.past-card {
   bottom: 0;
   max-width: 1440px;
   margin: 0 auto;
-  padding: 0 56px 24px;
+  padding: 0 56px 58px;
 }
 
 .so-banner-text .hero-kicker {
@@ -2524,7 +2524,7 @@ a.past-card {
 .so-dots {
   position: absolute;
   right: 56px;
-  bottom: 30px;
+  bottom: 62px;
   display: flex;
   gap: 10px;
 }
@@ -2644,12 +2644,12 @@ a.exhibition-current.upcoming-notice {
   }
 
   .so-banner-text {
-    padding: 0 24px 24px;
+    padding: 0 24px 42px;
   }
 
   .so-dots {
     right: 24px;
-    bottom: 26px;
+    bottom: 46px;
   }
 }
 
