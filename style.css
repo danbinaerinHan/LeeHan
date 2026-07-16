@@ -1470,6 +1470,20 @@ a.past-card {
   column-gap: 20px;
 }
 
+/* 행 그리드 변형 — 번호 있는 콘텐츠(카드뉴스 등)를 읽는 순서(좌→우)로 배치 */
+.detail-gallery-grid.gallery-rows {
+  columns: auto;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 20px;
+  align-items: start;
+}
+
+.gallery-rows figure {
+  break-inside: unset;
+  margin: 0;
+}
+
 .detail-gallery figure {
   margin: 0 0 20px;
   break-inside: avoid;

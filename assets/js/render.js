@@ -62,10 +62,13 @@ export function metaStripNodes(strip) {
 }
 
 // 사진 그리드(라이트박스 없음)
-export function photoGridNode(photos) {
+// layout: 'masonry'(기본, 벽돌쌓기 — 순서가 열 방향) | 'rows'(가로 행 — 번호순 콘텐츠용)
+export function photoGridNode(photos, layout) {
   const list = (photos || []).filter((p) => p && p.src);
   if (!list.length) return null;
-  const grid = el('div', { class: 'detail-gallery-grid' });
+  const grid = el('div', {
+    class: layout === 'rows' ? 'detail-gallery-grid gallery-rows' : 'detail-gallery-grid',
+  });
   grid.style.setProperty('--cols', String(Math.min(4, list.length)));
   list.forEach((p) => {
     grid.append(el('figure', null, el('img', { src: asset(p.src), alt: p.alt || '', loading: 'lazy' })));

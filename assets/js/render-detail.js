@@ -88,7 +88,7 @@ function renderDetail(exh, settings) {
 
   // 사진 갤러리
   const galleryMount = document.getElementById('detail-gallery-mount');
-  const grid = photoGridNode(exh.photos);
+  const grid = photoGridNode(exh.photos, exh.galleryLayout);
   if (grid) {
     galleryMount.append(
       el('div', { class: 'detail-body-eyebrow' }, el('b', null, '—'), ' Gallery'),
