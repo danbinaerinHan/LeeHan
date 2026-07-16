@@ -2473,16 +2473,30 @@ a.past-card {
   bottom: 116px;
   height: 46%;
   pointer-events: none;
-  backdrop-filter: blur(26px);
-  -webkit-backdrop-filter: blur(26px);
-  mask-image: linear-gradient(to bottom, transparent 26%, black 90%);
-  -webkit-mask-image: linear-gradient(to bottom, transparent 26%, black 90%);
+}
+
+/* 블러층 — 마스크는 블러에만 적용 */
+.so-fade::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  backdrop-filter: blur(28px);
+  -webkit-backdrop-filter: blur(28px);
+  mask-image: linear-gradient(to bottom, transparent 22%, black 82%);
+  -webkit-mask-image: linear-gradient(to bottom, transparent 22%, black 82%);
+}
+
+/* 흰색층 — 사진 경계보다 먼저(94%) 완전 순백에 도달해 경계선을 지운다 */
+.so-fade::after {
+  content: '';
+  position: absolute;
+  inset: 0;
   background: linear-gradient(to bottom,
-    rgba(255, 255, 255, 0) 26%,
-    rgba(255, 255, 255, 0.14) 52%,
-    rgba(255, 255, 255, 0.42) 76%,
-    rgba(255, 255, 255, 0.75) 92%,
-    rgba(255, 255, 255, 1) 100%);
+    rgba(255, 255, 255, 0) 24%,
+    rgba(255, 255, 255, 0.16) 50%,
+    rgba(255, 255, 255, 0.48) 74%,
+    rgba(255, 255, 255, 0.85) 88%,
+    rgba(255, 255, 255, 1) 94%);
 }
 
 .so-banner-text {
