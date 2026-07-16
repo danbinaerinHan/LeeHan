@@ -1463,24 +1463,25 @@ a.past-card {
   padding: 0 56px 8px;
 }
 
+/* 벽돌쌓기 — 사진 원본 비율을 그대로 두고 열에 흘려 담는다.
+   열 개수는 사진 수(--cols)를 넘지 않고, 폭이 좁아지면 260px 기준으로 자동으로 줄어든다. */
 .detail-gallery-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
-  gap: 20px;
+  columns: 260px var(--cols, 4);
+  column-gap: 20px;
 }
 
 .detail-gallery figure {
-  margin: 0;
+  margin: 0 0 20px;
+  break-inside: avoid;
+  -webkit-column-break-inside: avoid;
   overflow: hidden;
   background: var(--light-gray);
-  aspect-ratio: 4 / 3;
 }
 
 .detail-gallery img {
   display: block;
   width: 100%;
-  height: 100%;
-  object-fit: cover;
+  height: auto;
   transition: transform 0.9s var(--ease);
 }
 
@@ -1489,8 +1490,9 @@ a.past-card {
 }
 
 /* ── Detail: video embed (16:9) ── */
+/* 갤러리·메타 스트립과 같은 1240px 기준선 — 섹션 라벨이 같은 세로선에서 시작하도록. */
 .detail-video {
-  max-width: 900px;
+  max-width: 1240px;
   margin: 0 auto;
   padding: 0 56px 8px;
 }
@@ -2426,3 +2428,228 @@ a.past-card {
   }
 }
 
+
+/* ══════════════ The Space — 공간 오프닝(전폭 배너) · 준비 중 카드 · 대관 히어로 ══════════════ */
+
+/* 오프닝 — 사진이 전면인 전폭 배너.
+   슬라이드는 겹쳐 두고 크로스페이드, 하단은 블러+흰색 그라데이션으로 페이지에 녹아든다. */
+.space-opening {
+  padding: 0 0 8px;
+}
+
+.so-banner {
+  position: relative;
+  width: 100%;
+  height: clamp(390px, 60vh, 600px);
+  overflow: hidden;
+  background: var(--light-gray);
+}
+
+.so-slide {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0;
+  transition: opacity 1.4s var(--ease);
+}
+
+.so-slide.is-active {
+  opacity: 1;
+}
+
+/* 하단 점진 블러 — 사진이 흰 페이지로 스르르 녹는 구간 */
+.so-fade {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 54%;
+  pointer-events: none;
+  backdrop-filter: blur(13px);
+  -webkit-backdrop-filter: blur(13px);
+  mask-image: linear-gradient(to bottom, transparent 0%, black 72%);
+  -webkit-mask-image: linear-gradient(to bottom, transparent 0%, black 72%);
+  background: linear-gradient(to bottom,
+    rgba(255, 255, 255, 0) 0%,
+    rgba(255, 255, 255, 0.28) 45%,
+    rgba(255, 255, 255, 0.62) 74%,
+    rgba(255, 255, 255, 0.94) 100%);
+}
+
+.so-banner-text {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  max-width: 1440px;
+  margin: 0 auto;
+  padding: 0 56px 34px;
+}
+
+.so-banner-text .hero-kicker {
+  margin-bottom: 12px;
+}
+
+.so-title {
+  font-family: var(--font-display);
+  font-size: clamp(26px, 3vw, 42px);
+  font-weight: 700;
+  line-height: 1.15;
+  letter-spacing: -0.04em;
+  color: var(--black);
+  word-break: keep-all;
+  margin-bottom: 14px;
+}
+
+.so-meta-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px 28px;
+}
+
+.so-meta {
+  margin: 0;
+}
+
+.so-dots {
+  position: absolute;
+  right: 56px;
+  bottom: 38px;
+  display: flex;
+  gap: 10px;
+}
+
+.so-dot {
+  width: 9px;
+  height: 9px;
+  padding: 0;
+  border-radius: 50%;
+  border: 1px solid rgba(0, 0, 0, 0.45);
+  background: transparent;
+  cursor: pointer;
+  transition: background 0.3s var(--ease), border-color 0.3s var(--ease);
+}
+
+.so-dot.is-active {
+  background: var(--accent);
+  border-color: var(--accent);
+}
+
+.space-more {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--font-en);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--black);
+  border-bottom: 1px solid var(--black);
+  padding-bottom: 4px;
+  transition: color 0.3s var(--ease), border-color 0.3s var(--ease);
+}
+
+.space-more .arr {
+  display: inline-block;
+  transition: transform 0.35s var(--ease);
+}
+
+.space-more:hover .arr {
+  transform: translateX(6px);
+}
+
+/* 공간 모드 — 예정 전시 자리의 '전시 준비 중' 안내 카드 */
+a.exhibition-current.upcoming-notice {
+  display: block;
+  text-align: center;
+  padding: 84px 32px;
+  border: 1px solid var(--hairline);
+}
+
+.upcoming-notice .notice-badge {
+  display: inline-block;
+  font-family: var(--font-en);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 20px;
+}
+
+.upcoming-notice h3 {
+  font-family: var(--font-display);
+  font-size: clamp(22px, 2.6vw, 32px);
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  word-break: keep-all;
+  margin-bottom: 16px;
+}
+
+.upcoming-notice .notice-desc {
+  font-family: var(--font-body);
+  font-size: 14px;
+  font-weight: 300;
+  line-height: 1.9;
+  color: rgba(0, 0, 0, 0.55);
+  max-width: 480px;
+  margin: 0 auto 32px;
+  word-break: keep-all;
+}
+
+/* 대관 페이지 히어로 사진 */
+.rental-hero {
+  max-width: 920px;
+  margin: 48px auto 0;
+  padding: 0 40px;
+}
+
+.rental-hero img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.rental-hero figcaption {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.06em;
+  color: var(--gray);
+  padding-top: 10px;
+  word-break: keep-all;
+}
+
+@media (max-width: 900px) {
+  .so-banner {
+    height: clamp(300px, 44vh, 400px);
+  }
+
+  .so-banner-text {
+    padding: 0 24px 24px;
+  }
+
+  .so-dots {
+    right: 24px;
+    bottom: 26px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .so-slide {
+    transition: none;
+  }
+
+  .space-more .arr {
+    transition: none;
+  }
+}
+
+@media print {
+  .rental-hero {
+    display: none !important;
+  }
+}

@@ -66,6 +66,7 @@ export function photoGridNode(photos) {
   const list = (photos || []).filter((p) => p && p.src);
   if (!list.length) return null;
   const grid = el('div', { class: 'detail-gallery-grid' });
+  grid.style.setProperty('--cols', String(Math.min(4, list.length)));
   list.forEach((p) => {
     grid.append(el('figure', null, el('img', { src: asset(p.src), alt: p.alt || '', loading: 'lazy' })));
   });

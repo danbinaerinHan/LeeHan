@@ -3,18 +3,19 @@
   "buildId": "2026-07-11T03:13:15.402Z",
   "homepage": {
     "heroExhibitionId": "exh_20260701_leejungyeon",
-    "upcomingExhibitionId": "exh_20260701_leejungyeon",
+    "upcomingExhibitionId": "",
     "scheduleOrder": [
       "exh_20260701_leejungyeon",
       "exh_20260617_hawaii",
       "exh_20260527_puppet"
-    ]
+    ],
+    "spaceHero": "auto"
   },
   "marquee": {
     "home": [
       "지금, 공간리한",
-      "공간 리한 개관전 — 인형, 돌아오다",
-      "니가가라 하와이 사진전 — NOW OPEN",
+      "이정연 초대전 — NOW SHOWING",
+      "평면 조각가의 우연한 공간 · 2026.7.8 – 7.26",
       "작은 것의 위대한 힘",
       "(재)이수진한국인형극재단 산하",
       "서대문구 통일로 333",
@@ -31,7 +32,7 @@
       "평화로운 자연, 오래된 원주민의 삶, 새롭게 들어선 아파트 단지가 겹쳐 있는 이 경계의 지점에서 — 리한은 차갑고 서먹한 틈새를 문화예술의 온기로 채우는 ‘사유의 기지’를 지향합니다.",
       "거창한 구호보다 섬세한 기획으로, 일방적인 전달보다 낮은 목소리의 대화로. 도심 속 섬에서 당신을 기다립니다."
     ],
-    "image": "공간 사진.jpeg"
+    "image": "uploads/2026/space/facade.jpg"
   },
   "visit": {
     "addressHtml": "서울특별시 서대문구 통일로 333<br>홍제1동 47-10, 1층",
@@ -45,5 +46,39 @@
     "businessNumber": "재단법인 사업자등록번호 189-82-00196",
     "affiliation": "(재)이수진한국인형극재단 산하 [공간 리한]",
     "copyright": "© 2026 공간리한 LEEHAN"
+  },
+  "space": {
+    "titleHtml": "안산 자락, 사유의 숲",
+    "lede": "안산 둘레길의 초록이 시작되는 자리, 통창으로 거리의 일상이 흘러드는 작은 전시장입니다. 다음 전시를 준비하는 동안에도 공간은 열려 있습니다.",
+    "heroImage": "uploads/2026/space/window.jpg",
+    "heroImageAlt": "전시장 통창 너머로 보이는 통일로 거리와 지나가는 행인, 광택 나는 바닥에 비친 풍경",
+    "heroMeta": [
+      "서울 서대문구 통일로 333",
+      "11:00 – 17:00 · 화요일 휴관"
+    ],
+    "notice": {
+      "title": "다음 전시를 준비하고 있습니다",
+      "desc": "새 전시 소식은 인스타그램 @spaceleehan에서 가장 먼저 전해드립니다. 전시 사이의 기간에도 공간은 대관으로 열려 있습니다."
+    },
+    "photos": [
+      {
+        "src": "uploads/2026/space/whitecube.jpg",
+        "alt": "전시가벽과 트랙 조명, 폴리싱 콘크리트 바닥이 갖춰진 텅 빈 전시장 내부",
+        "caption": "White Cube — 1층 전시실",
+        "focusY": 64
+      },
+      {
+        "src": "uploads/2026/space/window.jpg",
+        "alt": "전시장 통창 너머로 보이는 통일로 거리와 지나가는 행인",
+        "caption": "The Window — 창이 곧 액자가 되는 곳",
+        "focusY": 47
+      },
+      {
+        "src": "uploads/2026/space/facade.jpg",
+        "alt": "통일로 건너편에서 본 공간리한 건물 외관, 뒤로 안산 암벽이 보인다",
+        "caption": "Tongil-ro 333 — 도시와 산 사이",
+        "focusY": 70
+      }
+    ]
   }
 }
