@@ -3050,3 +3050,8 @@ a.exhibition-current.upcoming-notice {
     margin-top: 64px;
   }
 }
+
+/* 앵커 점프 시 고정 헤더에 가리지 않게 */
+#schedule {
+  scroll-margin-top: 104px;
+}
