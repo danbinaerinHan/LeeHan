@@ -227,57 +227,60 @@
     const groupsMount = document.getElementById('fac-groups');
     if (groupsMount) {
       GROUPS.forEach((g) => {
-        const slideEls = g.slides.map((f) => el('figure', { class: 'fac-slide' },
+        const n = g.slides.length;
+        // transform으로 트랙을 밀어 선택 슬라이드를 뷰포트 중앙에 두고, 앞뒤 복제로 무한 순환.
+        const makeSlide = (f) => el('figure', { class: 'fac-slide' },
           el('img', { src: f.src, alt: f.alt, loading: 'lazy' }),
           el('div', { class: 'fac-scrim', 'aria-hidden': 'true' }),
           el('figcaption', { class: 'fac-cap' },
             el('span', { class: 'fac-title' }, f.title),
             el('span', { class: 'fac-desc' }, f.desc),
           ),
-        ));
+        );
+        // 순환 미리보기를 위해 앞뒤로 복제본을 덧댄다: [...clones, real..., clones...]
+        const CLONE = Math.min(2, n);
+        const order = [];
+        for (let k = n - CLONE; k < n; k += 1) order.push({ i: k, real: false });
+        for (let k = 0; k < n; k += 1) order.push({ i: k, real: true });
+        for (let k = 0; k < CLONE; k += 1) order.push({ i: k, real: false });
+        const slideEls = order.map((o) => {
+          const elm = makeSlide(g.slides[o.i]);
+          elm.dataset.i = String(o.i);
+          return elm;
+        });
         const track = el('div', { class: 'fac-track' }, ...slideEls);
-        const strip = el('div', { class: 'fac-strip', role: 'region', 'aria-label': `${g.ko} 사진` }, track);
-        const prev = el('button', { class: 'fac-arrow', type: 'button', 'aria-label': '이전 사진' }, '←');
-        const next = el('button', { class: 'fac-arrow', type: 'button', 'aria-label': '다음 사진' }, '→');
+        const viewport = el('div', { class: 'fac-viewport' }, track);
 
-        // 스트립 왼쪽에 온 슬라이드가 활성(밝게), 오른쪽 대기 사진들은 어둡게
-        const markActive = () => {
-          const sr = strip.getBoundingClientRect();
-          const edge = sr.left + 24;
-          let best = slideEls[0]; let bestD = Infinity;
-          slideEls.forEach((s) => {
-            const r = s.getBoundingClientRect();
-            const d = Math.abs(r.left - edge);
-            if (d < bestD) { bestD = d; best = s; }
-          });
-          slideEls.forEach((s) => s.classList.toggle('is-active', s === best));
+        const prev = el('button', { class: 'fac-nav prev', type: 'button', 'aria-label': '이전 사진' }, '‹');
+        const next = el('button', { class: 'fac-nav next', type: 'button', 'aria-label': '다음 사진' }, '›');
+
+        // 슬라이드를 뷰포트 중앙에 두는 트랙 오프셋 픽셀
+        const centerOffsetFor = (elm) => -(elm.offsetLeft + elm.offsetWidth / 2 - viewport.clientWidth / 2);
+        const setTransform = (px, animate) => {
+          track.style.transition = animate ? 'transform 0.5s var(--ease)' : 'none';
+          track.style.transform = `translateX(${px}px)`;
         };
-        const animTo = (targetLeft) => {
-          const max = strip.scrollWidth - strip.clientWidth;
-          const start = strip.scrollLeft;
-          const target = Math.max(0, Math.min(max, targetLeft));
-          if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) { strip.scrollLeft = target; markActive(); return; }
-          const t0 = performance.now();
-          const stepFn = (now) => {
-            const p = Math.min(1, (now - t0) / 440);
-            strip.scrollLeft = start + (target - start) * easeOutCubic(p);
-            markActive();
-            if (p < 1) requestAnimationFrame(stepFn);
-          };
-          requestAnimationFrame(stepFn);
+        // 논리 인덱스 cur을 [0, n) 범위로 표시하되, 트랙은 확장 인덱스로 이동
+        const render = (extIdx, animate) => {
+          const target = slideEls[extIdx];
+          setTransform(centerOffsetFor(target), animate);
+          slideEls.forEach((s, idx) => s.classList.toggle('is-active', idx === extIdx));
         };
+        let extIdx = CLONE; // 첫 실제 슬라이드
         const go = (dir) => {
-          const active = slideEls.find((s) => s.classList.contains('is-active')) || slideEls[0];
-          const i = slideEls.indexOf(active);
-          const t = slideEls[Math.max(0, Math.min(slideEls.length - 1, i + dir))];
-          const sr = strip.getBoundingClientRect();
-          const tr = t.getBoundingClientRect();
-          // 목표 슬라이드 왼쪽을 스트립 왼쪽에 맞춘다
-          animTo(strip.scrollLeft + (tr.left - sr.left));
+          extIdx += dir;
+          render(extIdx, true);
+          // 복제본에 도달하면 애니메이션 후 실제 위치로 순간이동(무한 순환)
+          const onEnd = () => {
+            track.removeEventListener('transitionend', onEnd);
+            if (extIdx < CLONE) { extIdx += n; render(extIdx, false); }
+            else if (extIdx >= CLONE + n) { extIdx -= n; render(extIdx, false); }
+          };
+          if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) { onEnd(); }
+          else { track.addEventListener('transitionend', onEnd); }
         };
         prev.addEventListener('click', () => go(-1));
         next.addEventListener('click', () => go(1));
-        strip.addEventListener('scroll', markActive, { passive: true });
 
         groupsMount.append(
           el('div', { class: 'fac-group' },
@@ -287,12 +290,19 @@
                 el('span', { class: 'fgt-ko' }, g.ko),
                 el('span', { class: 'fgt-en' }, g.en),
               ),
-              el('div', { class: 'fac-controls' }, prev, next),
             ),
-            strip,
+            el('div', { class: 'fac-stage' }, prev, viewport, next),
           ),
         );
-        markActive();
+        // 초기 렌더(동기) + 이미지 로드/리사이즈 후 재보정 (폭이 원본 비율이라 로드 전엔 0)
+        const settle = () => render(extIdx, false);
+        settle();
+        requestAnimationFrame(settle);
+        slideEls.forEach((s) => {
+          const img = s.querySelector('img');
+          if (!img.complete) img.addEventListener('load', settle, { once: true });
+        });
+        window.addEventListener('resize', settle);
       });
     }
   </script>

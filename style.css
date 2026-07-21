@@ -2731,20 +2731,10 @@ a.exhibition-current.upcoming-notice {
   }
 }
 
-/* ══════════════ About — 공간과 설비 (섹션별 캐러셀, 옅은 배경 밴드) ══════════════ */
-/* 갤러리와 미션을 시각적으로 분리하는 풀폭 밴드 (about-page는 overflow-x: clip) */
+/* ══════════════ About — 공간과 설비 (섹션별 순환 캐러셀, 흰 배경) ══════════════ */
 .facility {
-  width: 100vw;
-  margin-left: calc(50% - 50vw);
-  background: var(--paper);
-  border-top: 1px solid var(--hairline);
-  border-bottom: 1px solid var(--hairline);
-  padding: 60px 0 68px;
-}
-
-.facility-inner {
   max-width: 1440px;
-  margin: 0 auto;
+  margin: 40px auto 0;
   padding: 0 40px;
 }
 
@@ -2768,7 +2758,7 @@ a.exhibition-current.upcoming-notice {
 
 /* 섹션 그룹 */
 .fac-group {
-  margin-top: 44px;
+  margin-top: 52px;
 }
 
 .fac-group:first-child {
@@ -2777,8 +2767,8 @@ a.exhibition-current.upcoming-notice {
 
 .fac-group-head {
   display: flex;
-  align-items: center;
-  gap: 16px;
+  align-items: baseline;
+  gap: 14px;
   margin-bottom: 18px;
 }
 
@@ -2794,8 +2784,6 @@ a.exhibition-current.upcoming-notice {
   display: flex;
   align-items: baseline;
   gap: 10px;
-  flex: 1;
-  min-width: 0;
 }
 
 .fgt-ko {
@@ -2815,45 +2803,21 @@ a.exhibition-current.upcoming-notice {
   color: var(--gray);
 }
 
-.fac-controls {
-  display: flex;
-  gap: 8px;
+/* 무대: 화살표(사진 위) + 뷰포트 */
+.fac-stage {
+  position: relative;
 }
 
-.fac-arrow {
-  width: 38px;
-  height: 38px;
-  border: 1px solid rgba(0, 0, 0, 0.18);
-  border-radius: 50%;
-  background: transparent;
-  cursor: pointer;
-  font-family: var(--font-en);
-  font-size: 14px;
-  color: var(--black);
-  transition: background 0.3s var(--ease), color 0.3s var(--ease), border-color 0.3s var(--ease);
-}
-
-.fac-arrow:hover {
-  background: var(--black);
-  border-color: var(--black);
-  color: var(--white);
-}
-
-/* 스트립 */
-.fac-strip {
-  overflow-x: auto;
-  scroll-snap-type: x mandatory;
-  scrollbar-width: none;
-}
-
-.fac-strip::-webkit-scrollbar {
-  display: none;
+.fac-viewport {
+  overflow: hidden;
+  height: clamp(300px, 44vh, 440px);
 }
 
 .fac-track {
   display: flex;
   gap: 16px;
-  height: clamp(300px, 42vh, 420px);
+  height: 100%;
+  will-change: transform;
 }
 
 .fac-slide {
@@ -2863,9 +2827,8 @@ a.exhibition-current.upcoming-notice {
   margin: 0;
   overflow: hidden;
   background: var(--light-gray);
-  scroll-snap-align: start;
-  opacity: 0.4;
-  filter: brightness(0.62);
+  opacity: 0.38;
+  filter: brightness(0.6);
   transition: opacity 0.5s var(--ease), filter 0.5s var(--ease);
 }
 
@@ -2893,7 +2856,6 @@ a.exhibition-current.upcoming-notice {
   transition: opacity 0.5s var(--ease);
 }
 
-/* 문구는 활성 슬라이드에서만 (어두운 대기 사진엔 글자 숨김) */
 .fac-slide.is-active .fac-scrim {
   opacity: 1;
 }
@@ -2903,7 +2865,7 @@ a.exhibition-current.upcoming-notice {
   left: 0;
   right: 0;
   bottom: 0;
-  padding: 22px 24px;
+  padding: 22px 26px;
   display: flex;
   flex-direction: column;
   gap: 7px;
@@ -2935,10 +2897,43 @@ a.exhibition-current.upcoming-notice {
   word-break: keep-all;
 }
 
+/* 사진 위에 얹힌 좌우 화살표 */
+.fac-nav {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 3;
+  width: 46px;
+  height: 46px;
+  border: none;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.86);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.18);
+  cursor: pointer;
+  font-family: var(--font-en);
+  font-size: 22px;
+  line-height: 1;
+  color: var(--black);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.3s var(--ease), transform 0.3s var(--ease);
+}
+
+.fac-nav:hover {
+  background: var(--white);
+  transform: translateY(-50%) scale(1.08);
+}
+
+.fac-nav.prev { left: 16px; }
+.fac-nav.next { right: 16px; }
+
 /* 미션 섹션 도입부 */
 .mission-lead {
   max-width: 760px;
-  margin: 64px auto 0;
+  margin: 72px auto 0;
   padding: 0 40px;
 }
 
@@ -2946,19 +2941,32 @@ a.exhibition-current.upcoming-notice {
   margin: 0;
 }
 
+@media (prefers-reduced-motion: reduce) {
+  .fac-track,
+  .fac-slide,
+  .fac-scrim,
+  .fac-cap {
+    transition: none;
+  }
+}
+
 @media (max-width: 900px) {
   .facility {
-    padding: 44px 0 52px;
-  }
-
-  .facility-inner {
     padding: 0 20px;
   }
 
-  .fac-track {
+  .fac-viewport {
     height: clamp(260px, 40vh, 360px);
-    gap: 12px;
   }
+
+  .fac-nav {
+    width: 40px;
+    height: 40px;
+    font-size: 19px;
+  }
+
+  .fac-nav.prev { left: 10px; }
+  .fac-nav.next { right: 10px; }
 
   .fac-cap {
     padding: 18px 18px;
@@ -2966,6 +2974,6 @@ a.exhibition-current.upcoming-notice {
 
   .mission-lead {
     padding: 0 20px;
-    margin-top: 48px;
+    margin-top: 56px;
   }
 }
