@@ -50,6 +50,20 @@
       <h1>불모지에서 피어난 사유의 숲,<br>작은 것의 위대한 힘</h1>
     </div>
 
+    <!-- 공간과 설비 — 필름스트립 캐러셀 -->
+    <section class="facility" aria-label="공간과 설비">
+      <div class="fac-head">
+        <div class="about-eyebrow">Facility · 공간과 설비</div>
+        <div class="fac-controls">
+          <button class="fac-arrow" type="button" data-dir="-1" aria-label="이전 사진">←</button>
+          <button class="fac-arrow" type="button" data-dir="1" aria-label="다음 사진">→</button>
+        </div>
+      </div>
+      <div class="fac-strip" id="fac-strip" role="region" aria-label="공간 시설 사진">
+        <div class="fac-track" id="fac-track"></div>
+      </div>
+    </section>
+
     <div class="about-sections">
 
       <article class="about-section">
@@ -158,12 +172,78 @@
 
   <script type="module">
     import { loadData } from './assets/js/data.js';
-    import { renderSiteFooter } from './assets/js/render.js';
+    import { el, renderSiteFooter } from './assets/js/render.js';
     import { initUI } from './assets/js/ui.js';
     initUI();
     loadData()
       .then((d) => renderSiteFooter(document.getElementById('site-footer'), d.settings.visit))
       .catch((e) => console.error(e));
+
+    // ── 공간과 설비 필름스트립 ──
+    const BASE = 'uploads/2026/space/facility/';
+    const S1_DESC = '상상력을 구현하는 공간 — 자유로운 연출과 벽면 타공이 가능합니다. (※ 원상복구를 기본으로 합니다)';
+    const FACILITY = [
+      ...['01', '02', '03', '04', '05', '06', '07', '08', '09'].map((n) => ({
+        src: `${BASE}s1-${n}.jpg`, group: '01 · Wall & Floor',
+        title: '화이트월 & 에나멜 폴리싱 콘크리트 바닥', desc: S1_DESC,
+        alt: '화이트월과 에나멜 폴리싱 콘크리트 바닥이 깔린 공간리한 전시장',
+      })),
+      { src: `${BASE}s2-window.jpg`, group: '02 · View & Entrance',
+        title: '넓은 통창 프레임', desc: '창 너머로 흘러가는 도시의 풍경이 마치 영화의 한 장면처럼 머무는 공간',
+        alt: '통일로를 향해 난 넓은 통창' },
+      { src: `${BASE}s2-facade.jpg`, group: '02 · View & Entrance',
+        title: '정돈된 첫인상, 세련된 파사드', desc: '관람객을 맞이하는 차분하고 감각적인 입구 디자인',
+        alt: '공간리한 건물 외관 파사드와 입구' },
+      { src: `${BASE}s3-rail.jpg`, group: '03 · Facilities',
+        title: '가변형 고급 레일 조명', desc: '작품의 특성에 맞춰 섬세하게 연출 가능한 주백색 조명 (확산형·집중형 선택 가능)',
+        alt: '천장 레일에 설치된 가변형 주백색 조명' },
+      { src: `${BASE}s3-storage.jpg`, group: '03 · Facilities',
+        title: '다목적 수납 창고', desc: '상주 인원의 편의와 전시 기자재의 깔끔한 보관을 위한 전용 공간',
+        alt: '전시 기자재를 보관하는 다목적 수납 창고' },
+      { src: `${BASE}s3-sink.jpg`, group: '03 · Facilities',
+        title: '간이 수전 시설', desc: '오프닝 리셉션 및 다과 행사 시 유용하게 쓰이는 창고 내부 수전 설계',
+        alt: '창고 내부에 설치된 간이 수전 시설' },
+      { src: `${BASE}s3-wall.jpg`, group: '03 · Facilities',
+        title: '화이트 가벽', desc: '작품 전시 및 공간 분리로 자유롭게 활용 가능한 이동형 가벽',
+        alt: '자유롭게 이동 가능한 화이트 가벽' },
+    ];
+
+    const track = document.getElementById('fac-track');
+    const strip = document.getElementById('fac-strip');
+    if (track && strip) {
+      FACILITY.forEach((f) => {
+        track.append(
+          el('figure', { class: 'fac-slide' },
+            el('img', { src: f.src, alt: f.alt, loading: 'lazy' }),
+            el('div', { class: 'fac-scrim', 'aria-hidden': 'true' }),
+            el('figcaption', { class: 'fac-cap' },
+              el('span', { class: 'fac-group' }, f.group),
+              el('span', { class: 'fac-title' }, f.title),
+              el('span', { class: 'fac-desc' }, f.desc),
+            ),
+          ),
+        );
+      });
+      // scrollBy({behavior:'smooth'})가 일부 렌더러에서 무시되므로 rAF로 직접 애니메이션
+      const easeOutCubic = (t) => 1 - ((1 - t) ** 3);
+      const animScroll = (delta) => {
+        const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        const max = strip.scrollWidth - strip.clientWidth;
+        const start = strip.scrollLeft;
+        const target = Math.max(0, Math.min(max, start + delta));
+        if (reduce) { strip.scrollLeft = target; return; }
+        const t0 = performance.now();
+        const step = (now) => {
+          const p = Math.min(1, (now - t0) / 440);
+          strip.scrollLeft = start + (target - start) * easeOutCubic(p);
+          if (p < 1) requestAnimationFrame(step);
+        };
+        requestAnimationFrame(step);
+      };
+      document.querySelectorAll('.fac-arrow').forEach((btn) => {
+        btn.addEventListener('click', () => animScroll(Number(btn.dataset.dir) * strip.clientWidth * 0.72));
+      });
+    }
   </script>
 
 </body>
