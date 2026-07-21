@@ -657,6 +657,38 @@ nav {
   margin-bottom: 26px;
 }
 
+/* 소개 ↔ 대관 전환 세그먼트 토글 (상단 중앙) */
+.page-toggle {
+  display: inline-flex;
+  margin: 0 auto 28px;
+  border: 1px solid rgba(0, 0, 0, 0.16);
+  border-radius: 999px;
+  padding: 4px;
+  gap: 2px;
+  background: var(--white);
+}
+
+.page-toggle a,
+.page-toggle span {
+  font-family: var(--font-mono);
+  font-size: 12.5px;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  color: var(--gray);
+  padding: 8px 20px;
+  border-radius: 999px;
+  transition: background 0.3s var(--ease), color 0.3s var(--ease);
+}
+
+.page-toggle a:hover {
+  color: var(--black);
+}
+
+.page-toggle .active {
+  background: var(--black);
+  color: var(--white);
+}
+
 .about-eyebrow::before,
 .about-eyebrow::after {
   content: '';
