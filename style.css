@@ -763,6 +763,13 @@ nav {
   flex-wrap: wrap;
 }
 
+/* 공간 소개 하단 스토리 CTA — 갤러리와 충분히 떨어뜨린다 */
+.about-cta-story {
+  margin-top: 72px;
+  padding-top: 44px;
+  border-top: 1px solid var(--hairline);
+}
+
 .about-cta-link {
   font-family: var(--font-en);
   font-size: 12px;
