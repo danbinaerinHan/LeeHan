@@ -2734,26 +2734,36 @@ a.exhibition-current.upcoming-notice {
 /* ══════════════ About — 공간과 설비 (섹션별 순환 캐러셀, 흰 배경) ══════════════ */
 .facility {
   max-width: 1440px;
-  margin: 40px auto 0;
+  margin: 56px auto 0;
   padding: 0 40px;
 }
 
-.fac-lead {
-  margin-bottom: 40px;
+/* 섹션 대구분 마커 (Facility / Story) — 크고 뚜렷하게 */
+.section-marker {
+  max-width: 1440px;
+  margin: 0 auto 44px;
+  padding-bottom: 20px;
+  border-bottom: 2px solid var(--black);
 }
 
-.fac-lead .about-eyebrow {
-  margin: 0 0 12px;
+.section-marker-en {
+  display: block;
+  font-family: var(--font-en);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 10px;
 }
 
-.fac-sub {
-  font-family: var(--font-body);
-  font-size: 14px;
-  font-weight: 300;
-  line-height: 1.8;
-  color: rgba(0, 0, 0, 0.55);
-  max-width: 520px;
-  word-break: keep-all;
+.section-marker-ko {
+  font-family: var(--font-display);
+  font-size: clamp(30px, 4vw, 46px);
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  line-height: 1.1;
+  color: var(--black);
 }
 
 /* 섹션 그룹 */
@@ -2943,15 +2953,11 @@ a.exhibition-current.upcoming-notice {
 .fac-nav.prev { left: 16px; }
 .fac-nav.next { right: 16px; }
 
-/* 미션 섹션 도입부 */
-.mission-lead {
+/* 미션 섹션 마커 — 갤러리와 확실히 분리 */
+.mission-marker {
   max-width: 760px;
-  margin: 72px auto 0;
-  padding: 0 40px;
-}
-
-.mission-lead .about-eyebrow {
-  margin: 0;
+  margin: 96px auto 0;
+  padding: 0 40px 20px;
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -2995,8 +3001,13 @@ a.exhibition-current.upcoming-notice {
     padding: 18px 18px;
   }
 
-  .mission-lead {
-    padding: 0 20px;
-    margin-top: 56px;
+  .section-marker {
+    padding: 0 4px 16px;
+    margin-bottom: 32px;
+  }
+
+  .mission-marker {
+    padding: 0 20px 16px;
+    margin-top: 64px;
   }
 }
