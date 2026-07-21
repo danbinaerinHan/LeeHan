@@ -226,18 +226,35 @@
     const easeOutCubic = (t) => 1 - ((1 - t) ** 3);
     const groupsMount = document.getElementById('fac-groups');
     if (groupsMount) {
+      const makeSlide = (f) => el('figure', { class: 'fac-slide' },
+        el('img', { src: f.src, alt: f.alt, loading: 'lazy' }),
+        el('div', { class: 'fac-scrim', 'aria-hidden': 'true' }),
+        el('figcaption', { class: 'fac-cap' },
+          el('span', { class: 'fac-title' }, f.title),
+          el('span', { class: 'fac-desc' }, f.desc),
+        ),
+      );
+      const groupHead = (g) => el('div', { class: 'fac-group-head' },
+        el('span', { class: 'fac-group-num' }, g.num),
+        el('div', { class: 'fac-group-title' },
+          el('span', { class: 'fgt-ko' }, g.ko),
+          el('span', { class: 'fgt-en' }, g.en),
+        ),
+      );
+
       GROUPS.forEach((g) => {
         const n = g.slides.length;
-        // transform으로 트랙을 밀어 선택 슬라이드를 뷰포트 중앙에 두고, 앞뒤 복제로 무한 순환.
-        const makeSlide = (f) => el('figure', { class: 'fac-slide' },
-          el('img', { src: f.src, alt: f.alt, loading: 'lazy' }),
-          el('div', { class: 'fac-scrim', 'aria-hidden': 'true' }),
-          el('figcaption', { class: 'fac-cap' },
-            el('span', { class: 'fac-title' }, f.title),
-            el('span', { class: 'fac-desc' }, f.desc),
-          ),
-        );
-        // 순환 미리보기를 위해 앞뒤로 복제본을 덧댄다: [...clones, real..., clones...]
+
+        // 사진이 적으면(2장 이하) 순환 대신 나란히 정적 배치 — 항상 밝게, 문구 표시
+        if (n < 3) {
+          const slideEls = g.slides.map((f) => { const s = makeSlide(f); s.classList.add('is-active'); return s; });
+          groupsMount.append(
+            el('div', { class: 'fac-group' }, groupHead(g), el('div', { class: 'fac-duo' }, ...slideEls)),
+          );
+          return;
+        }
+
+        // 3장 이상 — 무한 순환 캐러셀. 앞뒤로 복제본을 덧댄다: [...clones, real..., clones...]
         const CLONE = Math.min(2, n);
         const order = [];
         for (let k = n - CLONE; k < n; k += 1) order.push({ i: k, real: false });
@@ -283,14 +300,7 @@
         next.addEventListener('click', () => go(1));
 
         groupsMount.append(
-          el('div', { class: 'fac-group' },
-            el('div', { class: 'fac-group-head' },
-              el('span', { class: 'fac-group-num' }, g.num),
-              el('div', { class: 'fac-group-title' },
-                el('span', { class: 'fgt-ko' }, g.ko),
-                el('span', { class: 'fgt-en' }, g.en),
-              ),
-            ),
+          el('div', { class: 'fac-group' }, groupHead(g),
             el('div', { class: 'fac-stage' }, prev, viewport, next),
           ),
         );

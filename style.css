@@ -2803,6 +2803,19 @@ a.exhibition-current.upcoming-notice {
   color: var(--gray);
 }
 
+/* 사진 2장 이하 — 순환 대신 좌우 나란히(정적) */
+.fac-duo {
+  display: flex;
+  gap: 20px;
+  height: clamp(320px, 48vh, 480px);
+  justify-content: center;
+}
+
+.fac-duo .fac-slide {
+  opacity: 1;
+  filter: none;
+}
+
 /* 무대: 화살표(사진 위) + 뷰포트 */
 .fac-stage {
   position: relative;
@@ -2957,6 +2970,16 @@ a.exhibition-current.upcoming-notice {
 
   .fac-viewport {
     height: clamp(260px, 40vh, 360px);
+  }
+
+  .fac-duo {
+    flex-direction: column;
+    height: auto;
+    align-items: center;
+  }
+
+  .fac-duo .fac-slide {
+    height: clamp(300px, 50vh, 420px);
   }
 
   .fac-nav {
