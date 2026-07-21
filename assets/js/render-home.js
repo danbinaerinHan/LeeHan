@@ -187,7 +187,6 @@ function renderAbout(about) {
         about.subtitle ? el('p', { class: 'about-subtitle' }, about.subtitle) : null,
       ),
       el('div', { class: 'about-body' },
-        ...(about.homeParagraphs || []).map((p) => el('p', null, p)),
         el('a', { class: 'about-more', href: 'story.html' }, '전체 스토리 더 보기 ', el('span', { class: 'arr' }, '→')),
       ),
     );
