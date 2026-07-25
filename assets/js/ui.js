@@ -86,3 +86,45 @@ function initParallax() {
     figure.style.transform = '';
   });
 }
+
+// 다른 페이지에서 index.html#schedule 처럼 해시를 달고 들어오면, 브라우저는 JS 렌더가
+// 끝나기 전에 점프를 시도한다. 그 시점엔 히어로·전시 카드가 아직 비어 있어 문서가 짧고,
+// 결국 엉뚱한 위치(대개 맨 위)에 멈춘다. 렌더가 끝난 뒤 목표 위치로 다시 맞춘다.
+export function scrollToHash() {
+  const { hash } = window.location;
+  if (!hash || hash.length < 2) return;
+
+  let target = null;
+  try {
+    target = document.querySelector(hash);
+  } catch (e) {
+    return; // 선택자로 쓸 수 없는 해시는 무시
+  }
+  if (!target) return;
+
+  let done = false;
+  // behavior: 'instant' 필수 — 'auto' 는 CSS scroll-behavior(=smooth)를 따르는데,
+  // 아래에서 100ms마다 위치를 다시 잡으므로 그때마다 애니메이션이 처음부터 다시 시작해
+  // 목적지에 영영 도달하지 못한다. 다른 페이지에서 넘어온 진입이라 즉시 이동이 자연스럽다.
+  // scroll-margin-top 으로 고정 헤더 높이를 비켜 간다(style.css 참고)
+  const jump = () => {
+    if (!done) target.scrollIntoView({ block: 'start', behavior: 'instant' });
+  };
+  jump();
+
+  // 렌더 직후엔 이미지가 아직 로드되지 않아 문서가 짧다. 지연 로딩 이미지가 뒤늦게
+  // 채워지면 목표 위치가 아래로 밀리므로, 잠시 동안 주기적으로 다시 맞춘다.
+  const timer = setInterval(jump, 100);
+
+  // 사용자가 직접 스크롤을 시작하면 즉시 손을 뗀다. 그렇지 않아도 2.5초 뒤엔 멈춘다.
+  const stop = () => {
+    done = true;
+    clearInterval(timer);
+  };
+  const opts = { once: true, passive: true };
+  window.addEventListener('wheel', stop, opts);
+  window.addEventListener('touchstart', stop, opts);
+  window.addEventListener('pointerdown', stop, opts);
+  window.addEventListener('keydown', stop, { once: true });
+  setTimeout(stop, 2500);
+}

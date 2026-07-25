@@ -2,7 +2,7 @@
 import { loadData } from './data.js';
 import { computeStatus, kickerOf, tagOf, STATUS_BADGE } from './status.js';
 import { el, asset, escapeHtml, fillMarquee, renderSiteFooter } from './render.js';
-import { initUI } from './ui.js';
+import { initUI, scrollToHash } from './ui.js';
 
 function detailHref(exh) {
   return `exhibitions/${exh.slug}.html`;
@@ -243,6 +243,7 @@ async function main() {
   renderSiteFooter(document.getElementById('info'), settings.visit);
 
   initUI();
+  scrollToHash();
 }
 
 main();
