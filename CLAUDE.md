@@ -71,6 +71,41 @@ rsync -a --delete --exclude '.git' --exclude '_원본자료' "$HOME/Library/Mobi
 그 다음 `preview_start`로 `leehan` 실행 (`~/.claude/leehan-preview.sh` → `/tmp/leehan-site`를 8765 포트로 서빙).
 **파일을 고칠 때마다 rsync를 다시 돌려야** 프리뷰에 반영된다. 편집은 항상 iCloud 원본에서 한다.
 
+### 함정 1 — JS를 고쳤는데 프리뷰가 옛날 코드를 실행한다
+
+Chrome이 `assets/js/*.js`를 캐시하고 재검증하지 않는다. **HTML만 `?v=2` 로 캐시 버스팅해도
+모듈은 캐시에서 나온다.** "고쳤는데 결과가 똑같다"면 십중팔구 이것이다. 예전 코드로 몇 번씩
+테스트하다 헛다리를 짚게 된다.
+
+가장 확실한 해법은 **새 포트로 서버를 하나 더 띄우는 것**. 캐시는 URL(포트 포함) 단위라 통째로 무효가 된다.
+
+```bash
+python3 -m http.server 8791 --directory /tmp/leehan-site
+```
+
+의심되면 먼저 이걸로 확인한다 — 코드가 실제로 실행됐는지 전역 마커를 심어 보면 확실하다.
+
+### 함정 2 — 프리뷰 창은 백그라운드 탭이다
+
+프리뷰 창은 렌더링이 멈춘 백그라운드 탭처럼 동작한다. 결과:
+
+- **`requestAnimationFrame`이 아예 안 돈다** (`setInterval`은 ~1초로 스로틀링되며 돌긴 한다)
+- 따라서 **부드러운 스크롤(`scroll-behavior: smooth`)이 진행되지 않는다.**
+  `style.css`의 `html`에 `smooth`가 걸려 있어서, `window.scrollTo()`나 `scrollIntoView()`를 부른 뒤
+  `scrollY`를 읽으면 계속 `0`이다. **이걸 "스크롤이 안 되는 버그"로 오해하지 말 것**
+- 스크린샷이 흰 화면으로 찍히는 일이 잦다
+
+**위치 확인은 스크린샷 대신 좌표를 직접 재는 게 빠르고 정확하다:**
+
+```js
+el.getBoundingClientRect().top   // 목표 요소가 뷰포트 어디에 있나
+document.querySelector('header').getBoundingClientRect().bottom  // 고정 헤더 아래끝(≈87px)
+```
+
+관련 코드 주의: `scrollIntoView({behavior:'auto'})`의 `'auto'`는 "즉시"가 아니라
+**CSS `scroll-behavior` 값을 따른다**(= 여기선 smooth). 즉시 이동하려면 `'instant'`를 써야 한다.
+`assets/js/ui.js`의 `scrollToHash()` 참고.
+
 ### 소개 페이지 설비 캐러셀 확인 요령
 
 가로 캐러셀 + lazy 이미지라 그냥 스크롤하면 빈 화면이 찍힌다.
