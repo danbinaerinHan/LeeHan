@@ -45,6 +45,13 @@
   <main class="about-page">
     <a href="index.html" class="back-link">← 돌아가기</a>
 
+    <div class="page-toggle-bar">
+      <div class="page-toggle" role="tablist" aria-label="소개 · 대관 전환">
+        <span class="active" role="tab" aria-selected="true">공간 소개</span>
+        <a href="rental.html" role="tab">대관 안내</a>
+      </div>
+    </div>
+
     <!-- 공간과 설비 — 섹션별 캐러셀 -->
     <section class="facility" aria-label="공간과 설비">
       <div class="facility-inner">
@@ -65,15 +72,6 @@
 
   <!-- Info -->
   <footer class="info" id="site-footer"></footer>
-
-  <!-- Floating rental toggle -->
-  <a href="rental.html" class="rental-fab" aria-label="대관 안내 페이지로 이동">
-    <span class="rf-text">
-      <span class="rf-eyebrow">Rental</span>
-      <span class="rf-title">대관 안내</span>
-    </span>
-    <span class="rf-arrow" aria-hidden="true">↗</span>
-  </a>
 
   <script type="module">
     import { loadData } from './assets/js/data.js';

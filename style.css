@@ -658,6 +658,17 @@ nav {
 }
 
 /* 소개 ↔ 대관 전환 세그먼트 토글 (상단 중앙) */
+/* 상단 인트로 블록이 없는 페이지(about)에서 토글만 가운데 정렬 */
+.page-toggle-bar {
+  padding: 36px 40px 0;
+  text-align: center;
+}
+
+/* 아래 .facility 의 상단 여백(56px)이 간격을 담당 */
+.page-toggle-bar .page-toggle {
+  margin-bottom: 0;
+}
+
 .page-toggle {
   display: inline-flex;
   margin: 0 auto 28px;
@@ -948,6 +959,10 @@ nav {
 
   .about-page-intro {
     padding: 44px 24px 44px;
+  }
+
+  .page-toggle-bar {
+    padding: 26px 24px 0;
   }
 
   .about-sections {
