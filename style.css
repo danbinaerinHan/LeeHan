@@ -1062,10 +1062,11 @@ a.past-card {
 
 .hero-title {
   font-family: var(--font-display);
-  font-size: clamp(42px, 5.4vw, 76px);
+  /* 전시 상세 페이지의 .detail-title(최대 68px)보다 한 단계 작게 — 홈은 예고, 상세가 본편 */
+  font-size: clamp(36px, 4.6vw, 60px);
   font-weight: 700;
-  line-height: 1.06;
-  letter-spacing: -0.045em;
+  line-height: 1.12;
+  letter-spacing: -0.035em;
   color: var(--black);
   word-break: keep-all;
   margin-bottom: 32px;
