@@ -2974,6 +2974,13 @@ a.exhibition-current.upcoming-notice {
   word-break: keep-all;
 }
 
+/* 설명 아래 줄에 붙는 단서 문구 (예: 원상복구 안내) */
+.fac-note {
+  display: inline-block;
+  margin-top: 4px;
+  color: rgba(255, 255, 255, 0.72);
+}
+
 /* 사진 위에 얹힌 좌우 화살표 */
 .fac-nav {
   position: absolute;

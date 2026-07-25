@@ -84,7 +84,8 @@
 
     // ── 공간과 설비 — 섹션별 캐러셀 ──
     const BASE = 'uploads/2026/space/facility/';
-    const S1_DESC = '상상력을 구현하는 공간 — 자유로운 연출과 벽면 타공이 가능합니다. (※ 원상복구를 기본으로 합니다)';
+    const S1_DESC = '상상력을 구현하는 공간 — 자유로운 연출과 벽면 타공이 가능합니다.';
+    const S1_NOTE = '(※ 원상복구를 기본으로 합니다)';
     const GROUPS = [
       {
         num: '01', ko: '창과 입구', en: 'View & Entrance',
@@ -101,7 +102,7 @@
         num: '02', ko: '벽과 바닥', en: 'Wall & Floor',
         slides: ['01', '02', '03', '04', '05', '06', '07', '08', '09'].map((n) => ({
           src: `${BASE}s1-${n}.jpg`,
-          title: '화이트월 & 에나멜 폴리싱 콘크리트 바닥', desc: S1_DESC,
+          title: '화이트월 & 에나멜 폴리싱 콘크리트 바닥', desc: S1_DESC, note: S1_NOTE,
           alt: '화이트월과 에나멜 폴리싱 콘크리트 바닥이 깔린 공간리한 전시장',
         })),
       },
@@ -132,7 +133,8 @@
         el('div', { class: 'fac-scrim', 'aria-hidden': 'true' }),
         el('figcaption', { class: 'fac-cap' },
           el('span', { class: 'fac-title' }, f.title),
-          el('span', { class: 'fac-desc' }, f.desc),
+          el('span', { class: 'fac-desc' }, f.desc,
+            f.note && [el('br'), el('span', { class: 'fac-note' }, f.note)]),
         ),
       );
       const groupHead = (g) => el('div', { class: 'fac-group-head' },
