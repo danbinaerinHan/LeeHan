@@ -347,6 +347,7 @@ function deleteExhibition(exh) {
   // 홈 참조 정리
   const hp = state.model.settings.homepage || {};
   if (hp.heroExhibitionId === exh.id) hp.heroExhibitionId = '';
+  if (hp.heroAlsoShow && hp.heroAlsoShow.id === exh.id) hp.heroAlsoShow.id = '';
   if (hp.upcomingExhibitionId === exh.id) hp.upcomingExhibitionId = '';
   if (Array.isArray(hp.scheduleOrder)) hp.scheduleOrder = hp.scheduleOrder.filter((id) => id !== exh.id);
   markDirty();
@@ -553,6 +554,7 @@ function renderHomepage() {
   const root = $('#view-homepage');
   root.innerHTML = '';
   const hp = state.model.settings.homepage || (state.model.settings.homepage = {});
+  const also = hp.heroAlsoShow || (hp.heroAlsoShow = {});
   const opts = [{ value: '', label: '— 없음 —' }].concat(
     state.model.exhibitions.map((e) => ({ value: e.id, label: e.title || e.slug || e.id })));
 
@@ -560,6 +562,12 @@ function renderHomepage() {
     el('div', { class: 'card' },
       el('h3', null, '메인 배너 / Now Showing'),
       selectField('큰 배너(히어로) 전시', hp.heroExhibitionId || '', opts, (v) => { hp.heroExhibitionId = v; }, '맨 위 큰 영역에 노출'),
+      selectField('함께 번갈아 노출', also.id || '', opts, (v) => { also.id = v; },
+        '전시 교체 기간에만 — 큰 배너에서 두 전시가 9초마다 번갈아 나온다'),
+      field('  ↳ 언제까지 함께 노출', also, 'until', {
+        type: 'date',
+        hint: '이 날짜가 지나면 위 전시는 배너에서 스스로 빠진다 (비우면 그 전시 종료일까지)',
+      }),
       selectField('Upcoming 강조 전시', hp.upcomingExhibitionId || '', opts, (v) => { hp.upcomingExhibitionId = v; }, '“Upcoming” 카드에 노출'),
     ),
     buildScheduleOrder(hp),

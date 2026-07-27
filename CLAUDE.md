@@ -40,7 +40,10 @@
 - `exhibitions/*.html` 개별 전시 상세
 - `admin/` 관리자 화면 (GitHub API로 `data/*.json`을 직접 커밋)
 - `assets/js/` — `data.js`(JSON 로더) · `render*.js`(DOM 빌더) · `ui.js`(스크롤/모바일 메뉴/플로팅 토글)
+  · `lightbox.js`(갤러리 확대 보기)
 - 렌더는 `el(tag, attrs, ...children)` 헬퍼 사용 (`assets/js/render.js`). 자식으로 배열·노드·`false` 모두 받는다.
+- 상세 페이지 갤러리는 `photoGridNode(photos, layout, onOpen)`의 `onOpen(i)`로 라이트박스를 연다.
+  넘기기는 버튼·키보드(←/→/Esc)·손가락 드래그 세 가지를 모두 받는다 (`lightbox.js`)
 
 ## 전시 제목 표기 규칙
 
@@ -104,7 +107,10 @@
 
 그 다음 `data/settings.json` 도 함께 손본다:
 
-- `homepage.heroExhibitionId` — 홈 히어로에 세울 전시
+- `homepage.heroExhibitionId` — 홈 히어로(02)에 세울 전시
+- `homepage.heroAlsoShow` — `{ id, until }`. **전시 교체 기간용.** 히어로에 두 전시가 9초마다
+  옆으로 번갈아 나온다. `until`(YYYY-MM-DD)이 지나면 그 전시는 스스로 빠지고
+  `heroExhibitionId` 하나만 남는다. 안 쓸 땐 `id`를 빈 문자열로 둔다
 - `homepage.scheduleOrder` — 스케줄(포스터 3개)에 노출할 순서. **여기 없으면 홈에 안 뜬다**
 - `marquee.home` — 상단 흐르는 문구
 
@@ -175,6 +181,24 @@ document.querySelector('header').getBoundingClientRect().bottom  // 고정 헤�
 관련 코드 주의: `scrollIntoView({behavior:'auto'})`의 `'auto'`는 "즉시"가 아니라
 **CSS `scroll-behavior` 값을 따른다**(= 여기선 smooth). 즉시 이동하려면 `'instant'`를 써야 한다.
 `assets/js/ui.js`의 `scrollToHash()` 참고.
+
+### 함정 3 — 새로 연 탭은 뷰포트가 0×0이다
+
+`preview_start`로 탭을 새로 열면 `window.innerWidth`가 **0**이고
+`document.visibilityState`가 `hidden`인 상태로 뜰 수 있다. 그러면 `clientWidth`·
+`getBoundingClientRect()`가 **전부 0으로 나와** 레이아웃이 깨진 것처럼 보인다.
+
+먼저 `window.innerWidth`를 재 보고, 0이면 `resize_window`로 크기를 명시한 뒤 다시 측정한다.
+이미 크기가 잡힌 기존 탭을 `navigate`로 재활용하는 게 가장 빠르다.
+
+### 함정 4 — 자동 전환 캐러셀은 "몇 초 기다려 보기"로 판단하면 안 된다
+
+히어로 슬라이드는 9초, 공간 배너는 7초 주기다. 짝수 번 넘어가면 **제자리로 돌아와 있어서**
+"안 도는 버그"로 보인다. 주기의 배수만큼 기다려 한 번만 보는 건 근거가 못 된다.
+
+상태를 누적해 확인한다 — 타이머 콜백 안에 `window.__x = (window.__x||0)+1` 같은 마커를 심고
+`cur` 값의 변화 이력을 남기면 한 번에 판별된다. 확인이 끝나면 **마커를 반드시 지운다**
+(`grep -n "__" assets/js/*.js`).
 
 ### 소개 페이지 설비 캐러셀 확인 요령
 

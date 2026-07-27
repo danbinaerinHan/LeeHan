@@ -487,10 +487,6 @@ nav {
   margin-bottom: 0;
 }
 
-.detail-body p:first-of-type::first-letter {
-  font-weight: 500;
-}
-
 .detail-subhead {
   display: block;
   font-family: var(--font-display);
@@ -1021,6 +1017,62 @@ a.past-card:hover {
 
 a.past-card {
   display: block;
+}
+
+/* 02 히어로 무대 — 전시가 둘이면 가로로 번갈아 넘어간다.
+   슬라이드는 flex-shrink:0 이라 무대 밖으로 흘러넘치고, 무대가 그걸 잘라 보여준다.
+   그래서 트랙의 translateX(-100%)는 정확히 한 장 폭만큼 움직인다. */
+.hero-stage {
+  position: relative;
+  overflow: hidden;
+}
+
+.hero-track {
+  display: flex;
+  align-items: stretch;
+  transition: transform 0.9s var(--ease);
+}
+
+.hero-slide {
+  flex: 0 0 100%;
+  min-width: 0;
+}
+
+/* 점이 '전시 자세히 보기'에 바짝 붙지 않도록 아래를 넉넉히 */
+.hero-stage.has-dots .hero {
+  padding-bottom: 148px;
+}
+
+.hero-dots {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 56px;
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+}
+
+.hero-dot {
+  width: 9px;
+  height: 9px;
+  padding: 0;
+  border-radius: 50%;
+  border: 1px solid rgba(0, 0, 0, 0.45);
+  background: transparent;
+  cursor: pointer;
+  transition: background 0.3s var(--ease), border-color 0.3s var(--ease);
+}
+
+.hero-dot.is-active {
+  background: var(--accent);
+  border-color: var(--accent);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-track {
+    transition: none;
+  }
 }
 
 /* Editorial hero */
@@ -1575,6 +1627,151 @@ a.past-card {
   transform: scale(1.04);
 }
 
+/* 눌러서 확대 — figure 안을 채우는 투명 버튼 */
+.gal-zoom {
+  display: block;
+  width: 100%;
+  padding: 0;
+  border: 0;
+  background: none;
+  cursor: zoom-in;
+}
+
+/* ── 갤러리 확대 보기(라이트박스) ── */
+.lb {
+  position: fixed;
+  inset: 0;
+  z-index: 200;
+  background: rgba(12, 12, 12, 0.97);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.lb[hidden] {
+  display: none;
+}
+
+.lb-stage {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  /* 가로 드래그를 브라우저 제스처에 뺏기지 않게 */
+  touch-action: none;
+}
+
+.lb-track {
+  display: flex;
+  height: 100%;
+  transition: transform 0.4s var(--ease);
+}
+
+.lb-item {
+  flex: 0 0 100%;
+  min-width: 0;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 72px 80px;
+}
+
+.lb-item img {
+  max-width: 100%;
+  max-height: 100%;
+  width: auto;
+  height: auto;
+  object-fit: contain;
+  user-select: none;
+  -webkit-user-drag: none;
+}
+
+.lb-nav,
+.lb-close {
+  position: absolute;
+  border: 0;
+  background: none;
+  color: rgba(255, 255, 255, 0.85);
+  cursor: pointer;
+  line-height: 1;
+  transition: color 0.25s var(--ease), opacity 0.25s var(--ease);
+}
+
+.lb-nav {
+  top: 50%;
+  transform: translateY(-50%);
+  width: 56px;
+  height: 56px;
+  font-size: 40px;
+}
+
+.lb-nav:hover,
+.lb-close:hover {
+  color: #fff;
+}
+
+.lb-nav:disabled {
+  opacity: 0.22;
+  cursor: default;
+}
+
+.lb-prev {
+  left: 10px;
+}
+
+.lb-next {
+  right: 10px;
+}
+
+.lb-close {
+  top: 20px;
+  right: 24px;
+  width: 44px;
+  height: 44px;
+  font-size: 20px;
+}
+
+.lb-counter {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 26px;
+  text-align: center;
+  font-family: var(--font-en);
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  color: rgba(255, 255, 255, 0.6);
+  pointer-events: none;
+}
+
+@media (max-width: 700px) {
+  .lb-item {
+    padding: 64px 16px;
+  }
+
+  .lb-nav {
+    width: 44px;
+    height: 44px;
+    font-size: 32px;
+  }
+
+  .lb-prev {
+    left: 0;
+  }
+
+  .lb-next {
+    right: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .lb-track {
+    transition: none;
+  }
+}
+
 /* ── Detail: video embed (16:9) ── */
 /* 갤러리·메타 스트립과 같은 1240px 기준선 — 섹션 라벨이 같은 세로선에서 시작하도록. */
 .detail-video {
@@ -1615,6 +1812,14 @@ a.past-card {
 
   .hero-figure-tag {
     display: none;
+  }
+
+  .hero-stage.has-dots .hero {
+    padding-bottom: 104px;
+  }
+
+  .hero-dots {
+    bottom: 34px;
   }
 
   .hero-kicker {

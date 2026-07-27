@@ -1,6 +1,6 @@
 // 홈(index.html) 렌더러 — data/*.json 으로부터 마퀴/히어로/예정/스케줄/소개/푸터를 그린다.
 import { loadData } from './data.js';
-import { computeStatus, kickerOf, tagOf, STATUS_BADGE } from './status.js';
+import { computeStatus, kickerOf, tagOf, todayISO, STATUS_BADGE } from './status.js';
 import { el, asset, escapeHtml, fillMarquee, renderSiteFooter } from './render.js';
 import { initUI, scrollToHash } from './ui.js';
 
@@ -85,37 +85,87 @@ function renderSpaceOpening(space) {
   }
 }
 
-// 전시 히어로 — 진행 중 전시의 포스터와 소개 (오프닝 배너 아래)
-function renderHero(exh) {
-  const mount = document.getElementById('hero-mount');
-  if (!mount) return;
-  if (!exh) { mount.remove(); return; }
+// 전시 히어로 한 장 — 왼쪽 글, 오른쪽 포스터
+function heroSlide(exh, first) {
   const status = computeStatus(exh);
-  mount.href = detailHref(exh);
-
   const metaItems = (exh.heroMeta && exh.heroMeta.length ? exh.heroMeta : [exh.dateDisplay]).filter(Boolean);
   const metaNodes = [];
   metaItems.forEach((m, i) => {
     if (i) metaNodes.push(el('span', { class: 'div' }));
     metaNodes.push(el('span', null, m));
   });
+  // 첫 장만 스크롤 리빌에 맡긴다. 뒤 장은 옆에서 밀려 들어올 때 또 페이드되면 어수선하다
+  const seen = first ? '' : ' is-visible';
 
-  mount.append(
-    el('div', { class: 'hero-lead', 'data-reveal': true },
-      el('div', { class: 'hero-kicker' },
-        el('b', null, '02'), ` ${kickerOf(exh, status)}`,
-        el('span', { class: 'rule' }),
+  return el('div', { class: 'hero-slide' },
+    el('a', { class: 'hero', href: detailHref(exh) },
+      el('div', { class: `hero-lead${seen}`, 'data-reveal': true },
+        el('div', { class: 'hero-kicker' },
+          el('b', null, '02'), ` ${kickerOf(exh, status)}`,
+          el('span', { class: 'rule' }),
+        ),
+        el('h2', { class: 'hero-title', html: exh.titleHtml || escapeHtml(exh.title) }),
+        el('div', { class: 'hero-meta' }, metaNodes),
+        el('p', { class: 'hero-desc' }, exh.lede || ''),
+        el('span', { class: 'hero-cta' }, '전시 자세히 보기 ', el('span', { class: 'arr' }, '→')),
       ),
-      el('h2', { class: 'hero-title', html: exh.titleHtml || escapeHtml(exh.title) }),
-      el('div', { class: 'hero-meta' }, metaNodes),
-      el('p', { class: 'hero-desc' }, exh.lede || ''),
-      el('span', { class: 'hero-cta' }, '전시 자세히 보기 ', el('span', { class: 'arr' }, '→')),
-    ),
-    el('div', { class: 'hero-figure', 'data-reveal': true },
-      el('span', { class: 'hero-figure-tag' }, tagOf(exh, status)),
-      el('img', { src: asset(exh.poster), alt: exh.title }),
+      el('div', { class: `hero-figure${seen}`, 'data-reveal': true },
+        el('span', { class: 'hero-figure-tag' }, tagOf(exh, status)),
+        el('img', { src: asset(exh.poster), alt: exh.title }),
+      ),
     ),
   );
+}
+
+// 전시 히어로 (오프닝 배너 아래). 전시가 둘 이상이면 9초마다 옆으로 넘어간다.
+function renderHero(list) {
+  const mount = document.getElementById('hero-mount');
+  if (!mount) return;
+  if (!list.length) { mount.remove(); return; }
+
+  const slides = list.map((exh, i) => heroSlide(exh, i === 0));
+  const track = el('div', { class: 'hero-track' }, ...slides);
+  const dots = list.length > 1
+    ? list.map((exh) => el('button', {
+      class: 'hero-dot',
+      type: 'button',
+      'aria-label': `${exh.title} 보기`,
+    }))
+    : [];
+  mount.append(track, dots.length ? el('div', { class: 'hero-dots' }, ...dots) : null);
+  if (!dots.length) return;
+  mount.classList.add('has-dots'); // 점이 놓일 자리만큼 아래 여백을 넓힌다
+
+  // 화면 밖으로 밀린 장은 클릭·탭 이동 대상에서 뺀다
+  let cur = 0;
+  const show = (i) => {
+    cur = i;
+    track.style.transform = `translateX(-${i * 100}%)`;
+    slides.forEach((s, k) => {
+      s.setAttribute('aria-hidden', k === i ? 'false' : 'true');
+      s.querySelector('a').tabIndex = k === i ? 0 : -1;
+    });
+    dots.forEach((d, k) => d.classList.toggle('is-active', k === i));
+  };
+  show(0);
+
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    dots.forEach((d, i) => d.addEventListener('click', () => show(i)));
+    return;
+  }
+
+  // 매 차례마다 hover 여부를 그때 확인한다. pointerenter/leave 로 타이머를 껐다 켜면
+  // leave 가 한 번 빠졌을 때(스크롤 중 커서가 창 밖으로 나가는 등) 영영 멈춘 채로 남는다.
+  let timer = null;
+  const restart = () => {
+    clearInterval(timer);
+    timer = setInterval(() => {
+      if (mount.matches(':hover')) return; // 읽는 중이면 이번 차례는 건너뛴다
+      show((cur + 1) % slides.length);
+    }, 9000);
+  };
+  dots.forEach((d, i) => d.addEventListener('click', () => { show(i); restart(); }));
+  restart();
 }
 
 // 공간 모드에서 02 예정 전시 자리를 대신하는 안내 카드
@@ -200,10 +250,18 @@ function renderAbout(about) {
 
 // 화면에 남은 섹션 순서대로 번호를 다시 매긴다(오프닝이 01).
 // 블록이 모드에 따라 사라지므로 정적 번호는 어긋날 수 있음.
+// 히어로 슬라이드는 여러 장이어도 같은 섹션이므로 번호 하나를 나눠 쓴다.
 function renumberSections() {
-  document.querySelectorAll('.hero-kicker b, .block-head .num').forEach((n, i) => {
-    n.textContent = String(i + 1).padStart(2, '0');
+  const groups = [];
+  document.querySelectorAll('.hero-kicker b, .block-head .num').forEach((n) => {
+    const key = n.closest('.hero-stage') || n;
+    const last = groups[groups.length - 1];
+    if (last && last.key === key) last.nodes.push(n);
+    else groups.push({ key, nodes: [n] });
   });
+  groups.forEach((g, i) => g.nodes.forEach((n) => {
+    n.textContent = String(i + 1).padStart(2, '0');
+  }));
 }
 
 async function main() {
@@ -222,15 +280,25 @@ async function main() {
   // 스트립에 태울 '살아있는' 전시 — 지정 전시가 끝났으면 예정 전시로 대체
   const heroExh = byId[home.heroExhibitionId];
   const upcomingExh = byId[home.upcomingExhibitionId];
-  const alive = (e) => (e && computeStatus(e) !== 'past' ? e : null);
+  const alive = (e) => (e && !e.draft && computeStatus(e) !== 'past' ? e : null);
   const pref = home.spaceHero || 'auto';
-  const liveExh = pref === 'always' ? null : (alive(heroExh) || alive(upcomingExh));
+
+  // 히어로에 세울 전시들. heroAlsoShow 를 두면 두 전시가 번갈아 나오고,
+  // until(표시 종료일)이 지나면 그 전시는 스스로 빠져 heroExhibitionId 하나만 남는다.
+  const heroes = [];
+  if (pref !== 'always') {
+    const also = home.heroAlsoShow || {};
+    const alsoExh = byId[also.id];
+    if (alsoExh && !alsoExh.draft && todayISO() <= (also.until || alsoExh.endDate || '')) heroes.push(alsoExh);
+    if (alive(heroExh) && !heroes.some((e) => e.id === heroExh.id)) heroes.push(heroExh);
+    if (!heroes.length && alive(upcomingExh)) heroes.push(upcomingExh);
+  }
 
   renderSpaceOpening(settings.space);
-  if (liveExh) {
-    renderHero(liveExh);
-    // 히어로와 같은 전시를 Upcoming 카드에 또 보여주지 않는다
-    const dup = upcomingExh && upcomingExh.id === liveExh.id;
+  if (heroes.length) {
+    renderHero(heroes);
+    // 히어로에 이미 선 전시를 Upcoming 카드에 또 보여주지 않는다
+    const dup = upcomingExh && heroes.some((e) => e.id === upcomingExh.id);
     renderUpcoming(dup ? null : alive(upcomingExh));
   } else {
     // 진행·예정 전시가 없으면 히어로를 접고, 예정 자리에 준비 중 안내를 띄운다

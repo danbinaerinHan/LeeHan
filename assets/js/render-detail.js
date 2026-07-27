@@ -5,6 +5,7 @@ import {
   el, asset, escapeHtml, fillMarquee, metaStripNodes, photoGridNode, videoNode, renderSiteFooter,
 } from './render.js';
 import { initUI } from './ui.js';
+import { openLightbox } from './lightbox.js';
 
 function getParam(name) {
   return new URLSearchParams(location.search).get(name);
@@ -88,7 +89,10 @@ function renderDetail(exh, settings) {
 
   // 사진 갤러리
   const galleryMount = document.getElementById('detail-gallery-mount');
-  const grid = photoGridNode(exh.photos, exh.galleryLayout);
+  const shots = (exh.photos || []).filter((p) => p && p.src);
+  const grid = photoGridNode(exh.photos, exh.galleryLayout, (i) => {
+    openLightbox(shots.map((p) => ({ src: asset(p.src), alt: p.alt || '' })), i);
+  });
   if (grid) {
     galleryMount.append(
       el('div', { class: 'detail-body-eyebrow' }, el('b', null, '—'), ' Gallery'),

@@ -61,17 +61,23 @@ export function metaStripNodes(strip) {
   );
 }
 
-// 사진 그리드(라이트박스 없음)
+// 사진 그리드
 // layout: 'masonry'(기본, 벽돌쌓기 — 순서가 열 방향) | 'rows'(가로 행 — 번호순 콘텐츠용)
-export function photoGridNode(photos, layout) {
+// onOpen(i)를 주면 각 사진이 눌러서 확대할 수 있는 버튼이 된다
+export function photoGridNode(photos, layout, onOpen) {
   const list = (photos || []).filter((p) => p && p.src);
   if (!list.length) return null;
   const grid = el('div', {
     class: layout === 'rows' ? 'detail-gallery-grid gallery-rows' : 'detail-gallery-grid',
   });
   grid.style.setProperty('--cols', String(Math.min(4, list.length)));
-  list.forEach((p) => {
-    grid.append(el('figure', null, el('img', { src: asset(p.src), alt: p.alt || '', loading: 'lazy' })));
+  list.forEach((p, i) => {
+    const img = el('img', { src: asset(p.src), alt: p.alt || '', loading: 'lazy' });
+    const inner = onOpen
+      ? el('button', { class: 'gal-zoom', type: 'button', 'aria-label': '사진 크게 보기' }, img)
+      : img;
+    if (onOpen) inner.addEventListener('click', () => onOpen(i));
+    grid.append(el('figure', null, inner));
   });
   return grid;
 }

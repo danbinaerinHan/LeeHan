@@ -73,17 +73,19 @@ function initReveal() {
 
 function initParallax() {
   const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  const hero = document.querySelector('.hero');
-  const figure = hero && hero.querySelector('.hero-figure');
-  if (reduce || !hero || !figure) return;
-  hero.addEventListener('pointermove', (e) => {
-    const r = hero.getBoundingClientRect();
-    const dx = (e.clientX - r.left) / r.width - 0.5;
-    const dy = (e.clientY - r.top) / r.height - 0.5;
-    figure.style.transform = `translate(${dx * 14}px, ${dy * 14}px)`;
-  });
-  hero.addEventListener('pointerleave', () => {
-    figure.style.transform = '';
+  if (reduce) return;
+  document.querySelectorAll('.hero').forEach((hero) => {
+    const figure = hero.querySelector('.hero-figure');
+    if (!figure) return;
+    hero.addEventListener('pointermove', (e) => {
+      const r = hero.getBoundingClientRect();
+      const dx = (e.clientX - r.left) / r.width - 0.5;
+      const dy = (e.clientY - r.top) / r.height - 0.5;
+      figure.style.transform = `translate(${dx * 14}px, ${dy * 14}px)`;
+    });
+    hero.addEventListener('pointerleave', () => {
+      figure.style.transform = '';
+    });
   });
 }
 
