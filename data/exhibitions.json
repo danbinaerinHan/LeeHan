@@ -54,7 +54,7 @@
       },
       "draft": false,
       "createdAt": "2026-05-27T00:00:00Z",
-      "updatedAt": "2026-07-11T03:13:15.402Z"
+      "updatedAt": "2026-08-11T12:28:37.779Z"
     },
     {
       "id": "exh_20260617_hawaii",
@@ -173,7 +173,7 @@
       },
       "draft": false,
       "createdAt": "2026-06-17T00:00:00Z",
-      "updatedAt": "2026-07-16T00:00:00.000Z"
+      "updatedAt": "2026-08-11T12:28:37.779Z"
     },
     {
       "id": "exh_20260701_leejungyeon",
@@ -292,7 +292,7 @@
       },
       "draft": false,
       "createdAt": "2026-07-01T00:00:00Z",
-      "updatedAt": "2026-07-16T11:00:00.000Z",
+      "updatedAt": "2026-08-11T12:28:37.779Z",
       "galleryLayout": "rows"
     },
     {
@@ -384,8 +384,94 @@
       },
       "draft": false,
       "createdAt": "2026-07-27T00:00:00Z",
-      "updatedAt": "2026-07-27T00:00:00Z",
+      "updatedAt": "2026-08-11T12:28:37.779Z",
       "galleryLayout": "rows"
+    },
+    {
+      "id": "exh_1786451026135",
+      "slug": "samra",
+      "title": "삼라森羅 : Six Worlds",
+      "titleHtml": "",
+      "artist": "작가 6인 단체전 | 공간리한 홍보기획전",
+      "startDate": "2026-08-12",
+      "endDate": "2026-09-01",
+      "dateDisplay": "2026.08.12(수) – 2026.09.01(화)",
+      "statusOverride": null,
+      "kicker": null,
+      "figureTag": null,
+      "poster": "uploads/2026/exh_1786451026135/poster-1786451236507.jpg",
+      "photos": [
+        {
+          "src": "uploads/2026/exh_1786451026135/photo-1786451242281.jpg",
+          "alt": ""
+        },
+        {
+          "src": "uploads/2026/exh_1786451026135/photo-1786451242372.jpg",
+          "alt": ""
+        },
+        {
+          "src": "uploads/2026/exh_1786451026135/photo-1786451251969.jpg",
+          "alt": ""
+        },
+        {
+          "src": "uploads/2026/exh_1786451026135/photo-1786451252119.jpg",
+          "alt": ""
+        },
+        {
+          "src": "uploads/2026/exh_1786451026135/photo-1786451252281.jpg",
+          "alt": ""
+        },
+        {
+          "src": "uploads/2026/exh_1786451026135/photo-1786451252479.jpg",
+          "alt": ""
+        },
+        {
+          "src": "uploads/2026/exh_1786451026135/photo-1786451254691.jpg",
+          "alt": ""
+        },
+        {
+          "src": "uploads/2026/exh_1786451026135/photo-1786451254868.jpg",
+          "alt": ""
+        },
+        {
+          "src": "uploads/2026/exh_1786451026135/photo-1786451255016.jpg",
+          "alt": ""
+        },
+        {
+          "src": "uploads/2026/exh_1786451026135/photo-1786451255153.jpg",
+          "alt": ""
+        },
+        {
+          "src": "uploads/2026/exh_1786451026135/photo-1786451255319.jpg",
+          "alt": ""
+        },
+        {
+          "src": "uploads/2026/exh_1786451026135/photo-1786451255653.jpg",
+          "alt": ""
+        },
+        {
+          "src": "uploads/2026/exh_1786451026135/photo-1786451255914.jpg",
+          "alt": ""
+        },
+        {
+          "src": "uploads/2026/exh_1786451026135/photo-1786451256024.jpg",
+          "alt": ""
+        }
+      ],
+      "videoEmbedUrl": "",
+      "lede": "",
+      "heroMeta": [],
+      "metaStrip": [],
+      "bodyEyebrow": "About the Exhibition",
+      "bodyHtml": "",
+      "og": {
+        "title": "",
+        "description": "",
+        "image": "uploads/2026/exh_1786451026135/poster-1786451236507.jpg"
+      },
+      "draft": true,
+      "createdAt": "2026-08-11T12:23:46.135Z",
+      "updatedAt": "2026-08-11T12:28:37.779Z"
     }
   ]
 }
