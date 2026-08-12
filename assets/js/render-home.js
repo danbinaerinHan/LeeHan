@@ -132,8 +132,11 @@ function renderHero(list) {
       'aria-label': `${exh.title} 보기`,
     }))
     : [];
-  mount.append(track, dots.length ? el('div', { class: 'hero-dots' }, ...dots) : null);
+  // el()과 달리 raw append 는 null 을 걸러주지 않는다 —
+  // 넘기면 "null" 이 텍스트 노드로 박히므로(전시가 한 장일 때) 점이 있을 때만 붙인다
+  mount.append(track);
   if (!dots.length) return;
+  mount.append(el('div', { class: 'hero-dots' }, ...dots));
   mount.classList.add('has-dots'); // 점이 놓일 자리만큼 아래 여백을 넓힌다
 
   // 화면 밖으로 밀린 장은 클릭·탭 이동 대상에서 뺀다

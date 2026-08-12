@@ -1,14 +1,15 @@
 {
   "schemaVersion": 1,
-  "buildId": "2026-08-11T12:28:37.779Z",
+  "buildId": "2026-08-12T00:00:00.000Z",
   "homepage": {
-    "heroExhibitionId": "exh_20260729_heojineui",
+    "heroExhibitionId": "exh_1786451026135",
     "heroAlsoShow": {
-      "id": "exh_20260701_leejungyeon",
-      "until": "2026-07-28"
+      "id": "",
+      "until": ""
     },
     "upcomingExhibitionId": "",
     "scheduleOrder": [
+      "exh_1786451026135",
       "exh_20260729_heojineui",
       "exh_20260701_leejungyeon",
       "exh_20260617_hawaii",
@@ -19,8 +20,8 @@
   "marquee": {
     "home": [
       "지금, 공간리한",
-      "〈빛이 밤을 모를 때〉 — 2026.7.29 – 8.10",
-      "작가 허진의 개인전 · 공간리한 홍보기획전",
+      "〈삼라森羅 : Six Worlds〉 — 2026.8.12 – 9.1",
+      "작가 6인 단체전 · 공간리한 홍보기획전",
       "작은 것의 위대한 힘",
       "(재)이수진한국인형극재단 산하",
       "서대문구 통일로 333",

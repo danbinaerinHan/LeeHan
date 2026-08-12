@@ -333,6 +333,13 @@ nav {
   margin-bottom: 26px;
 }
 
+/* 한글에 한자가 곧바로 맞붙는 제목(삼라森羅)용.
+   제목은 700 굵기에 음수 자간이라 그대로 두면 라와 森의 획이 닿아 한 글자처럼 뭉친다.
+   titleHtml 안에서 한자 쪽을 이 클래스로 감싼다 — 히어로·상세 양쪽에 함께 걸린다. */
+.title-cjk {
+  margin-left: 0.09em;
+}
+
 .detail-artist {
   font-family: var(--font-body);
   font-size: 16px;
