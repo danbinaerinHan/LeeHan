@@ -1,14 +1,15 @@
 {
   "schemaVersion": 1,
-  "buildId": "2026-08-12T00:00:00.000Z",
+  "buildId": "2026-09-18T00:00:00.000Z",
   "homepage": {
-    "heroExhibitionId": "exh_1786451026135",
+    "heroExhibitionId": "exh_20260916_sulsullife",
     "heroAlsoShow": {
       "id": "",
       "until": ""
     },
     "upcomingExhibitionId": "",
     "scheduleOrder": [
+      "exh_20260916_sulsullife",
       "exh_1786451026135",
       "exh_20260729_heojineui",
       "exh_20260701_leejungyeon",
@@ -20,8 +21,8 @@
   "marquee": {
     "home": [
       "지금, 공간리한",
-      "〈삼라森羅 : Six Worlds〉 — 2026.8.12 – 9.1",
-      "작가 6인 단체전 · 공간리한 홍보기획전",
+      "〈이어 붙-인 시간들〉 — 2026.9.16 – 9.30",
+      "술술라이프 개인전 · 타이포그래피 그래픽",
       "작은 것의 위대한 힘",
       "(재)이수진한국인형극재단 산하",
       "서대문구 통일로 333",

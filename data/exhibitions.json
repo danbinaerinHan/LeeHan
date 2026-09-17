@@ -498,6 +498,110 @@
       "createdAt": "2026-08-11T12:23:46.135Z",
       "updatedAt": "2026-08-12T00:00:00.000Z",
       "galleryLayout": "rows"
+    },
+    {
+      "id": "exh_20260916_sulsullife",
+      "slug": "sulsullife",
+      "title": "이어 붙-인 시간들",
+      "titleHtml": "이어 붙-인 시간들",
+      "artist": "술술라이프 개인전 · 타이포그래피 그래픽",
+      "startDate": "2026-09-16",
+      "endDate": "2026-09-30",
+      "dateDisplay": "2026.09.16(수) — 09.30(수)",
+      "statusOverride": null,
+      "kicker": "술술라이프 개인전",
+      "figureTag": null,
+      "poster": "uploads/2026/sulsullife/poster.jpg",
+      "photos": [
+        {
+          "src": "uploads/2026/sulsullife/work-01.jpg",
+          "alt": "글자줍기 @typo.jupjup — 도시의 골목에서 주워 모은 간판 글자와 레터링을 검은 바탕에 빼곡히 늘어놓은 아카이브"
+        },
+        {
+          "src": "uploads/2026/sulsullife/work-02.jpg",
+          "alt": "파리 낭만이 시작되는 곳 — 푸른 하늘과 붉은 장미 자수 사이에 놓인 초록 테두리 한글 레터링"
+        },
+        {
+          "src": "uploads/2026/sulsullife/work-03.jpg",
+          "alt": "시작이 반 완성은 매일 — 연둣빛 바탕 위로 물결처럼 흐르는 푸른 붓글씨 레터링"
+        },
+        {
+          "src": "uploads/2026/sulsullife/work-04.jpg",
+          "alt": "DRINK UP · GO WILD · GO HARD — 불꽃이 타오르는 형태로 그린 한글 레터링 세 가지 색 변주"
+        },
+        {
+          "src": "uploads/2026/sulsullife/work-05.jpg",
+          "alt": "청바지 원단 위에 스티치로 수놓은 듯 짜 넣은 한글 레터링"
+        },
+        {
+          "src": "uploads/2026/sulsullife/work-06.jpg",
+          "alt": "한계를 넘어 승리하라 환호하라 — 인천 아트페어 Art On Paper :100 Poster 출품작. 붉고 푸른 빛줄기 위의 둥근 한글 레터링"
+        },
+        {
+          "src": "uploads/2026/sulsullife/work-07.jpg",
+          "alt": "건강한 돼지가 되자 — 초록색 붓 터치 레터링과 엄지를 든 새끼 돼지 캐릭터"
+        },
+        {
+          "src": "uploads/2026/sulsullife/work-08.jpg",
+          "alt": "복숭아 여름의 맛 — 나뭇가지에 매달린 복숭아 사진 위에 흰 선으로 얹은 레터링"
+        },
+        {
+          "src": "uploads/2026/sulsullife/work-09.jpg",
+          "alt": "삼계탕 일생한방 — 자개빛으로 채운 한글 레터링과 인삼·닭·대추·은행 일러스트"
+        },
+        {
+          "src": "uploads/2026/sulsullife/work-10.jpg",
+          "alt": "하트와 넝쿨이 엉킨 붉은 장식 레터링"
+        },
+        {
+          "src": "uploads/2026/sulsullife/work-11.jpg",
+          "alt": "하트와 넝쿨이 엉킨 분홍 장식 레터링"
+        },
+        {
+          "src": "uploads/2026/sulsullife/work-12.jpg",
+          "alt": "하트와 넝쿨이 엉킨 초록 장식 레터링"
+        }
+      ],
+      "videoEmbedUrl": "",
+      "lede": "바느질하듯 이어 붙이고, 불에 달구듯 밀어붙인 시간들. 타이포그래피를 기반으로 작업하는 그래픽 디자이너 술술라이프가 골목에서 주운 글자와 손으로 빚은 레터링을 한자리에 펼칩니다. 말이 형태를 갖추는 순간을 만나보세요.",
+      "heroMeta": [],
+      "metaStrip": [
+        {
+          "label": "Dates",
+          "valueHtml": "2026.09.16(수) — 09.30(수)"
+        },
+        {
+          "label": "Hours",
+          "valueHtml": "11:00 – 17:00<br>화요일 휴관"
+        },
+        {
+          "label": "Venue",
+          "valueHtml": "공간 리한<br>서울 서대문구 통일로 333, 1층"
+        },
+        {
+          "label": "Artist",
+          "valueHtml": "술술라이프<br>@sul.sul_life"
+        },
+        {
+          "label": "Format",
+          "valueHtml": "개인전 · 그래픽 · 타이포그래피<br>무료 관람"
+        },
+        {
+          "label": "Host",
+          "valueHtml": "주최 재단법인 이수진한국인형극재단<br>주관 공간리한"
+        }
+      ],
+      "bodyEyebrow": "About the Exhibition",
+      "bodyHtml": "<p>바느질하듯 이어 붙이고, 불에 달구듯 밀어붙인 시간들. 그래픽 디자이너 술술라이프가 타이포그래피를 기반으로 쌓아온 작업을 한자리에 펼칩니다.</p>\n<p>글자는 뜻을 담는 그릇이면서, 그 자체로 형태를 가진 그림이기도 합니다. 술술라이프의 레터링은 장미 자수가 되었다가, 청바지의 스티치가 되었다가, 타오르는 불꽃이 되기도 합니다. 말이 옷을 갈아입을 때마다 달라지는 표정을 따라가 보세요.</p>\n<h2 class=\"detail-subhead\"><span class=\"detail-subhead-num\">Artist</span>술술라이프</h2>\n<p>타이포그래피를 기반으로 그래픽을 비롯한 다양한 시각 작업을 합니다. 어른이의 행복을 담은 굿즈 브랜드 ‘술술라이프’를 운영하며, 도시의 골목에서 발견한 글자를 기록하는 글자줍기 <strong>@typo.jupjup</strong> 프로젝트를 통해 일상 속에서 만나는 다양한 언어와 글자의 모습을 수집합니다.</p>\n<h2 class=\"detail-subhead\"><span class=\"detail-subhead-num\">Works</span>주요 작업</h2>\n<p>남산골 한옥마을 정월대보름 청사진 축제 키비주얼 제작<br>\n남산골 한옥마을 동지섣달 축제 키비주얼, 달력 디자인 제작<br>\n남산골 국악당 국악위크, 실무특강 키비주얼 제작<br>\n전통소바 메르밀 진미집 상호 타이틀 슬로건 제작<br>\n인천 아트페어 Art On Paper :100 Poster 〈한계를 넘어 승리하라〉 포스터 참여<br>\n픽스필즈 SQUAD MAGAZINE VOL.17 Olympics 29 ARTIST &amp; ARTWORK 포스터진 참여<br>\nSAMSUNG THEME STORE 갤럭시 테마 5종 그래픽 제작</p>\n<p>작업 문의 sulsul_life@naver.com · 인스타그램 @sul.sul_life</p>",
+      "og": {
+        "title": "술술라이프 개인전 〈이어 붙-인 시간들〉 — 공간리한",
+        "description": "타이포그래피 기반 그래픽 디자이너 술술라이프의 레터링 작업. 2026.9.16 – 9.30 공간리한, 무료 관람.",
+        "image": "uploads/2026/sulsullife/poster.jpg"
+      },
+      "draft": false,
+      "createdAt": "2026-09-18T00:00:00.000Z",
+      "updatedAt": "2026-09-18T00:00:00.000Z",
+      "galleryLayout": "masonry"
     }
   ]
 }
