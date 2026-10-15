@@ -3290,3 +3290,16 @@ a.exhibition-current.upcoming-notice {
 #schedule {
   scroll-margin-top: 104px;
 }
+
+/* 대관 일정 페이지 — 달력 자체 스타일은 calendar.css */
+.rental-calendar-wrap {
+  max-width: 980px;
+  margin: 0 auto;
+  padding: 56px 40px 40px;
+}
+
+@media (max-width: 720px) {
+  .rental-calendar-wrap {
+    padding: 40px 16px 32px;
+  }
+}

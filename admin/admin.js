@@ -4,13 +4,14 @@ import {
 } from './github.js';
 import { encryptToken, decryptToken } from './crypto.js';
 import { el, asset, escapeHtml, embedUrl } from '../assets/js/render.js';
-import { computeStatus, STATUS_LABEL_KO } from '../assets/js/status.js';
+import { computeStatus, STATUS_LABEL_KO, todayISO } from '../assets/js/status.js';
+import { mountRentalCalendar, rangeText } from '../assets/js/render-calendar.js';
 
 const PREVIEW_KEY = 'leehan_preview';
 const CRED_PATH = 'admin/credentials.json';
 
 const state = {
-  model: { exhibitions: [], settings: {} },
+  model: { exhibitions: [], settings: {}, rentals: [] },
   pendingImages: new Map(), // repoPath -> { base64, objectUrl, dataUrl }
   dirty: false,
   loaded: false,
@@ -147,13 +148,15 @@ async function enterApp(auth) {
 async function loadModel() {
   setStatus('불러오는 중…');
   try {
-    const [exhFile, setFile] = await Promise.all([
+    const [exhFile, setFile, rentFile] = await Promise.all([
       getFile('data/exhibitions.json'),
       getFile('data/settings.json'),
+      getFile('data/rentals.json'),
     ]);
     const exhDoc = exhFile ? JSON.parse(exhFile.content) : { exhibitions: [] };
     state.model.exhibitions = exhDoc.exhibitions || [];
     state.model.settings = setFile ? JSON.parse(setFile.content) : {};
+    state.model.rentals = rentFile ? (JSON.parse(rentFile.content).rentals || []) : [];
     state.loaded = true;
     state.dirty = false;
     setStatus('변경 사항 없음');
@@ -190,6 +193,7 @@ function showView(view) {
   if (view === 'exhibitions') { renderList(); $('#view-exhibitions').classList.add('active'); }
   else if (view === 'editor') { $('#view-editor').classList.add('active'); }
   else if (view === 'homepage') { renderHomepage(); $('#view-homepage').classList.add('active'); }
+  else if (view === 'rentals') { renderRentals(); $('#view-rentals').classList.add('active'); }
   else if (view === 'site') { renderSite(); $('#view-site').classList.add('active'); }
 }
 
@@ -617,6 +621,86 @@ function buildScheduleOrder(hp) {
   return card;
 }
 
+// ─────────────────────────────────────── 대관 일정
+// data/rentals.json — { id, start, end } 만 저장한다. 공개 저장소라 이름·연락처는 넣지 않는다
+let _rentalMonth = null; // 다시 그려도 보던 달 유지
+
+function renderRentals() {
+  const root = $('#view-rentals');
+  root.innerHTML = '';
+  const rentals = state.model.rentals;
+  const draft = { start: '', end: '' };
+
+  const startIn = el('input', { type: 'date' });
+  const endIn = el('input', { type: 'date' });
+  const sync = () => { startIn.value = draft.start; endIn.value = draft.end; };
+  startIn.addEventListener('input', () => { draft.start = startIn.value; if (!draft.end || draft.end < draft.start) draft.end = draft.start; sync(); });
+  endIn.addEventListener('input', () => { draft.end = endIn.value; });
+
+  // 달력에서 날짜를 누르면: 첫 클릭 = 시작일, 두 번째 클릭 = 종료일
+  let picking = false;
+  function pick(iso) {
+    if (!picking || iso < draft.start) { draft.start = iso; draft.end = iso; picking = true; }
+    else { draft.end = iso; picking = false; }
+    sync();
+  }
+
+  function add() {
+    const { start, end } = draft;
+    if (!start || !end) { toast('시작일과 종료일을 고르세요.'); return; }
+    if (end < start) { toast('종료일이 시작일보다 빠릅니다.'); return; }
+    const clash = rentals.find((r) => r.start <= end && r.end >= start);
+    if (clash) { toast(`이미 대관된 기간(${rangeText(clash)})과 겹칩니다.`); return; }
+    state.model.rentals = [...rentals, { id: `rent_${start.replace(/-/g, '')}_${Date.now().toString(36)}`, start, end }]
+      .sort((a, b) => a.start.localeCompare(b.start));
+    markDirty();
+    renderRentals();
+  }
+
+  function remove(id) {
+    state.model.rentals = rentals.filter((r) => r.id !== id);
+    markDirty();
+    renderRentals();
+  }
+
+  const calRoot = el('div');
+  const today = todayISO();
+  const upcoming = rentals.filter((r) => r.end >= today);
+  const past = rentals.filter((r) => r.end < today);
+  const row = (r) => el('div', { class: 'order-item' },
+    el('span', { class: 't' }, rangeText(r)),
+    el('button', { class: 'btn btn-sm btn-danger', onclick: () => remove(r.id) }, '삭제'));
+
+  root.append(
+    el('div', { class: 'card' },
+      el('h3', null, '대관 달력'),
+      el('p', { class: 'hint-block' }, '날짜를 두 번 누르면 시작일 · 종료일이 아래 칸에 채워집니다. 추가 후 [저장 · 발행]을 눌러야 반영됩니다.'),
+      calRoot,
+    ),
+    el('div', { class: 'card' },
+      el('h3', null, '대관 기간 추가'),
+      el('div', { class: 'grid-2' },
+        el('div', { class: 'field' }, el('label', null, '시작일'), startIn),
+        el('div', { class: 'field' }, el('label', null, '종료일', el('span', { class: 'hint' }, '하루면 시작일과 같게')), endIn),
+      ),
+      el('div', { class: 'inline-actions' }, el('button', { class: 'btn btn-primary', onclick: add }, '+ 대관 추가')),
+    ),
+    el('div', { class: 'card' },
+      el('h3', null, `예정된 대관 ${upcoming.length}건`),
+      upcoming.length ? el('div', { class: 'order-list' }, upcoming.map(row)) : el('p', { class: 'hint-block' }, '없음'),
+      past.length > 0 && el('details', { class: 'past-rentals' },
+        el('summary', null, `지난 대관 ${past.length}건`),
+        el('div', { class: 'order-list' }, past.map(row))),
+    ),
+  );
+  mountRentalCalendar(calRoot, {
+    getRentals: () => state.model.rentals,
+    onDayClick: pick,
+    month: _rentalMonth,
+    onMonthChange: (d) => { _rentalMonth = d; },
+  });
+}
+
 // ─────────────────────────────────────── 사이트 정보
 function renderSite() {
   const root = $('#view-site');
@@ -787,6 +871,7 @@ async function publish() {
     const files = [
       { path: 'data/exhibitions.json', text: JSON.stringify({ schemaVersion: 1, exhibitions: state.model.exhibitions }, null, 2) },
       { path: 'data/settings.json', text: JSON.stringify(state.model.settings, null, 2) },
+      { path: 'data/rentals.json', text: JSON.stringify({ schemaVersion: 1, rentals: state.model.rentals }, null, 2) + '\n' },
     ];
     for (const [path, img] of state.pendingImages) files.push({ path, base64: img.base64 });
     for (const exh of state.model.exhibitions) {

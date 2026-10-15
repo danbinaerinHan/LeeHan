@@ -195,3 +195,8 @@ button {
   pointer-events: none;
 }
 .toast.show { opacity: 1; transform: translateX(-50%) translateY(4px); }
+
+/* rentals */
+.hint-block { font-size: 13px; color: var(--muted); margin: -6px 0 16px; }
+.past-rentals { margin-top: 14px; }
+.past-rentals summary { font-size: 13px; color: var(--muted); cursor: pointer; margin-bottom: 8px; }
