@@ -3414,6 +3414,7 @@ a.exhibition-current.upcoming-notice {
 .apply-form input[type="text"],
 .apply-form input[type="tel"],
 .apply-form input[type="email"],
+.apply-form input[type="date"],
 .apply-form input:not([type]),
 .apply-form textarea {
   width: 100%;
@@ -3663,6 +3664,37 @@ a.exhibition-current.upcoming-notice {
   border-color: var(--accent);
 }
 
-.apply-form .apply-checks.is-invalid {
+.apply-form .apply-checks.is-invalid,
+.apply-form .apply-checks label.is-invalid {
   color: var(--accent);
+}
+
+/* 신청서 — 시간 외 사용 (날짜 → 시간대) */
+.apply-ot-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px 12px;
+  margin-top: 8px;
+}
+
+.apply-form .apply-ot-row input[type="date"] {
+  width: 180px;
+  padding: 7px 12px;
+  font-size: 14px;
+}
+
+.apply-ot-row .apply-remove {
+  margin-left: auto;
+}
+
+#apply-add-overtime {
+  margin-top: 12px;
+  align-self: flex-start;
+}
+
+@media (max-width: 720px) {
+  .apply-form .apply-ot-row input[type="date"] {
+    width: 100%;
+  }
 }

@@ -132,12 +132,9 @@
 
         <div class="apply-field full">
           <span>시간 외 사용 필요 여부 <em>(사전 승인 필요)</em></span>
-          <div class="apply-chips">
-            <label><input type="checkbox" name="overtime" value="09–10시">09–10시</label>
-            <label><input type="checkbox" name="overtime" value="18–21시">18–21시</label>
-            <label><input type="checkbox" name="overtime" value="야간">야간</label>
-            <input class="apply-inline" name="overtimePeriod" placeholder="필요 기간">
-          </div>
+          <small class="apply-hint">날짜를 고른 뒤 그날 필요한 시간대를 체크해 주세요.</small>
+          <div id="apply-overtime"></div>
+          <button type="button" class="apply-add" id="apply-add-overtime">+ 날짜 추가</button>
         </div>
       </fieldset>
 
@@ -160,10 +157,10 @@
       <!-- 5 -->
       <fieldset class="apply-sec">
         <legend><span class="apply-num">05</span>첨부 서류</legend>
-        <p class="apply-note">파일은 신청 메일에 직접 첨부해 주세요. 보낼 서류에 체크합니다.</p>
+        <p class="apply-note">파일은 신청 메일에 직접 첨부해 주세요. 보낼 서류에 체크합니다. 작가 약력 및 포트폴리오는 필수입니다.</p>
         <div class="apply-checks">
           <label><input type="checkbox" name="docs" value="전시 기획서">전시 기획서 <em>(자유 양식)</em></label>
-          <label><input type="checkbox" name="docs" value="작가 약력 및 포트폴리오">작가 약력 및 포트폴리오 <em>(작품 이미지 삽입 필수)</em></label>
+          <label><input type="checkbox" name="docs" value="작가 약력 및 포트폴리오" data-required>작가 약력 및 포트폴리오 <i>*</i> <em>(작품 이미지 삽입 필수)</em></label>
           <label><input type="checkbox" name="docs" value="작품 설치 계획 또는 배치 스케치">작품 설치 계획 또는 배치 스케치</label>
           <label><input type="checkbox" name="docs" value="신진·학생 증빙 서류">증빙 서류 <em>(신진·학생 할인 신청 시)</em></label>
         </div>

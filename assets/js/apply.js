@@ -17,9 +17,10 @@ const PERSON_FIELDS = [
 ];
 
 // 양식의 체크박스 그룹 = 폼의 input name
-const CHECK_GROUPS = ['type', 'package', 'genre', 'overtime', 'sale', 'docs', 'privacy'];
+const CHECK_GROUPS = ['type', 'package', 'genre', 'sale', 'docs', 'privacy'];
 const TEXT_FIELDS = ['title', 'period1', 'period2', 'packageEtc', 'install', 'genreEtc', 'count',
-  'maxSize', 'events', 'overtimePeriod', 'priceRange', 'goods', 'signer'];
+  'maxSize', 'events', 'priceRange', 'goods', 'signer'];
+const OVERTIME_SLOTS = ['09–10시', '18–21시', '야간'];
 
 let personSeq = 0;
 
@@ -52,6 +53,33 @@ function personBlock(index, onRemove) {
   return block;
 }
 
+// 시간 외 사용 — 한 줄 = 날짜 하나 + 그날의 시간대
+function overtimeRow(removable, onRemove) {
+  const id = ++personSeq;
+  const row = el('div', { class: 'apply-ot-row', 'data-ot': '' },
+    el('input', { type: 'date', 'data-ot-date': '', 'aria-label': '시간 외 사용 날짜' }),
+    el('div', { class: 'apply-chips' },
+      OVERTIME_SLOTS.map((v) => el('label', null,
+        el('input', { type: 'checkbox', name: `ot-${id}`, value: v, 'data-ot-slot': '' }), v)),
+    ),
+    removable && el('button', { type: 'button', class: 'apply-remove', onclick: () => onRemove(row) }, '삭제'),
+  );
+  return row;
+}
+
+const formatDate = (iso) => {
+  const [, m, d] = iso.split('-').map(Number);
+  return `${m}월 ${d}일`;
+};
+
+function readOvertime(form) {
+  return [...form.querySelectorAll('[data-ot]')].map((row) => ({
+    node: row,
+    date: row.querySelector('[data-ot-date]').value,
+    slots: [...row.querySelectorAll('[data-ot-slot]:checked')].map((i) => i.value),
+  })).filter((r) => r.date || r.slots.length);
+}
+
 function renumber(list) {
   list.querySelectorAll('[data-person]').forEach((b, i) => {
     b.querySelector('.apply-person-title').textContent = i === 0 ? '대표 신청자' : `작가 ${i + 1}`;
@@ -79,9 +107,18 @@ function readForm(form) {
   values.date = new Date().toLocaleDateString('ko-KR', { year: 'numeric', month: 'long', day: 'numeric' });
   if (isInvite) values.packageEtc = '';
 
-  const checks = new Set(CHECK_GROUPS
-    .filter((g) => !(isInvite && g === 'package'))
-    .flatMap((g) => checked(form, g).map((v) => `${g}:${v}`)));
+  // 양식은 시간대 체크박스가 한 줄뿐이라: 날짜별 내역은 '필요 기간' 칸에, 체크는 고른 시간대 전부
+  const overtime = readOvertime(form);
+  values.overtimePeriod = overtime
+    .map((r) => `${r.date ? formatDate(r.date) : '날짜 미정'}${r.slots.length ? `(${r.slots.join('·')})` : ''}`)
+    .join(', ');
+
+  const checks = new Set([
+    ...CHECK_GROUPS
+      .filter((g) => !(isInvite && g === 'package'))
+      .flatMap((g) => checked(form, g).map((v) => `${g}:${v}`)),
+    ...overtime.flatMap((r) => r.slots.map((v) => `overtime:${v}`)),
+  ]);
   return { values, checks, people: readPeople(form) };
 }
 
@@ -115,6 +152,14 @@ function firstInvalid(form) {
     const msg = missing.value.trim() ? `‘${label}’ 형식을 확인해 주세요.` : `‘${label}’ 항목을 입력해 주세요.`;
     return { msg, node: missing };
   }
+  const ot = readOvertime(form).find((r) => !r.date || !r.slots.length);
+  if (ot) {
+    return ot.date
+      ? { msg: '시간 외 사용 — 필요한 시간대를 체크해 주세요.', node: ot.node.querySelector('[data-ot-slot]') }
+      : { msg: '시간 외 사용 — 날짜를 입력해 주세요.', node: ot.node.querySelector('[data-ot-date]') };
+  }
+  const requiredDoc = form.querySelector('input[name="docs"][data-required]:not(:checked)');
+  if (requiredDoc) return { msg: `${requiredDoc.value}는 필수 첨부 서류입니다. 체크하고 메일에 첨부해 주세요.`, node: requiredDoc };
   if (!form.elements.privacy.checked) return { msg: '개인정보 수집·이용에 동의해야 신청할 수 있습니다.', node: form.elements.privacy };
   if (!form.elements.confirm.checked) return { msg: '확인 항목에 체크해 주세요.', node: form.elements.confirm };
   return null;
@@ -141,6 +186,15 @@ export function mountApplyForm(form) {
     list.append(personBlock(list.children.length, remove));
   });
 
+  const otList = form.querySelector('#apply-overtime');
+  const removeOt = (row) => row.remove();
+  otList.append(overtimeRow(false, removeOt));
+  form.querySelector('#apply-add-overtime').addEventListener('click', () => {
+    const row = overtimeRow(true, removeOt);
+    otList.append(row);
+    row.querySelector('[data-ot-date]').focus();
+  });
+
   // 패키지는 대관전에만 해당
   const pkg = form.querySelector('[data-show-when="대관전"]');
   const syncType = () => { pkg.hidden = checked(form, 'type')[0] === '초대전'; };
@@ -158,7 +212,7 @@ export function mountApplyForm(form) {
     // 메시지는 문제 항목이 있는 섹션 제목 바로 아래로 — 하단 버튼 옆에 두면 스크롤된 뒤엔 안 보인다
     node.closest('fieldset').querySelector('legend').after(errorBox);
     const group = node.type === 'radio' ? [...form.querySelectorAll(`input[name="${node.name}"]`)] : [node];
-    marked = group.map((n) => n.closest('.apply-choice, .apply-checks') || n);
+    marked = group.map((n) => n.closest('.apply-choice, .apply-checks label, .apply-checks') || n);
     marked.forEach((n) => n.classList.add('is-invalid'));
     node.scrollIntoView({ behavior: 'instant', block: 'center' });
     node.focus({ preventScroll: true });
