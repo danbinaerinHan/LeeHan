@@ -3656,3 +3656,13 @@ a.exhibition-current.upcoming-notice {
     align-items: stretch;
   }
 }
+
+/* 신청서 — 빠진 필수 항목 표시 */
+.apply-form input.is-invalid,
+.apply-form .apply-choice.is-invalid {
+  border-color: var(--accent);
+}
+
+.apply-form .apply-checks.is-invalid {
+  color: var(--accent);
+}

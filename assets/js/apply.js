@@ -110,7 +110,11 @@ function firstInvalid(form) {
   const missing = [...form.querySelectorAll('input[required], textarea[required]')]
     .filter((i) => i.type !== 'checkbox' && i.type !== 'radio')
     .find((i) => !i.value.trim() || !i.checkValidity());
-  if (missing) return { msg: '필수 항목(*)을 확인해 주세요.', node: missing };
+  if (missing) {
+    const label = missing.closest('.apply-field')?.querySelector('span')?.firstChild?.textContent.trim() || '필수 항목';
+    const msg = missing.value.trim() ? `‘${label}’ 형식을 확인해 주세요.` : `‘${label}’ 항목을 입력해 주세요.`;
+    return { msg, node: missing };
+  }
   if (!form.elements.privacy.checked) return { msg: '개인정보 수집·이용에 동의해야 신청할 수 있습니다.', node: form.elements.privacy };
   if (!form.elements.confirm.checked) return { msg: '확인 항목에 체크해 주세요.', node: form.elements.confirm };
   return null;
@@ -142,11 +146,28 @@ export function mountApplyForm(form) {
   const syncType = () => { pkg.hidden = checked(form, 'type')[0] === '초대전'; };
   form.querySelectorAll('input[name="type"]').forEach((i) => i.addEventListener('change', syncType));
 
+  const errorHome = errorBox.parentNode;
+  const errorAnchor = errorBox.nextSibling;
+  let marked = [];
   const showError = (msg, node) => {
+    marked.forEach((n) => n.classList.remove('is-invalid'));
+    marked = [];
     errorBox.textContent = msg;
     errorBox.hidden = !msg;
-    if (node) { node.scrollIntoView({ behavior: 'instant', block: 'center' }); node.focus({ preventScroll: true }); }
+    if (!node) { errorHome.insertBefore(errorBox, errorAnchor); return; }
+    // 메시지는 문제 항목이 있는 섹션 제목 바로 아래로 — 하단 버튼 옆에 두면 스크롤된 뒤엔 안 보인다
+    node.closest('fieldset').querySelector('legend').after(errorBox);
+    const group = node.type === 'radio' ? [...form.querySelectorAll(`input[name="${node.name}"]`)] : [node];
+    marked = group.map((n) => n.closest('.apply-choice, .apply-checks') || n);
+    marked.forEach((n) => n.classList.add('is-invalid'));
+    node.scrollIntoView({ behavior: 'instant', block: 'center' });
+    node.focus({ preventScroll: true });
   };
+  const clearIfFixed = (e) => {
+    if (marked.some((n) => n.contains(e.target))) showError('');
+  };
+  form.addEventListener('input', clearIfFixed);
+  form.addEventListener('change', clearIfFixed);
   const validate = () => {
     const bad = firstInvalid(form);
     showError(bad?.msg || '', bad?.node);
