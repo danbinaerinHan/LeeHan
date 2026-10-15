@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>전시 신청 — 공간리한</title>
+  <meta name="description" content="공간리한 초대전·대관전 사전 신청서.">
+  <meta name="robots" content="noindex">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="공간리한 LEEHAN">
+  <meta property="og:title" content="전시 신청 — 공간리한">
+  <meta property="og:description" content="초대전·대관전 공통 사전 신청서입니다.">
+  <meta property="og:url" content="https://spaceleehan.kr/apply.html">
+  <link rel="stylesheet" href="style.css">
+  <link rel="icon" type="image/png" href="Logo.png">
+  <link rel="apple-touch-icon" href="Logo.png">
+</head>
+<body>
+
+  <div class="grain" aria-hidden="true"></div>
+
+  <!-- Header -->
+  <header>
+    <div class="nav-side left">
+      <a href="index.html#schedule">전시</a>
+      <a href="about.html">소개</a>
+      <a href="rental.html">대관</a>
+    </div>
+
+    <a href="index.html" class="logo">
+      <img src="공간리한_국문_sg2.png" alt="공간리한">
+    </a>
+
+    <div class="nav-side right">
+      <a href="index.html#info">방문</a>
+      <a href="https://instagram.com/spaceleehan" target="_blank" rel="noopener" class="nav-ig">@spaceleehan</a>
+    </div>
+
+    <button class="menu-toggle" onclick="document.querySelector('nav').classList.toggle('open')" aria-label="메뉴">
+      <span></span><span></span><span></span>
+    </button>
+
+    <nav>
+      <a href="index.html#schedule">전시</a>
+      <a href="about.html">소개</a>
+      <a href="rental.html">대관</a>
+      <a href="index.html#info">방문</a>
+    </nav>
+  </header>
+
+  <main class="about-page rental-page">
+    <a href="rental.html" class="back-link">← 대관 안내</a>
+
+    <div class="about-page-intro">
+      <div class="about-eyebrow">Application · 전시 신청</div>
+      <h1>전시 신청서</h1>
+      <p class="rental-lead">
+        초대전·대관전 공통 사전 신청서입니다.<br>
+        신청서는 계약이 아니며, 재단 검토 후 승인 통보를 받고 계약서를 체결해야 일정이 확정됩니다.
+      </p>
+    </div>
+
+    <form id="apply-form" class="apply-form" novalidate>
+
+      <!-- 1 -->
+      <fieldset class="apply-sec">
+        <legend><span class="apply-num">01</span>전시 유형</legend>
+        <label class="apply-choice">
+          <input type="radio" name="type" value="대관전" required>
+          <span><b>대관전</b>대관료·냉난방료 납부, 부가가치세 별도, 판매수수료 없음</span>
+        </label>
+        <label class="apply-choice">
+          <input type="radio" name="type" value="초대전">
+          <span><b>초대전</b>사전 협의 및 승인 필수, 공간이용료 없음, 작품 판매수수료 50% / MD 판매수수료 30%</span>
+        </label>
+      </fieldset>
+
+      <!-- 2 -->
+      <fieldset class="apply-sec">
+        <legend><span class="apply-num">02</span>신청자 정보</legend>
+        <p class="apply-note">2인 이상의 작가가 참여하는 경우, 아래 ‘작가 추가’로 모든 작가 정보를 적어 주세요.</p>
+        <div id="apply-people"></div>
+        <button type="button" class="apply-add" id="apply-add-person">+ 작가 추가</button>
+      </fieldset>
+
+      <!-- 3 -->
+      <fieldset class="apply-sec">
+        <legend><span class="apply-num">03</span>전시 개요</legend>
+        <div class="apply-grid">
+          <label class="apply-field full"><span>전시명 (가제) <i>*</i></span><input name="title" required></label>
+          <label class="apply-field"><span>희망 기간 — 1지망 <i>*</i></span><input name="period1" placeholder="예: 2027.03.02 – 03.15" required></label>
+          <label class="apply-field"><span>희망 기간 — 2지망</span><input name="period2"></label>
+        </div>
+
+        <div class="apply-field full" data-show-when="대관전">
+          <span>이용 패키지 (대관전)</span>
+          <div class="apply-chips">
+            <label><input type="radio" name="package" value="1일">1일</label>
+            <label><input type="radio" name="package" value="3일">3일</label>
+            <label><input type="radio" name="package" value="7일">7일</label>
+            <label><input type="radio" name="package" value="14일">14일</label>
+            <label><input type="radio" name="package" value="21일">21일</label>
+            <label><input type="radio" name="package" value="기타">기타</label>
+            <input class="apply-inline" name="packageEtc" placeholder="기타 내용">
+          </div>
+        </div>
+
+        <div class="apply-grid">
+          <label class="apply-field full"><span>설치·철수 예정일 및 시간</span><input name="install" placeholder="예: 설치 3/1 14–18시, 철수 3/16 10–13시"></label>
+        </div>
+
+        <div class="apply-field full">
+          <span>장르</span>
+          <div class="apply-chips">
+            <label><input type="checkbox" name="genre" value="회화">회화</label>
+            <label><input type="checkbox" name="genre" value="조각">조각</label>
+            <label><input type="checkbox" name="genre" value="설치">설치</label>
+            <label><input type="checkbox" name="genre" value="전통">전통</label>
+            <label><input type="checkbox" name="genre" value="사진">사진</label>
+            <label><input type="checkbox" name="genre" value="미디어">미디어</label>
+            <label><input type="checkbox" name="genre" value="공예">공예</label>
+            <label><input type="checkbox" name="genre" value="기타">기타</label>
+            <input class="apply-inline" name="genreEtc" placeholder="기타 내용">
+          </div>
+        </div>
+
+        <div class="apply-grid">
+          <label class="apply-field"><span>예상 출품 수량</span><input name="count" placeholder="예: 15점"></label>
+          <label class="apply-field"><span>최대 작품 크기·무게</span><input name="maxSize" placeholder="예: 162×130cm, 8kg"></label>
+          <label class="apply-field full"><span>오프닝·부대행사 계획</span><textarea name="events" rows="3"></textarea></label>
+        </div>
+
+        <div class="apply-field full">
+          <span>시간 외 사용 필요 여부 <em>(사전 승인 필요)</em></span>
+          <div class="apply-chips">
+            <label><input type="checkbox" name="overtime" value="09–10시">09–10시</label>
+            <label><input type="checkbox" name="overtime" value="18–21시">18–21시</label>
+            <label><input type="checkbox" name="overtime" value="야간">야간</label>
+            <input class="apply-inline" name="overtimePeriod" placeholder="필요 기간">
+          </div>
+        </div>
+      </fieldset>
+
+      <!-- 4 -->
+      <fieldset class="apply-sec">
+        <legend><span class="apply-num">04</span>판매 계획</legend>
+        <div class="apply-field full">
+          <span>작품 판매 여부</span>
+          <div class="apply-chips">
+            <label><input type="radio" name="sale" value="판매">판매</label>
+            <label><input type="radio" name="sale" value="비판매">비판매</label>
+          </div>
+        </div>
+        <div class="apply-grid">
+          <label class="apply-field"><span>예상 판매가 범위</span><input name="priceRange"></label>
+          <label class="apply-field"><span>굿즈 판매 여부 및 품목</span><input name="goods"></label>
+        </div>
+      </fieldset>
+
+      <!-- 5 -->
+      <fieldset class="apply-sec">
+        <legend><span class="apply-num">05</span>첨부 서류</legend>
+        <p class="apply-note">파일은 신청 메일에 직접 첨부해 주세요. 보낼 서류에 체크합니다.</p>
+        <div class="apply-checks">
+          <label><input type="checkbox" name="docs" value="전시 기획서">전시 기획서 <em>(자유 양식)</em></label>
+          <label><input type="checkbox" name="docs" value="작가 약력 및 포트폴리오">작가 약력 및 포트폴리오 <em>(작품 이미지 삽입 필수)</em></label>
+          <label><input type="checkbox" name="docs" value="작품 설치 계획 또는 배치 스케치">작품 설치 계획 또는 배치 스케치</label>
+          <label><input type="checkbox" name="docs" value="신진·학생 증빙 서류">증빙 서류 <em>(신진·학생 할인 신청 시)</em></label>
+        </div>
+      </fieldset>
+
+      <!-- 6 -->
+      <fieldset class="apply-sec">
+        <legend><span class="apply-num">06</span>개인정보 수집·이용 동의</legend>
+        <p class="apply-note">
+          재단은 전시 심사, 계약 체결, 연락, 정산을 위해 위 개인정보를 수집·이용합니다.
+          보유 기간은 계약 종료 후 5년(세법상 증빙 보관 기간)이며, 동의를 거부할 수 있으나 거부 시 신청이 불가합니다.
+        </p>
+        <label class="apply-checks"><span><input type="checkbox" name="privacy" value="동의" required> 동의합니다 <i>*</i></span></label>
+      </fieldset>
+
+      <!-- 7 -->
+      <fieldset class="apply-sec">
+        <legend><span class="apply-num">07</span>확인</legend>
+        <label class="apply-checks"><span><input type="checkbox" name="confirm" value="확인" required> 위 내용이 사실이며, <a href="rental.html" target="_blank">공간리한 대관 안내 및 이용 규정</a>을 확인하였습니다. <i>*</i></span></label>
+        <div class="apply-grid">
+          <label class="apply-field"><span>신청인 <i>*</i></span><input name="signer" required></label>
+        </div>
+      </fieldset>
+
+      <div class="apply-submit">
+        <p class="apply-error" id="apply-error" role="alert" hidden></p>
+        <button type="submit" class="print-btn is-primary">메일로 신청서 보내기 →</button>
+        <button type="button" class="print-btn" id="apply-copy">내용 복사</button>
+        <p class="apply-note">
+          버튼을 누르면 작성한 내용이 담긴 메일 창이 열립니다. 첨부 서류를 붙여 보내 주세요.<br>
+          메일 창이 열리지 않으면 ‘내용 복사’ 후 <a href="mailto:spaceleehan@gmail.com">spaceleehan@gmail.com</a>으로 보내 주세요.
+        </p>
+      </div>
+
+    </form>
+
+    <div class="rental-cta">
+      <div class="rental-cta-eyebrow">재단법인 이수진한국인형극재단 · 복합문화공간 공간리한</div>
+      <div class="rental-cta-links">
+        <a href="mailto:spaceleehan@gmail.com" class="rental-cta-btn">spaceleehan@gmail.com</a>
+        <a href="tel:+821049305912" class="rental-cta-btn">010 4930 5912</a>
+      </div>
+    </div>
+
+  </main>
+
+  <footer class="info" id="site-footer"></footer>
+
+  <script type="module">
+    import { loadData } from './assets/js/data.js';
+    import { renderSiteFooter } from './assets/js/render.js';
+    import { initUI } from './assets/js/ui.js';
+    import { mountApplyForm } from './assets/js/apply.js';
+
+    initUI();
+    mountApplyForm(document.getElementById('apply-form'));
+    loadData()
+      .then((d) => renderSiteFooter(document.getElementById('site-footer'), d.settings.visit))
+      .catch((e) => console.error(e));
+  </script>
+
+</body>
+</html>
