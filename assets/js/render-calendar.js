@@ -102,9 +102,7 @@ export function mountRentalCalendar(root, { getRentals, onDayClick, month: initi
     label.textContent = `${year}. ${String(month + 1).padStart(2, '0')}`;
     body.replaceChildren(
       gridNode(year, month, rentals, onDayClick),
-      inMonth.length
-        ? el('p', { class: 'cal-summary' }, '대관됨 · ', inMonth.map(rangeText).join(', '))
-        : el('p', { class: 'cal-summary' }, '이 달은 모두 비어 있습니다.'),
+      inMonth.length > 0 && el('p', { class: 'cal-summary' }, '대관됨 · ', inMonth.map(rangeText).join(', ')),
     );
   }
 
