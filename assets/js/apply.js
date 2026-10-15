@@ -1,6 +1,8 @@
-// 전시 신청서 (apply.html) — 입력값을 정리해 메일 본문으로 넘긴다.
-// 정적 사이트라 서버 접수가 없다: mailto 로 메일 창을 열고, 첨부는 신청자가 직접 붙인다.
+// 전시 신청서 (apply.html)
+// 정적 사이트라 서버 접수가 없다: ① 입력값으로 원본 양식 docx를 채워 내려받고
+// ② mailto 로 메일 창을 연다. 파일 첨부는 신청자가 직접 한다.
 import { el } from './render.js';
+import { buildApplyDocx } from './apply-docx.js';
 
 const TO = 'spaceleehan@gmail.com';
 
@@ -13,6 +15,11 @@ const PERSON_FIELDS = [
   { key: 'address', label: '주소', full: true },
   { key: 'web', label: '홈페이지 / SNS', full: true },
 ];
+
+// 양식의 체크박스 그룹 = 폼의 input name
+const CHECK_GROUPS = ['type', 'package', 'genre', 'overtime', 'sale', 'docs', 'privacy'];
+const TEXT_FIELDS = ['title', 'period1', 'period2', 'packageEtc', 'install', 'genreEtc', 'count',
+  'maxSize', 'events', 'overtimePeriod', 'priceRange', 'goods', 'signer'];
 
 let personSeq = 0;
 
@@ -54,7 +61,6 @@ function renumber(list) {
 const val = (form, name) => (form.elements[name]?.value || '').trim();
 const checked = (form, name) =>
   [...form.querySelectorAll(`input[name="${name}"]:checked`)].map((i) => i.value);
-const withEtc = (items, etc) => items.map((v) => (v === '기타' && etc ? `기타(${etc})` : v));
 
 function readPeople(form) {
   return [...form.querySelectorAll('[data-person]')].map((b) => {
@@ -67,52 +73,36 @@ function readPeople(form) {
   });
 }
 
-function buildBody(form) {
-  const line = (label, v) => `- ${label}: ${v || '-'}`;
-  const people = readPeople(form);
-  const type = checked(form, 'type')[0] || '';
-  const out = ['[공간리한 전시 신청서]', '', '1. 전시 유형', line('유형', type), '', '2. 신청자 정보'];
+function readForm(form) {
+  const isInvite = checked(form, 'type')[0] === '초대전';
+  const values = Object.fromEntries(TEXT_FIELDS.map((k) => [k, val(form, k)]));
+  values.date = new Date().toLocaleDateString('ko-KR', { year: 'numeric', month: 'long', day: 'numeric' });
+  if (isInvite) values.packageEtc = '';
 
-  people.forEach((p, i) => {
-    out.push(i === 0 ? '(대표 신청자)' : `(작가 ${i + 1})`);
-    PERSON_FIELDS.forEach((f) => out.push(line(f.label, p[f.key])));
-    out.push(line('신진·학생 해당 여부', p.newcomer), '');
-  });
+  const checks = new Set(CHECK_GROUPS
+    .filter((g) => !(isInvite && g === 'package'))
+    .flatMap((g) => checked(form, g).map((v) => `${g}:${v}`)));
+  return { values, checks, people: readPeople(form) };
+}
 
-  out.push(
-    '3. 전시 개요',
-    line('전시명 (가제)', val(form, 'title')),
-    line('희망 기간 1지망', val(form, 'period1')),
-    line('희망 기간 2지망', val(form, 'period2')),
-  );
-  if (type !== '초대전') {
-    out.push(line('이용 패키지', withEtc(checked(form, 'package'), val(form, 'packageEtc')).join(', ')));
-  }
-  const overtime = checked(form, 'overtime').join(', ');
-  const overtimePeriod = val(form, 'overtimePeriod');
+const fileSafe = (s) => s.replace(/[\\/:*?"<>|\s]+/g, '_').slice(0, 40);
+const fileName = (data) =>
+  ['공간리한_전시신청서', data.values.title, data.people[0]?.name].filter(Boolean).map(fileSafe).join('_') + '.docx';
+
+function mailBody(form, data) {
+  const lead = data.people[0] || {};
   const docs = checked(form, 'docs');
-  out.push(
-    line('설치·철수 예정일 및 시간', val(form, 'install')),
-    line('장르', withEtc(checked(form, 'genre'), val(form, 'genreEtc')).join(', ')),
-    line('예상 출품 수량', val(form, 'count')),
-    line('최대 작품 크기·무게', val(form, 'maxSize')),
-    line('오프닝·부대행사 계획', val(form, 'events')),
-    line('시간 외 사용', [overtime, overtimePeriod && `기간: ${overtimePeriod}`].filter(Boolean).join(' / ')),
+  return [
+    '안녕하세요. 공간리한 전시 신청서를 보내드립니다.',
     '',
-    '4. 판매 계획',
-    line('작품 판매 여부', checked(form, 'sale')[0]),
-    line('예상 판매가 범위', val(form, 'priceRange')),
-    line('굿즈 판매 여부 및 품목', val(form, 'goods')),
+    `- 전시명: ${data.values.title}`,
+    `- 전시 유형: ${checked(form, 'type')[0]}`,
+    `- 신청자: ${lead.name} (${lead.phone} / ${lead.email})`,
     '',
-    '5. 첨부 서류 (메일에 첨부)',
-    ...(docs.length ? docs.map((d) => `- ${d}`) : ['- 없음']),
-    '',
-    '6. 개인정보 수집·이용 동의: 동의함',
-    '7. 확인: 위 내용이 사실이며, 공간리한 대관 안내 및 이용 규정을 확인하였습니다.',
-    line('신청일', new Date().toLocaleDateString('ko-KR')),
-    line('신청인', val(form, 'signer')),
-  );
-  return { subject: `[전시 신청] ${val(form, 'title')} — ${people[0]?.name || ''}`, body: out.join('\n') };
+    '첨부',
+    `- 전시 신청서 (${fileName(data)})`,
+    ...docs.map((d) => `- ${d}`),
+  ].join('\n');
 }
 
 function firstInvalid(form) {
@@ -126,10 +116,20 @@ function firstInvalid(form) {
   return null;
 }
 
+function download(blob, name) {
+  const url = URL.createObjectURL(blob);
+  const a = el('a', { href: url, download: name });
+  document.body.append(a);
+  a.click();
+  a.remove();
+  setTimeout(() => URL.revokeObjectURL(url), 10000);
+}
+
 export function mountApplyForm(form) {
   if (!form) return;
   const list = form.querySelector('#apply-people');
   const errorBox = form.querySelector('#apply-error');
+  const docxBtn = form.querySelector('#apply-docx');
 
   const remove = (block) => { block.remove(); renumber(list); };
   list.append(personBlock(0, remove));
@@ -147,25 +147,36 @@ export function mountApplyForm(form) {
     errorBox.hidden = !msg;
     if (node) { node.scrollIntoView({ behavior: 'instant', block: 'center' }); node.focus({ preventScroll: true }); }
   };
+  const validate = () => {
+    const bad = firstInvalid(form);
+    showError(bad?.msg || '', bad?.node);
+    return !bad;
+  };
+
+  docxBtn.addEventListener('click', async () => {
+    if (!validate()) return;
+    const label = docxBtn.textContent;
+    docxBtn.disabled = true;
+    docxBtn.textContent = '만드는 중…';
+    try {
+      const data = readForm(form);
+      download(await buildApplyDocx(data), fileName(data));
+      docxBtn.textContent = '받았습니다 ✓';
+    } catch (err) {
+      console.error(err);
+      showError('신청서 파일을 만들지 못했습니다. 잠시 후 다시 시도하거나 메일로 문의해 주세요.');
+      docxBtn.textContent = label;
+    } finally {
+      docxBtn.disabled = false;
+      setTimeout(() => { docxBtn.textContent = label; }, 3000);
+    }
+  });
 
   form.addEventListener('submit', (e) => {
     e.preventDefault();
-    const bad = firstInvalid(form);
-    if (bad) { showError(bad.msg, bad.node); return; }
-    showError('');
-    const { subject, body } = buildBody(form);
-    window.location.href = `mailto:${TO}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
-  });
-
-  const copyBtn = form.querySelector('#apply-copy');
-  copyBtn.addEventListener('click', async () => {
-    const { subject, body } = buildBody(form);
-    try {
-      await navigator.clipboard.writeText(`${subject}\n\n${body}`);
-      copyBtn.textContent = '복사됨 ✓';
-    } catch {
-      copyBtn.textContent = '복사 실패 — 직접 선택해 주세요';
-    }
-    setTimeout(() => { copyBtn.textContent = '내용 복사'; }, 2400);
+    if (!validate()) return;
+    const data = readForm(form);
+    const subject = `[전시 신청] ${data.values.title} — ${data.people[0]?.name || ''}`;
+    window.location.href = `mailto:${TO}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(mailBody(form, data))}`;
   });
 }

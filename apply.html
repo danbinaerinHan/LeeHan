@@ -190,11 +190,18 @@
 
       <div class="apply-submit">
         <p class="apply-error" id="apply-error" role="alert" hidden></p>
-        <button type="submit" class="print-btn is-primary">메일로 신청서 보내기 →</button>
-        <button type="button" class="print-btn" id="apply-copy">내용 복사</button>
+        <ol class="apply-steps">
+          <li>
+            <p>작성한 내용으로 채워진 신청서 파일(.docx)을 받습니다.</p>
+            <button type="button" class="print-btn is-primary" id="apply-docx">↧ 신청서 파일 받기</button>
+          </li>
+          <li>
+            <p>메일에 신청서 파일과 첨부 서류를 붙여 보냅니다.</p>
+            <button type="submit" class="print-btn">메일 쓰기 →</button>
+          </li>
+        </ol>
         <p class="apply-note">
-          버튼을 누르면 작성한 내용이 담긴 메일 창이 열립니다. 첨부 서류를 붙여 보내 주세요.<br>
-          메일 창이 열리지 않으면 ‘내용 복사’ 후 <a href="mailto:spaceleehan@gmail.com">spaceleehan@gmail.com</a>으로 보내 주세요.
+          메일 창이 열리지 않으면 <a href="mailto:spaceleehan@gmail.com">spaceleehan@gmail.com</a>으로 직접 보내 주세요.
         </p>
       </div>
 
