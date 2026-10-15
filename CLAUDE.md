@@ -26,7 +26,7 @@
 |---|---|
 | 전시 정보 (제목·기간·작가·이미지) | `data/exhibitions.json` |
 | 홈 편성, 마퀴 문구, 방문 안내 | `data/settings.json` |
-| 대관 일정 (대관된 기간만) | `data/rentals.json` — 관리자 "대관 일정" 탭에서 편집. `rental-schedule.html`이 읽는다(아직 비공개: 메뉴 링크 없음 + noindex) |
+| 대관 일정 (대관된 기간만) | `data/rentals.json` — 관리자 "대관 일정" 탭에서 편집. `rental-schedule.html`(손님 공개용, `rental.html` 상단 버튼·하단 문의에서 링크)이 읽는다 |
 | 소개 페이지 설비 캡션 | `about.html` 하단 인라인 `<script>`의 `GROUPS` 배열 |
 | 대관 안내·요금·약관 | `rental.html` 본문 (정적 마크업) |
 | 공간 스토리 | `story.html` 본문 (정적 마크업) |

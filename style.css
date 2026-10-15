@@ -2323,7 +2323,9 @@ a.past-card {
 .print-actions {
   margin-top: 30px;
   display: flex;
+  flex-wrap: wrap;
   justify-content: center;
+  gap: 10px;
 }
 
 .print-btn {
@@ -2343,6 +2345,17 @@ a.past-card {
   color: var(--white);
   background: var(--black);
   border-color: var(--black);
+}
+
+.print-btn.is-primary {
+  color: var(--white);
+  background: var(--black);
+  border-color: var(--black);
+}
+
+.print-btn.is-primary:hover {
+  background: var(--accent);
+  border-color: var(--accent);
 }
 
 /* hidden on screen, shown only when printing */
