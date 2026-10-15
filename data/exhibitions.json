@@ -54,7 +54,7 @@
       },
       "draft": false,
       "createdAt": "2026-05-27T00:00:00Z",
-      "updatedAt": "2026-10-15T05:59:20.193Z"
+      "updatedAt": "2026-10-15T08:00:26.112Z"
     },
     {
       "id": "exh_20260617_hawaii",
@@ -173,7 +173,7 @@
       },
       "draft": false,
       "createdAt": "2026-06-17T00:00:00Z",
-      "updatedAt": "2026-10-15T05:59:20.193Z"
+      "updatedAt": "2026-10-15T08:00:26.112Z"
     },
     {
       "id": "exh_20260701_leejungyeon",
@@ -292,7 +292,7 @@
       },
       "draft": false,
       "createdAt": "2026-07-01T00:00:00Z",
-      "updatedAt": "2026-10-15T05:59:20.193Z",
+      "updatedAt": "2026-10-15T08:00:26.112Z",
       "galleryLayout": "rows"
     },
     {
@@ -384,14 +384,14 @@
       },
       "draft": false,
       "createdAt": "2026-07-27T00:00:00Z",
-      "updatedAt": "2026-10-15T05:59:20.193Z",
+      "updatedAt": "2026-10-15T08:00:26.112Z",
       "galleryLayout": "rows"
     },
     {
       "id": "exh_1786451026135",
       "slug": "samra",
-      "title": "삼라森羅 : Six Worlds",
-      "titleHtml": "삼라<span class=\"title-cjk\">森羅</span> : Six Worlds",
+      "title": "삼라森羅: Six Worlds",
+      "titleHtml": "삼라<span class=\"title-cjk\">森羅</span>: Six Worlds",
       "artist": "작가 6인 단체전 · 공간리한 홍보기획전",
       "startDate": "2026-08-12",
       "endDate": "2026-09-01",
@@ -496,7 +496,7 @@
       },
       "draft": false,
       "createdAt": "2026-08-11T12:23:46.135Z",
-      "updatedAt": "2026-10-15T05:59:20.193Z",
+      "updatedAt": "2026-10-15T08:00:26.112Z",
       "galleryLayout": "rows"
     },
     {
@@ -600,7 +600,7 @@
       },
       "draft": false,
       "createdAt": "2026-09-18T00:00:00.000Z",
-      "updatedAt": "2026-10-15T05:59:20.193Z",
+      "updatedAt": "2026-10-15T08:00:26.112Z",
       "galleryLayout": "masonry"
     }
   ]
