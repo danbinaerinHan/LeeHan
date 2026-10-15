@@ -54,7 +54,7 @@
       },
       "draft": false,
       "createdAt": "2026-05-27T00:00:00Z",
-      "updatedAt": "2026-10-15T05:37:35.300Z"
+      "updatedAt": "2026-10-15T05:59:20.193Z"
     },
     {
       "id": "exh_20260617_hawaii",
@@ -173,7 +173,7 @@
       },
       "draft": false,
       "createdAt": "2026-06-17T00:00:00Z",
-      "updatedAt": "2026-10-15T05:37:35.300Z"
+      "updatedAt": "2026-10-15T05:59:20.193Z"
     },
     {
       "id": "exh_20260701_leejungyeon",
@@ -292,7 +292,7 @@
       },
       "draft": false,
       "createdAt": "2026-07-01T00:00:00Z",
-      "updatedAt": "2026-10-15T05:37:35.300Z",
+      "updatedAt": "2026-10-15T05:59:20.193Z",
       "galleryLayout": "rows"
     },
     {
@@ -384,7 +384,7 @@
       },
       "draft": false,
       "createdAt": "2026-07-27T00:00:00Z",
-      "updatedAt": "2026-10-15T05:37:35.300Z",
+      "updatedAt": "2026-10-15T05:59:20.193Z",
       "galleryLayout": "rows"
     },
     {
@@ -496,7 +496,7 @@
       },
       "draft": false,
       "createdAt": "2026-08-11T12:23:46.135Z",
-      "updatedAt": "2026-10-15T05:37:35.300Z",
+      "updatedAt": "2026-10-15T05:59:20.193Z",
       "galleryLayout": "rows"
     },
     {
@@ -600,7 +600,7 @@
       },
       "draft": false,
       "createdAt": "2026-09-18T00:00:00.000Z",
-      "updatedAt": "2026-10-15T05:37:35.300Z",
+      "updatedAt": "2026-10-15T05:59:20.193Z",
       "galleryLayout": "masonry"
     }
   ]
