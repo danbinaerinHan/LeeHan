@@ -2,6 +2,16 @@
   "schemaVersion": 1,
   "rentals": [
     {
+      "id": "rent_20261118_mwloth86",
+      "start": "2026-11-18",
+      "end": "2026-11-18"
+    },
+    {
+      "id": "rent_20261125_mwlotkr7",
+      "start": "2026-11-25",
+      "end": "2026-11-25"
+    },
+    {
       "id": "rent_20261127_mv93xdks",
       "start": "2026-11-27",
       "end": "2026-11-29"
