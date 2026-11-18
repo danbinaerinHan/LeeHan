@@ -26,6 +26,9 @@ async function api(path, { method = 'GET', body, token = getToken() } = {}) {
   const url = path.startsWith('http') ? path : `${CONFIG.apiBase}${path}`;
   const res = await fetch(url, {
     method,
+    // GitHub API 응답은 max-age=60 으로 캐시된다. 캐시된 ref 를 읽으면
+    // 방금 저장한 커밋보다 옛날 HEAD 위에 커밋을 만들어 422(not a fast forward)가 난다.
+    cache: 'no-store',
     headers: {
       Authorization: `Bearer ${token}`,
       Accept: 'application/vnd.github+json',
@@ -106,18 +109,22 @@ export async function commitFiles(message, files) {
     body: { message, tree: newTree.sha, parents: [headSha] },
   });
 
-  try {
-    await api(repoPath(`/git/refs/heads/${CONFIG.branch}`), { method: 'PATCH', body: { sha: newCommit.sha } });
-  } catch (e) {
-    // 누군가 그 사이 push 했다면 한 번 재시도(베이스 갱신)
-    if (e.status === 422) {
+  let parent = headSha;
+  let treeSha = newTree.sha;
+  let commitSha = newCommit.sha;
+  // 그 사이 다른 커밋이 들어왔으면 최신 HEAD 위에 다시 쌓는다 (최대 3회)
+  for (let attempt = 0; ; attempt++) {
+    try {
+      await api(repoPath(`/git/refs/heads/${CONFIG.branch}`), { method: 'PATCH', body: { sha: commitSha } });
+      return commitSha;
+    } catch (e) {
+      if (e.status !== 422 || attempt >= 3) throw e;
+      await new Promise((r) => setTimeout(r, 800 * (attempt + 1)));
       const retry = await getHead();
-      const t2 = await api(repoPath('/git/trees'), { method: 'POST', body: { base_tree: retry.baseTree, tree } });
-      const c2 = await api(repoPath('/git/commits'), { method: 'POST', body: { message, tree: t2.sha, parents: [retry.headSha] } });
-      await api(repoPath(`/git/refs/heads/${CONFIG.branch}`), { method: 'PATCH', body: { sha: c2.sha } });
-      return c2.sha;
+      if (retry.headSha === parent) continue;
+      parent = retry.headSha;
+      treeSha = (await api(repoPath('/git/trees'), { method: 'POST', body: { base_tree: retry.baseTree, tree } })).sha;
+      commitSha = (await api(repoPath('/git/commits'), { method: 'POST', body: { message, tree: treeSha, parents: [parent] } })).sha;
     }
-    throw e;
   }
-  return newCommit.sha;
 }
