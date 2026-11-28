@@ -1,15 +1,16 @@
 {
   "schemaVersion": 1,
-  "buildId": "2026-11-23T10:35:07.000Z",
+  "buildId": "2026-11-28T08:20:00.000Z",
   "homepage": {
     "heroExhibitionId": "exh_20261201_parallaxground",
     "heroAlsoShow": {
-      "id": "",
-      "until": ""
+      "id": "exh_20261128_ojin",
+      "until": "2026-11-29"
     },
     "upcomingExhibitionId": "",
     "scheduleOrder": [
       "exh_20261201_parallaxground",
+      "exh_20261128_ojin",
       "exh_20260916_sulsullife",
       "exh_1786451026135",
       "exh_20260729_heojineui",
@@ -22,6 +23,8 @@
   "marquee": {
     "home": [
       "지금, 공간리한",
+      "〈오진: 농현과 진단〉 — 2026.11.28 – 11.29 18:30",
+      "정고운 독주회 · 해금 임상기록 전시회",
       "〈Parallax Ground〉 — 2026.12.1 – 12.3",
       "곽예나 · 김하나 2인전",
       "작은 것의 위대한 힘",
